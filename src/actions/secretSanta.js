@@ -1,4 +1,4 @@
-const API_URL='https://0wvcq520lb.execute-api.eu-west-1.amazonaws.com/dev';
+const API_URL='https://0kbaqlx1ue.execute-api.eu-west-1.amazonaws.com/dev/api';
 
 export const successWelcomeMessage = (data) => ({
     type: 'WELCOME_MESSAGE_SUCCESS',
