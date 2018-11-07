@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Presentational > Home Renders correctly 1`] = `
+<div
+  className="header-main"
+>
+  <Menu
+    inverted={true}
+  >
+    <MenuItem
+      active={false}
+      as={[Function]}
+      name="home"
+      onClick={[Function]}
+      to="/"
+    >
+      <img
+        alt="logo"
+        src="md-logo-green.png"
+      />
+    </MenuItem>
+  </Menu>
+</div>
+`;
