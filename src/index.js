@@ -38,9 +38,9 @@ function configureStore(preloadedState) {
   const composedEnhancer = composeEnhancers(...storeEnhancers);
 
   const store = createStore(
-      reducer,
-      preloadedState,
-      composedEnhancer,
+    reducer,
+    preloadedState,
+    composedEnhancer,
   );
 
   return store;

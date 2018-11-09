@@ -8,6 +8,7 @@ import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
 import Image from 'semantic-ui-react/dist/commonjs/elements/Image';
 import Input from 'semantic-ui-react/dist/commonjs/elements/Input';
 import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment';
+import Message from 'semantic-ui-react/dist/commonjs/collections/Message';
 
 const Login = ({
     handleSubmit,
@@ -15,59 +16,56 @@ const Login = ({
     data
 }) => (
     <Container className="content-body">
-        <Grid stackable centered>
-            <Grid.Column className="login-form-grid-column">
-                <Header as="h2" className="login-header" textAlign="center">
-                    <Image src='secretSanta' className="home-logo" />
-                    {' '}Login
-                </Header>
-                <Form size="large" onSubmit={handleSubmit}>
-                    <Segment stacked>
-                        <Form.Field>
-                          <Input
-                            fluid
-                            name="memberName"
-                            autoComplete="name"
-                            placeholder="name..."
-                            icon="user"
-                            iconPosition="left"
-                            className="text-box-3-col"
-                            defaultValue={data.name}
-                            onChange={handleChange}
-                          />
-                        </Form.Field>
-                        <Form.Field>
-                          <Input
-                            fluid
-                            name="groupID"
-                            autoComplete="groupName"
-                            placeholder="Group name..."
-                            icon="user"
-                            iconPosition="left"
-                            className="text-box-3-col"
-                            defaultValue={data.groupID}
-                            onChange={handleChange}
-                          />
-                        </Form.Field>
-                        <Form.Field>
-                            <Input
-                                fluid
-                                icon="lock"
-                                iconPosition="left"
-                                name="passphrase"
-                                type="password"
-                                autoComplete="passphrase"
-                                placeholder="passphrase..."
-                                className="text-box-3-col"
-                                onChange={handleChange}
-                                defaultValue={data.passphrase}
-                            />
-                        </Form.Field>
-                        <Button color="pink" fluid size="large" type="submit">Login</Button>
-                    </Segment>
-                </Form>
-            </Grid.Column>
+      <div className='login-form'>
+        {/*
+          Heads up! The styles below are necessary for the correct render of this example.
+          You can do same with CSS, the main idea is that all the elements up to the `Grid`
+          below must have a height of 100%.
+        */}
+        <style>{`
+          body > div,
+          body > div > div,
+          body > div > div > div.login-form {
+            height: 100%;
+          }
+        `}</style>
+        <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
+          <Grid.Column style={{ maxWidth: 450, marginTop: 20 }}>
+            <Header as='h2' color='pink' textAlign='center'>
+              <Image src='/logo.png' /> Log-in to secret santa
+            </Header>
+            <Form size='large' onSubmit={handleSubmit}>
+              <Segment stacked>
+                <Form.Input
+                  fluid
+                  icon='user'
+                  iconPosition='left'
+                  placeholder='name'
+                  name='memberName'
+                  onChange={handleChange}
+                />
+                <Form.Input fluid icon='group' iconPosition='left' placeholder='Group name' name='groupID' onChange={handleChange}/>
+                <Form.Input
+                  fluid
+                  icon='lock'
+                  iconPosition='left'
+                  placeholder='Passphrase'
+                  type='password'
+                  name='passphrase'
+                  onChange={handleChange}
+                />
+
+                <Button color='teal' fluid size='large'>
+                  Login
+                </Button>
+              </Segment>
+            </Form>
+            <Message>
+              New to us? <a href='#'>Sign Up</a>
+            </Message>
+          </Grid.Column>
         </Grid>
+      </div>
     </Container>
 );
 

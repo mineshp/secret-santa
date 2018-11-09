@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Menu from 'semantic-ui-react/dist/commonjs/collections/Menu';
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import logo from '../../logo.svg';
 
 export default class MainNav extends Component {
@@ -38,7 +39,7 @@ export default class MainNav extends Component {
                 ?
                   (
                       <Menu.Item>
-                        Welcome {memberName}
+                      <Icon size='large' name='user circle' /> Welcome {memberName}
                       </Menu.Item>
                   )
                 :
