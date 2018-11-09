@@ -2,22 +2,111 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { secretSanta } from '../actions/secretSanta';
+import { getGiftIdeas, addGiftIdeas, secretSanta, revealMySecretSanta } from '../actions/secretSanta';
 import { addNotification } from '../actions/notification';
 import Main from '../Presentational/Main';
 
 class MainComponent extends Component {
-  async componentDidMount() {
-    const { actions } = this.props;
+  constructor(props) {
+    super(props);
 
-    await actions.secretSanta();
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleAccordionClick = this.handleAccordionClick.bind(this);
+    this.handleGiftIdeaNameChange = this.handleGiftIdeaNameChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.revealMySecretSanta = this.revealMySecretSanta.bind(this);
+
+    this.state = {
+      activeIndex: 0,
+      giftIdea0: '',
+      giftIdea1: '',
+      giftIdea2: ''
+    };
+  }
+
+  async componentDidMount() {
+    const { actions, user } = this.props;
+
+    this.getGiftIdeas();
+  }
+
+  async getGiftIdeas() {
+    const { actions, user } = this.props;
+
+    if (user) {
+      const { type, data } = await actions.getGiftIdeas(user.memberName, user.groupID);
+      if (type === 'GET_GIFTIDEAS_SUCCESS') {
+        this.setState({
+          giftIdea0: data.giftIdeas[0],
+          giftIdea1: data.giftIdeas[1],
+          giftIdea2: data.giftIdeas[2]
+        })
+      }
+    }
+  }
+
+  async updateGiftIdeas() {
+    const { giftIdea0, giftIdea1, giftIdea2 } = this.state;
+    const { user: { memberName, groupID } } = this.props;
+
+    const allGiftIdeaSuggestions = [];
+    allGiftIdeaSuggestions.push(giftIdea0, giftIdea1, giftIdea2);
+
+    await this.props.actions.addGiftIdeas(memberName, groupID, { giftIdeas: allGiftIdeaSuggestions })
+      .then(() => this.getGiftIdeas());
+
+    this.props.actions.addNotification(this.props.notification);
+  }
+
+  async revealMySecretSanta() {
+    const { user: { memberName, groupID } } = this.props;
+
+    await this.props.actions.revealMySecretSanta(memberName, groupID);
+  }
+
+  handleAccordionClick(event, index) {
+    event.preventDefault();
+    const { activeIndex } = this.state;
+    // const newIndex = activeIndex === index ? -1 : index;
+    // let setActiveIndex = activeIndex;
+    // if (activeIndex === 0) {
+    //   setActiveIndex = -1;
+    // } else {
+    //   setActiveIndex = 0;
+    // }
+    const setActiveIndex = (activeIndex === 0) ? -1 : 0;
+
+    this.setState({ activeIndex: setActiveIndex });
+  }
+
+  handleGiftIdeaNameChange(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+    this.setState({
+        [name]: value
+    });
+  }
+
+  async handleSubmit(event) {
+    event.preventDefault();
+    await this.updateGiftIdeas();
   }
 
   render() {
-    const { secretSanta } = this.props;
+    const { secretSanta, user } = this.props;
+    const { activeIndex } = this.state;
+
     if (secretSanta) {
       return (
-        <Main data={secretSanta}/>
+        <Main
+          data={secretSanta}
+          user={user}
+          activeIndex={activeIndex}
+          handleAccordionClick={this.handleAccordionClick}
+          handleGiftIdeaNameChange={this.handleGiftIdeaNameChange}
+          handleSubmit={this.handleSubmit}
+          revealMySecretSanta={this.revealMySecretSanta}
+        />
       );
     }
     return;
@@ -28,6 +117,10 @@ class MainComponent extends Component {
 MainComponent.propTypes = {
   actions: PropTypes.shape({
     secretSanta: PropTypes.func.isRequired,
+    getGiftIdeas: PropTypes.func.isRequired,
+    addGiftIdeas: PropTypes.func.isRequired,
+    addNotification: PropTypes.func.isRequired,
+    revealMySecretSanta: PropTypes.func.isRequired,
   }),
   secretSanta: PropTypes.shape({}),
   notification: PropTypes.shape({
@@ -48,16 +141,18 @@ MainComponent.contextTypes = {
 };
 
 /* istanbul ignore next: not testing mapStateToProps */
-const mapStateToProps = ({secretSanta}) => ({
+const mapStateToProps = ({secretSanta, authentication}) => ({
   secretSanta: secretSanta.data,
-  notification: secretSanta.notification
+  notification: secretSanta.notification,
+  user: authentication.user
 });
 
 /* istanbul ignore next: not testing mapDispatchToProps */
 const mapDispatchToProps = (dispatch) => (
   {
     actions: bindActionCreators({
-      secretSanta, addNotification
+      secretSanta, getGiftIdeas, addGiftIdeas, addNotification,
+      revealMySecretSanta
     }, dispatch)
   }
 );

@@ -6,7 +6,7 @@ export default function setAuthorisationToken(token) {
 
     if (token) {
         const tokenHeader = Object.assign({}, headers, {
-            Authorization: `Bearer: ${token}`,
+            Authorization: `Bearer ${token}`,
             credentials: 'same-origin'
         });
 
