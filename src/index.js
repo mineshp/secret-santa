@@ -10,6 +10,9 @@ import 'semantic-ui-css/semantic.min.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import setAuthorisationToken from './utils/setAuthorisationToken';
+import Auth from './Container/Authentication/Auth';
+import { setCurrentUser } from './actions/authentication';
 
 /* istanbul ignore next not testing redux-store-boiler-plate */
 // eslint-disable-next-line no-underscore-dangle, no-undef
@@ -44,6 +47,18 @@ function configureStore(preloadedState) {
 }
 /* istanbul ignore next not testing redux-store-boiler-plate */
 const store = configureStore({});
+const auth = new Auth();
+
+if (auth.getToken()) {
+    if (auth.isTokenExpired(auth.getToken())) {
+        auth.logout();
+        window.location = '/user/login';
+    } else {
+        setAuthorisationToken(auth.getToken());
+        store.dispatch(setCurrentUser(auth.getUser(auth.getToken())));
+    }
+}
+
 
 render(
   <Provider store={store}>

@@ -18,6 +18,7 @@ export default class MainNav extends Component {
 
   render() {
     const { activeItem } = this.state;
+    const { user: { memberName } } = this.props;
 
     return (
       <div className="header-main">
@@ -31,6 +32,28 @@ export default class MainNav extends Component {
           >
             <img alt="logo" src={logo} />
           </Menu.Item>
+          <Menu.Menu position="right">
+          {
+            memberName
+                ?
+                  (
+                      <Menu.Item>
+                        Welcome {memberName}
+                      </Menu.Item>
+                  )
+                :
+                  (
+                    <Menu.Item
+                        as={Link}
+                        to="/user/login"
+                        name="login"
+                        active={activeItem === 'login'}
+                        onClick={this.handleItemClick}
+                    >Sign-in
+                    </Menu.Item>
+                  )
+        }
+          </Menu.Menu>
         </Menu>
       </div>
     );
