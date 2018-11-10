@@ -15,10 +15,7 @@ const Settings = ({
   user
 }) => {
   const { giftIdeas } = data;
-  console.log('data below from settings');
-  console.log(data);
-  // const readOnly = (wishlistFor !== user);
-  // console.log(readOnly);
+  const readOnly = (wishlistFor !== user);
 
   const giftIdeasFields = [0, 1, 2].map((i) => {
     const val = giftIdeas && giftIdeas[i]
@@ -28,11 +25,11 @@ const Settings = ({
       <Form.Field key={`gift-${i}`} className="custom-align">
         <Form.Input
           name={`giftIdea${i}`}
-          placeholder={`Gift Idea ${i+1}`}
+          placeholder={`Gift Idea ${i + 1}`}
           defaultValue={val}
           onChange={handleGiftIdeaNameChange}
           width={8}
-          // readOnly
+          readOnly={readOnly}
         />
       </Form.Field>
     )
@@ -48,8 +45,13 @@ const Settings = ({
         className='wishlist-header'
     />
         {giftIdeasFields}
-        <Button color="yellow" type="submit" className="gift-submit-btn">Save</Button>
-        <Button color="pink" as={Link} className="gift-submit-btn" name="home" to="/">Go Home</Button>
+        <Button color="yellow" type="submit" className="gift-submit-btn">
+          Save
+        </Button>
+        <Button color="pink" as={Link} className="gift-submit-btn" name="home" to="/">
+          Go Home
+          <Icon name='home' />
+        </Button>
       </Form>
     </Container>
   );

@@ -9,65 +9,14 @@ import Main from '../Presentational/Main';
 class MainComponent extends Component {
   constructor(props) {
     super(props);
-
-    // this.handleGiftIdeaNameChange = this.handleGiftIdeaNameChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
     this.revealMySecretSanta = this.revealMySecretSanta.bind(this);
-
-    // this.state = {
-    //   giftIdea0: '',
-    //   giftIdea1: '',
-    //   giftIdea2: ''
-    // };
   }
-
-  // async componentDidMount() {
-  //   const { actions, user } = this.props;
-
-  //   // this.getGiftIdeas();
-  // }
-
-  // async getGiftIdeas() {
-  //   const { actions, user } = this.props;
-
-  //   if (user) {
-  //     const { type, data } = await actions.getGiftIdeas(user.memberName, user.groupID);
-  //     if (type === 'GET_GIFTIDEAS_SUCCESS') {
-  //       this.setState({
-  //         giftIdea0: data.giftIdeas[0],
-  //         giftIdea1: data.giftIdeas[1],
-  //         giftIdea2: data.giftIdeas[2]
-  //       })
-  //     }
-  //   }
-  // }
-
-  // async updateGiftIdeas() {
-  //   const { giftIdea0, giftIdea1, giftIdea2 } = this.state;
-  //   const { user: { memberName, groupID } } = this.props;
-
-  //   const allGiftIdeaSuggestions = [];
-  //   allGiftIdeaSuggestions.push(giftIdea0, giftIdea1, giftIdea2);
-
-  //   await this.props.actions.addGiftIdeas(memberName, groupID, { giftIdeas: allGiftIdeaSuggestions })
-  //     .then(() => this.getGiftIdeas());
-
-  //   this.props.actions.addNotification(this.props.notification);
-  // }
 
   async revealMySecretSanta() {
     const { user: { memberName, groupID } } = this.props;
 
     await this.props.actions.revealMySecretSanta(memberName, groupID);
   }
-
-  // handleGiftIdeaNameChange(event) {
-  //   const name = event.target.name;
-  //   const value = event.target.value;
-  //   this.setState({
-  //       [name]: value
-  //   });
-  // }
 
   async handleSubmit(event) {
     event.preventDefault();
@@ -82,8 +31,6 @@ class MainComponent extends Component {
         <Main
           data={secretSanta}
           user={user}
-          // handleGiftIdeaNameChange={this.handleGiftIdeaNameChange}
-          // handleSubmit={this.handleSubmit}
           revealMySecretSanta={this.revealMySecretSanta}
         />
       );
