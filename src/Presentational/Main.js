@@ -28,7 +28,7 @@ const Main = ({
       className='your-secret-santa'
       />
 
-      <Grid className="button-layout-grid">
+      <Grid>
       <Grid.Row>
         <Grid.Column width={1}>
         </Grid.Column>
