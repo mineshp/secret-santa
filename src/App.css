@@ -82,6 +82,11 @@ i.icon {
   margin-top: 20px !important;
 }
 
+.button-layout-grid {
+  margin-top: 160px !important;
+  margin-left: 15px !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
