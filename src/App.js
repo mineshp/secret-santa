@@ -5,7 +5,7 @@ import Notification from './Container/Shared/Notification';
 import './App.css';
 
 const App = () => (
-  <div className="App main-container">
+  <div className="App main-container main-page-image">
     <Notification props />
     <MainNavConnectedComponent />
     <MainContainer />

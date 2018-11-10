@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  height:auto !important; /* real browsers */
+  height:100%; /* IE6: treaded as min-height*/
+
+  min-height:100%; /* real browsers */
 }
 
 .App-logo {
@@ -20,6 +24,62 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.main-container {
+  height:auto !important; /* real browsers */
+  height:100%; /* IE6: treaded as min-height*/
+
+  min-height: 100vh; /* real browsers */
+}
+
+.your-secret-santa {
+  font-family: 'Patrick Hand', cursive !important;
+  color: #53752d !important;
+}
+
+i.icon {
+  margin-left: 3px !important;
+}
+
+.reveal-btn {
+  margin-top: 1.5em !important;
+  margin-right: 4.9em !important;
+}
+
+.main-page-image {
+  background-image: url("./assets/main-bg2.png");
+  background-repeat: no-repeat;
+}
+
+.giftideas-page-image {
+  background-image: url("./assets/giftideas-wishlist.png");
+  background-repeat: no-repeat;
+}
+
+.gift-ideas {
+  margin-top: 176px;
+  background-image: url("./assets/giftideas-wishlist.png");
+  height: 350px;
+}
+
+.ui.form {
+  padding-top: 120px;
+}
+
+.ui.form .field {
+    margin: 20px 0 0 100px;
+}
+
+.wishlist-header {
+  font-family: 'Patrick Hand', cursive !important;
+  color: #53752d !important;
+  font-size: 2.5em !important;
+  margin-top: -20px !important;
+}
+
+.gift-submit-btn {
+  margin-top: 20px !important;
 }
 
 @keyframes App-logo-spin {
