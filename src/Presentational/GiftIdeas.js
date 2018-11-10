@@ -10,10 +10,8 @@ const GiftIdeas = ({
   handleSubmit,
   wishlistFor
 }) => {
-  console.log(`data in gift ideas presenational ${data}`);
-  console.log(data);
   return (
-    <Container text>
+    <Container text className="button-layout-giftideas">
       <Settings
         handleGiftIdeaNameChange={handleGiftIdeaNameChange}
         handleSubmit={handleSubmit}

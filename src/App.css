@@ -43,12 +43,12 @@ i.icon {
 }
 
 .reveal-btn {
-  margin-top: 1.5em !important;
+  margin-top: 0.2em !important;
   margin-right: 4.9em !important;
 }
 
 .main-page-image {
-  background-image: url("./assets/main-bg2.png");
+  background-image: url("./assets/main-bg-big.png");
   background-repeat: no-repeat;
 }
 
@@ -58,17 +58,18 @@ i.icon {
 }
 
 .gift-ideas {
-  margin-top: 176px;
+  /* margin-top: 176px; */
+  margin-bottom: 50px;
   background-image: url("./assets/giftideas-wishlist.png");
-  height: 350px;
+  height: 470px;
 }
 
 .ui.form {
   padding-top: 120px;
 }
 
-.ui.form .field {
-    margin: 20px 0 0 100px;
+div.field.custom-align {
+    margin: 20px 0 0 200px !important;
 }
 
 .wishlist-header {
@@ -80,6 +81,16 @@ i.icon {
 
 .gift-submit-btn {
   margin-top: 20px !important;
+}
+
+.button-layout-grid {
+  margin-top: 160px !important;
+  margin-left: 5px !important;
+}
+
+.button-layout-giftideas {
+  margin-top: 160px !important;
+  margin-left: 15px !important;
 }
 
 @keyframes App-logo-spin {

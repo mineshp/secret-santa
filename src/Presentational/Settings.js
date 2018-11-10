@@ -28,7 +28,7 @@ const Settings = ({
           placeholder={`Gift Idea ${i + 1}`}
           defaultValue={val}
           onChange={handleGiftIdeaNameChange}
-          width={8}
+          width={9}
           readOnly={readOnly}
         />
       </Form.Field>

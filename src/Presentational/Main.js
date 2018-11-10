@@ -16,24 +16,27 @@ const Main = ({
 }) => {
   return (
     <Container text>
-      <Header
-      as='h3'
-        content={`Hi ${user.memberName.charAt(0).toUpperCase() + user.memberName.slice(1)} Your Secret Santa is`}
-      style={{
-        fontSize: mobile ? '1em' : '2em',
-        fontWeight: 'normal',
-        marginBottom: 0,
-        marginTop: mobile ? '2em' : '4em',
-      }}
-      className='your-secret-santa'
-      />
-
-      <Grid>
+      <Grid className="button-layout-grid">
       <Grid.Row>
+        <Grid.Column width={16}>
+          <Header
+          as='h3'
+            content={`Hi ${user.memberName.charAt(0).toUpperCase() + user.memberName.slice(1)} Your Secret Santa is`}
+          style={{
+            fontSize: mobile ? '1em' : '2em',
+            fontWeight: 'normal',
+            marginBottom: 0,
+            marginTop: mobile ? '0.2em' : '1.9em',
+          }}
+          className='your-secret-santa'
+          />
+        </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
         <Grid.Column width={1}>
         </Grid.Column>
         <Grid.Column width={7}>
-          <Button color={data.secretSanta ? 'olive' : 'yellow'} className='reveal-btn' size='big' onClick={revealMySecretSanta}>
+          <Button color={data.secretSanta ? 'olive' : 'yellow'} className='reveal-btn' size='large' onClick={revealMySecretSanta}>
           {data.secretSanta ? data.secretSanta : 'Reveal'}
             <Icon name='gift' />
           </Button>
@@ -43,15 +46,6 @@ const Main = ({
         <Grid.Column width={2}>
         </Grid.Column>
       </Grid.Row>
-
-      <Grid.Row>
-        <Grid.Column width={3}>
-        </Grid.Column>
-        <Grid.Column width={10}>
-        </Grid.Column>
-        <Grid.Column width={3}>
-        </Grid.Column>
-        </Grid.Row>
         <Grid.Row>
           <Grid.Column width={3}>
           </Grid.Column>
