@@ -15,79 +15,43 @@ const Main = ({
   revealMySecretSanta
 }) => {
   return (
-    <Container text>
-      <Grid className="button-layout-grid">
-      <Grid.Row>
-        <Grid.Column width={16}>
-          <Header
-          as='h3'
-            content={`Hi ${user.memberName.charAt(0).toUpperCase() + user.memberName.slice(1)} Your Secret Santa is`}
-          style={{
-            fontSize: mobile ? '1em' : '2em',
-            fontWeight: 'normal',
-            marginBottom: 0,
-            marginTop: mobile ? '0.2em' : '1.9em',
-          }}
-          className='your-secret-santa'
-          />
-        </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-        <Grid.Column width={1}>
-        </Grid.Column>
-        <Grid.Column width={7}>
-          <Button color={data.secretSanta ? 'olive' : 'yellow'} className='reveal-btn' size='large' onClick={revealMySecretSanta}>
-          {data.secretSanta ? data.secretSanta : 'Reveal'}
-            <Icon name='gift' />
+    <div className="container">
+      <Header
+        as='h3'
+        content={`Hi ${user.memberName.charAt(0).toUpperCase() + user.memberName.slice(1)} your Secret Santa is`}
+        className='your-secret-santa'
+      />
+      <Button color={data.secretSanta ? 'olive' : 'yellow'} className='reveal-btn' size='large' onClick={revealMySecretSanta}>
+        {data.secretSanta ? data.secretSanta : 'Reveal'}
+        <Icon name='gift' className='icon-btn' />
+      </Button>
+      <div className="wishlist-buttons">
+        <Button
+          color='teal'
+          className='my-wishlist-btn'
+          size='large'
+          as={Link}
+          name='my-wishlist'
+          to={`/giftIdeas/${user.memberName}`}
+        >
+          My Wishlist
+          <Icon name='snowflake' className='icon-btn' />
+        </Button>
+        {data.secretSanta &&
+          <Button
+            color='olive'
+            className='secret-santa-wishlist-btn'
+            size='large'
+            as={Link}
+            name='my-wishlist'
+            to={`/giftIdeas/${data.secretSanta}`}
+          >
+            {`${data.secretSanta.charAt(0).toUpperCase() + data.secretSanta.slice(1)}'s Wishlist`}
+            <Icon name='user secret' className='icon-btn' />
           </Button>
-        </Grid.Column>
-        <Grid.Column width={6}>
-        </Grid.Column>
-        <Grid.Column width={2}>
-        </Grid.Column>
-      </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={3}>
-          </Grid.Column>
-          <Grid.Column width={10}>
-          </Grid.Column>
-          <Grid.Column width={3}>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={6}>
-            <Button
-              color='teal'
-              className='my-wishlist-btn'
-              size='large'
-              as={Link}
-              name='my-wishlist'
-              to={`/giftIdeas/${user.memberName}`}
-            >
-            My Wishlist
-            <Icon name='snowflake' />
-          </Button>
-          </Grid.Column>
-          <Grid.Column width={4}>
-          </Grid.Column>
-          <Grid.Column width={6}>
-            {data.secretSanta &&
-              <Button
-                color='olive'
-                className='my-wishlist-btn'
-                size='large'
-                as={Link}
-                name='my-wishlist'
-                to={`/giftIdeas/${data.secretSanta}`}
-              >
-              {`${data.secretSanta.charAt(0).toUpperCase() + data.secretSanta.slice(1)}'s Wishlist`}
-              <Icon name='user secret' />
-              </Button>
-            }
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </Container>
+        }
+        </div>
+    </div>
   );
 };
 

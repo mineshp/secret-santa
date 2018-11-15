@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  height:auto !important; /* real browsers */
+  height:auto; /* real browsers */
   height:100%; /* IE6: treaded as min-height*/
 
   min-height:100%; /* real browsers */
@@ -27,70 +27,491 @@
 }
 
 .main-container {
-  height:auto !important; /* real browsers */
+  height:auto; /* real browsers */
   height:100%; /* IE6: treaded as min-height*/
-
   min-height: 100vh; /* real browsers */
 }
 
-.your-secret-santa {
-  font-family: 'Patrick Hand', cursive !important;
-  color: #53752d !important;
+/* Main Page - Logged In User */
+
+.container {
+  background: url(./assets/main-bg-mobile.png) no-repeat center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 47px);
+  position: relative;
 }
 
-i.icon {
-  margin-left: 3px !important;
+.container-wishlist {
+  background: url(./assets/wishlist-mobile-big.gif) no-repeat center;
+  background-size: 120%;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 47px);
+  position: relative;
 }
 
-.reveal-btn {
-  margin-top: 0.2em !important;
-  margin-right: 4.9em !important;
+.your-secret-santa.your-secret-santa.your-secret-santa {
+  font-size: 1.4em;
+  font-family: 'Patrick Hand', cursive;
+  color: #53752d;
+  position: absolute;
+  top: 32%;
+  left: 20%;
 }
 
-.main-page-image {
-  background-image: url("./assets/main-bg-big.png");
-  background-repeat: no-repeat;
+.reveal-btn.reveal-btn.reveal-btn {
+  margin-left: 1vw;
+  margin-top: 69vw;
+  width: 37vw;
+  font-size: 1em;
 }
 
-.giftideas-page-image {
-  background-image: url("./assets/giftideas-wishlist.png");
-  background-repeat: no-repeat;
+.icon-btn.icon-btn.icon-btn.icon-btn.icon-btn.icon-btn {
+  margin-left: 0.4vw;
 }
 
-.gift-ideas {
-  /* margin-top: 176px; */
-  margin-bottom: 50px;
-  background-image: url("./assets/giftideas-wishlist.png");
-  height: 470px;
+.wishlist-buttons {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
 }
 
-.ui.form {
-  padding-top: 120px;
+.my-wishlist-btn.my-wishlist-btn.my-wishlist-btn {
+  margin-right: auto;
+  margin-bottom: 10vw;
+  width: 45vw;
+  font-size: 1em;
+  display: flex;
+  justify-content: space-around;
 }
 
-div.field.custom-align {
-    margin: 20px 0 0 200px !important;
+.secret-santa-wishlist-btn.secret-santa-wishlist-btn.secret-santa-wishlist-btn {
+  margin-left: auto;
+  margin-bottom: 10vw;
+  width: 53vw;
+  font-size: 1em;
+  display: flex;
+  justify-content: space-around;
 }
 
-.wishlist-header {
-  font-family: 'Patrick Hand', cursive !important;
-  color: #53752d !important;
-  font-size: 2.5em !important;
-  margin-top: -20px !important;
+.wishlist-header.wishlist-header.wishlist-header {
+  font-size: 2em;
+  font-family: 'Patrick Hand', cursive;
+  color: #53752d;
+  position: absolute;
+  top: 30%;
+  left: 30%;
 }
 
-.gift-submit-btn {
-  margin-top: 20px !important;
+.wishlist-form-group {
+  margin-top: 30vh;
 }
 
-.button-layout-grid {
-  margin-top: 160px !important;
-  margin-left: 5px !important;
+.wishlist-input.wishlist-input.wishlist-input {
+  margin: 0.75em 0 0 8.5em;
 }
 
-.button-layout-giftideas {
-  margin-top: 160px !important;
-  margin-left: 15px !important;
+/* .ui.input { */
+div.wishlist-input-field {
+  font-size: 12px
+}
+
+.wishlist-page-buttons-group {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.gift-submit-btn.gift-submit-btn.gift-submit-btn {
+  margin-left: 1vw;
+  margin-top: 6vw;
+  width: 28vw;
+  height: 5vh;
+  font-size: 0.9em;
+}
+
+@media (min-width: 1281px) {
+  /* Main Page - Logged In User */
+
+  .container {
+    background: url(./assets/main-bg-big.png) no-repeat center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 47px);
+    position: relative;
+  }
+
+  .container-wishlist {
+    background: url(./assets/wishlist-mobile-big.gif) no-repeat center;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 5px);
+    position: relative;
+  }
+
+  .your-secret-santa.your-secret-santa.your-secret-santa {
+    font-size: 2.5em;
+    font-family: 'Patrick Hand', cursive;
+    color: #53752d;
+    position: absolute;
+    top: 34%;
+    left: 37%;
+  }
+
+  .reveal-btn.reveal-btn.reveal-btn {
+    margin-left: 30vw;
+    margin-top: 24vw;
+    width: 9vw;
+    font-size: 1.2em;
+  }
+
+  .icon-btn.icon-btn.icon-btn.icon-btn.icon-btn.icon-btn {
+    margin-left: 0.4vw;
+  }
+
+  .wishlist-buttons {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .my-wishlist-btn.my-wishlist-btn.my-wishlist-btn {
+    margin-right: auto;
+    margin-left: 28vw;
+    margin-bottom: 18vw;
+    width: 12vw;
+    font-size: 1.2em;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .secret-santa-wishlist-btn.secret-santa-wishlist-btn.secret-santa-wishlist-btn {
+    margin-left: auto;
+    margin-right: 30vw;
+    margin-bottom: 18vw;
+    width: 12vw;
+    font-size: 1.2em;
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  /* Main Page - Logged In User */
+
+  .container {
+    background: url(./assets/main-bg-big.png) no-repeat center;
+    background-size: 115%;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 47px);
+    position: relative;
+  }
+
+  .container-wishlist {
+    background: url(./assets/wishlist-desktop.gif) no-repeat center;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 5px);
+    position: relative;
+  }
+
+  .your-secret-santa.your-secret-santa.your-secret-santa {
+    font-size: 2.3em;
+    font-family: 'Patrick Hand', cursive;
+    color: #53752d;
+    position: absolute;
+    top: 32%;
+    left: 36%;
+  }
+
+  .reveal-btn.reveal-btn.reveal-btn {
+    margin-left: 27vw;
+    margin-top: 21vw;
+    width: 12vw;
+    font-size: 1em;
+  }
+
+  .icon-btn.icon-btn.icon-btn.icon-btn.icon-btn.icon-btn {
+    margin-left: 0.4vw;
+  }
+
+  .wishlist-buttons {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .my-wishlist-btn.my-wishlist-btn.my-wishlist-btn {
+    margin-right: auto;
+    margin-left: 27vw;
+    margin-bottom: 5vw;
+    width: 12vw;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .secret-santa-wishlist-btn.secret-santa-wishlist-btn.secret-santa-wishlist-btn {
+    margin-left: auto;
+    margin-right: 30vw;
+    margin-bottom: 5vw;
+    width: 15vw;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .wishlist-header.wishlist-header.wishlist-header {
+    font-size: 3em;
+    font-family: 'Patrick Hand', cursive;
+    color: #53752d;
+    position: absolute;
+    top: 3%;
+    left: 38%;
+  }
+
+  .wishlist-form-group {
+    margin-top: 28vh;
+  }
+
+
+  .wishlist-input.wishlist-input.wishlist-input {
+    margin: 2.2em 0em 0 32em;
+    width: 47vw;
+  }
+
+  /* .ui.input { */
+  div.wishlist-input-field {
+    font-size: 1.2em;
+  }
+
+
+  .wishlist-page-buttons-group {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .gift-submit-btn.gift-submit-btn.gift-submit-btn {
+    margin-left: 1vw;
+    margin-top: 5vw;
+    width: 14vw;
+    height: 5vh;
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  /* Main Page - Logged In User */
+
+  .container {
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 47px);
+    position: relative;
+  }
+
+  .container-wishlist {
+    background: url(./assets/wishlist-desktop.gif) no-repeat center;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 47px);
+    position: relative;
+  }
+
+  .your-secret-santa.your-secret-santa.your-secret-santa {
+    font-size: 2.5em;
+    font-family: 'Patrick Hand', cursive;
+    color: #53752d;
+    position: absolute;
+    top: 32%;
+    left: 28%;
+  }
+
+  .reveal-btn.reveal-btn.reveal-btn {
+    margin-left: 21vw;
+    margin-top: 28vw;
+    width: 16vw;
+    font-size: 1.1em;
+  }
+
+  .icon-btn.icon-btn.icon-btn.icon-btn.icon-btn.icon-btn {
+    margin-left: 0.4vw;
+  }
+
+  .wishlist-buttons {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .my-wishlist-btn.my-wishlist-btn.my-wishlist-btn {
+    margin-right: auto;
+    margin-left: 10vw;
+    margin-bottom: 8vw;
+    width: 23vw;
+    font-size: 1.1em;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .secret-santa-wishlist-btn.secret-santa-wishlist-btn.secret-santa-wishlist-btn {
+    margin-left: auto;
+    margin-right: 10vw;
+    margin-bottom: 8vw;
+    width: 25vw;
+    font-size: 1.1em;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .wishlist-header.wishlist-header.wishlist-header {
+    font-size: 4em;
+    font-family: 'Patrick Hand', cursive;
+    color: #53752d;
+    position: absolute;
+    top: 15%;
+    left: 32%;
+  }
+
+  .wishlist-form-group {
+    margin-top: 28vh;
+  }
+
+  .wishlist-input.wishlist-input.wishlist-input {
+    margin: 2em 0em 0 17em;
+  }
+
+  /* .ui.input { */
+  div.wishlist-input-field {
+    font-size: 17px
+  }
+
+  .wishlist-page-buttons-group {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .gift-submit-btn.gift-submit-btn.gift-submit-btn {
+    margin-left: 1vw;
+    margin-top: 4vw;
+    width: 20vw;
+    height: 7vh;
+    font-size: 1.2em;
+  }
+
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+
+  /* Main Page - Logged In User */
+
+  .container {
+    background: url(./assets/main-bg-big.png) no-repeat center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 47px);
+    position: relative;
+  }
+
+  .container-wishlist {
+    background: url(./assets/wishlist-mobile-big.gif) no-repeat center;
+    background-size: 120%;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 47px);
+    position: relative;
+  }
+
+  .your-secret-santa.your-secret-santa.your-secret-santa {
+    font-size: 1.5em;
+    font-family: 'Patrick Hand', cursive;
+    color: #53752d;
+    position: absolute;
+    top: 37%;
+    left: 30%;
+  }
+
+  .reveal-btn.reveal-btn.reveal-btn {
+    margin-left: 23vw;
+    margin-top: 43vw;
+    width: 18vw;
+    font-size: 1em;
+  }
+
+  .icon-btn.icon-btn.icon-btn.icon-btn.icon-btn.icon-btn {
+    margin-left: 0.4vw;
+  }
+
+  .wishlist-buttons {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .my-wishlist-btn.my-wishlist-btn.my-wishlist-btn {
+    margin-right: auto;
+    margin-left: 14vw;
+    margin-bottom: 22vw;
+    width: 18vw;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .secret-santa-wishlist-btn.secret-santa-wishlist-btn.secret-santa-wishlist-btn {
+    margin-left: auto;
+    margin-right: 15vw;
+    margin-bottom: 22vw;
+    font-size: 1em;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .wishlist-header.wishlist-header.wishlist-header {
+    font-size: 2em;
+    font-family: 'Patrick Hand', cursive;
+    color: #53752d;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+  }
+
+  .wishlist-form-group {
+    margin-top: 30vh;
+  }
+
+  .wishlist-input.wishlist-input.wishlist-input {
+    margin: 0.75em 0 0 8.5em;
+  }
+
+  /* .ui.input { */
+  div.wishlist-input-field {
+    font-size: 12px
+  }
+
+  .wishlist-page-buttons-group {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .gift-submit-btn.gift-submit-btn.gift-submit-btn {
+    margin-left: 1vw;
+    margin-top: 6vw;
+    width: 28vw;
+    height: 5vh;
+    font-size: 0.9em;
+  }
+
 }
 
 @keyframes App-logo-spin {
