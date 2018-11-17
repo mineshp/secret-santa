@@ -51,6 +51,14 @@
   position: relative;
 }
 
+.container-login {
+  background: url(./assets/login-bg-mobile.gif) no-repeat center;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 47px);
+  position: relative;
+}
+
 .your-secret-santa.your-secret-santa.your-secret-santa {
   font-size: 1.4em;
   font-family: 'Patrick Hand', cursive;
@@ -197,6 +205,14 @@
     position: relative;
   }
 
+  .container-login {
+    background: url(./assets/login-bg.gif) no-repeat center;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 47px);
+    position: relative;
+  }
+
   .your-secret-santa.your-secret-santa.your-secret-santa {
     font-size: 2em;
     font-family: 'Patrick Hand', cursive;
@@ -327,6 +343,14 @@
     position: relative;
   }
 
+  .container-login {
+    background: url(./assets/login-bg-wide.gif) no-repeat center;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 47px);
+    position: relative;
+  }
+
   .your-secret-santa.your-secret-santa.your-secret-santa {
     font-size: 2.3em;
     font-family: 'Patrick Hand', cursive;
@@ -420,9 +444,7 @@
   .flex-item-login.flex-item-login.flex-item-login {
     grid-template-columns: 1fr 3fr;
     max-width: 55vw;
-    height: calc(100vh-25%);
-    /* height: 75vh; */
-    /* width: 75vw; */
+    height: 75vh;
   }
 
   .login-btn.login-btn.login-btn {
@@ -445,6 +467,14 @@
 
   .container-wishlist {
     background: url(./assets/wishlist-desktop.gif) no-repeat center;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 47px);
+    position: relative;
+  }
+
+  .container-login {
+    background: url(./assets/login-bg-wide.gif) no-repeat center;
     display: flex;
     flex-direction: column;
     height: calc(100vh - 47px);
@@ -572,6 +602,14 @@
   .container-wishlist {
     background: url(./assets/wishlist-mobile-big.gif) no-repeat center;
     background-size: 120%;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 47px);
+    position: relative;
+  }
+
+  .container-login {
+    background: url(./assets/login-bg-wide.gif) no-repeat center;
     display: flex;
     flex-direction: column;
     height: calc(100vh - 47px);
