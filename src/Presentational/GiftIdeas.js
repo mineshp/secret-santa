@@ -17,13 +17,15 @@ const GiftIdeas = ({
       content={`${wishlistFor.charAt(0).toUpperCase() + wishlistFor.slice(1)}'s Wishlist`}
       className='wishlist-header'
     />
-    <Settings
-      handleGiftIdeaNameChange={handleGiftIdeaNameChange}
-      handleSubmit={handleSubmit}
-      data={data}
-      wishlistFor={wishlistFor}
-      user={user.memberName}
-    />
+    <form onSubmit={handleSubmit}>
+      <Settings
+        handleGiftIdeaNameChange={handleGiftIdeaNameChange}
+        handleSubmit={handleSubmit}
+        data={data}
+        wishlistFor={wishlistFor}
+        user={user.memberName}
+        />
+    </form>
   </div>
   );
 };

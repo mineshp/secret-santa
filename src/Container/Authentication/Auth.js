@@ -19,7 +19,6 @@ export default class Auth {
     }
 
     setToken(jwtToken) {
-        console.log(`jwtToken ${jwtToken}`);
         localStorage.setItem('jwtToken', jwtToken);
         localStorage.setItem('isLoggedIn', true);
     }

@@ -2,7 +2,6 @@
   text-align: center;
   height:auto; /* real browsers */
   height:100%; /* IE6: treaded as min-height*/
-
   min-height:100%; /* real browsers */
 }
 
@@ -141,6 +140,41 @@
   background: #53752d;
 }
 
+.ui.green.button:hover {
+  background-color: #8fccb3;
+}
+
+.ui.green.button:focus {
+  background-color: #8fccb3;
+}
+
+/* Login */
+.box-login {
+  padding: 1.1em;
+  border: solid 0.1em #53752d;
+  border-radius: 8px;
+}
+
+.home-logo {
+  height: 2em;
+}
+
+.login-header.login-header.login-header {
+  color: #53752d;
+  font-family: 'Patrick Hand', cursive;
+  margin-top: 0.1em;
+  font-size: 1.25em;
+}
+
+.flex-item-login.flex-item-login.flex-item-login {
+  grid-template-columns: 1fr 3fr;
+  height: 40vh;
+  width: 75vw;
+}
+
+.login-btn.login-btn.login-btn {
+  font-size: 1em;
+}
 
 @media only screen and (min-width: 1281px) {
   /* Main Page - Logged In User */
@@ -243,6 +277,34 @@
   .wishlist-submit-btn.wishlist-submit-btn {
     font-size: 1.5em;
   }
+
+    /* Login */
+    .box-login {
+      padding: 2.5em;
+      border: solid 0.1em #53752d;
+      border-radius: 8px;
+    }
+
+    .home-logo {
+      height: 8em;
+    }
+
+    .login-header.login-header.login-header {
+      color: #53752d;
+      font-family: 'Patrick Hand', cursive;
+      margin-top: 0.2em;
+      font-size: 3.8em;
+    }
+
+    .flex-item-login.flex-item-login.flex-item-login {
+      grid-template-columns: 1fr 3fr;
+      height: 75vh;
+      width: 75vw;
+    }
+
+    .login-btn.login-btn.login-btn {
+      font-size: 2em;
+    }
 }
 
 @media only screen and (min-width: 1025px) and (max-width: 1280px) {
@@ -335,6 +397,36 @@
 
   .wishlist-submit-btn.wishlist-submit-btn {
     font-size: 1.5em;
+  }
+
+  /* Login */
+  .box-login {
+    padding: 2.5em;
+    border: solid 0.1em #53752d;
+    border-radius: 8px;
+  }
+
+  .home-logo {
+    height: 8em;
+  }
+
+  .login-header.login-header.login-header {
+    color: #53752d;
+    font-family: 'Patrick Hand', cursive;
+    margin-top: 0.2em;
+    font-size: 3.8em;
+  }
+
+  .flex-item-login.flex-item-login.flex-item-login {
+    grid-template-columns: 1fr 3fr;
+    max-width: 55vw;
+    height: calc(100vh-25%);
+    /* height: 75vh; */
+    /* width: 75vw; */
+  }
+
+  .login-btn.login-btn.login-btn {
+    font-size: 2em;
   }
 }
 
@@ -435,6 +527,33 @@
     font-size: 1.8em;
   }
 
+  /* Login */
+  .box-login {
+    padding: 2em;
+    border: solid 0.1em #53752d;
+    border-radius: 8px;
+  }
+
+  .home-logo {
+    height: 6em;
+  }
+
+  .login-header.login-header.login-header {
+    color: #53752d;
+    font-family: 'Patrick Hand', cursive;
+    margin-top: 0.2em;
+    font-size: 3em;
+  }
+
+  .flex-item-login.flex-item-login.flex-item-login {
+    grid-template-columns: 1fr 3fr;
+    height: 75vh;
+    width: 75vw;
+  }
+
+  .login-btn.login-btn.login-btn {
+    font-size: 2em;
+  }
 }
 
 @media only screen and (min-width: 481px) and (max-width: 767px) {
@@ -530,6 +649,33 @@
     font-size: 1.5em;
   }
 
+  /* Login */
+  .box-login {
+    padding: 1.5em;
+    border: solid 0.1em #53752d;
+    border-radius: 8px;
+  }
+
+  .home-logo {
+    height: 4em;
+  }
+
+  .login-header.login-header.login-header {
+    color: #53752d;
+    font-family: 'Patrick Hand', cursive;
+    margin-top: 0.1em;
+    font-size: 2em;
+  }
+
+  .flex-item-login.flex-item-login.flex-item-login {
+    grid-template-columns: 1fr 3fr;
+    height: 55vh;
+    width: 75vw;
+  }
+
+  .login-btn.login-btn.login-btn {
+    font-size: 1.6em;
+  }
 }
 
 @keyframes App-logo-spin {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Menu from 'semantic-ui-react/dist/commonjs/collections/Menu';
-import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
+import Dropdown from 'semantic-ui-react/dist/commonjs/modules/Dropdown';
 import logo from '../../md-logo-green.png';
 
 export default class MainNav extends Component {
@@ -11,15 +11,24 @@ export default class MainNav extends Component {
       activeItem: 'view'
     };
     this.handleItemClick = this.handleItemClick.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   handleItemClick(e, { name }) {
     this.setState({ activeItem: name });
   }
 
+  logout(e) {
+    e.preventDefault();
+    this.props.logout();
+  }
+
   render() {
     const { activeItem } = this.state;
     const { user: { memberName } } = this.props;
+    const displayName = memberName
+      ? `${memberName.charAt(0).toUpperCase() + memberName.slice(1)}`
+      : null;
 
     return (
       <div className="header-main">
@@ -37,10 +46,14 @@ export default class MainNav extends Component {
           {
             memberName
                 ?
-                  (
-                      <Menu.Item>
-                      <Icon size='large' name='user circle' /> Welcome {memberName}
-                      </Menu.Item>
+                (
+                  <Menu.Item>
+                    <Dropdown text={`Welcome ${displayName}`} icon="user circle" floating labeled button className="icon green">
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={this.logout}>Logout</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </Menu.Item>
                   )
                 :
                   (
@@ -50,7 +63,7 @@ export default class MainNav extends Component {
                         name="login"
                         active={activeItem === 'login'}
                         onClick={this.handleItemClick}
-                    >Sign-in
+                    >Login
                     </Menu.Item>
                   )
         }
