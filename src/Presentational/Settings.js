@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
-import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
 
 const Settings = ({
@@ -21,40 +20,38 @@ const Settings = ({
       ? giftIdeas[i]
       : '';
     return (
-      <Form.Field key={`gift-${i}`} className="wishlist-input">
-        <Form.Input
-          name={`giftIdea${i}`}
-          placeholder={`Gift Idea ${i + 1}`}
-          defaultValue={val}
-          onChange={handleGiftIdeaNameChange}
-          width={9}
-          readOnly={readOnly}
-          className="wishlist-input-field"
-        />
-      </Form.Field>
+      <div class="box-wishlist one-col-span wishlist-input">
+        <Form.Field key={`gift-${i}`}>
+          <Form.Input
+            name={`giftIdea${i}`}
+            placeholder={`Gift Idea ${i + 1}`}
+            defaultValue={val}
+            onChange={handleGiftIdeaNameChange}
+            width={9}
+            readOnly={readOnly}
+          />
+        </Form.Field>
+      </div>
     )
   });
 
 
   return (
-    <Form onSubmit={handleSubmit}>
-    <Header
-      as='h1'
-      content={`${wishlistFor.charAt(0).toUpperCase() + wishlistFor.slice(1)}'s Wishlist`}
-      className='wishlist-header'
-    />
-      <div className="wishlist-form-group">
+    <div class="flex-container">
+      <div class="flex-item">
         {giftIdeasFields}
-      </div>
-      <div className="wishlist-page-buttons-group">
-        <Button color="yellow" type="submit" className="gift-submit-btn">
+        <div class="box-wishlist">
+          <Button color="yellow" type="submit" className="wishlist-submit-btn">
           Save
-        </Button>
-        <Button color="pink" as={Link} className="gift-submit-btn" name="home" to="/">
-            Go Home
-        </Button>
+          </Button>
+        </div>
+        <div class="box-wishlist">
+          <Button color="green" as={Link} className="wishlist-submit-btn" name="home" to="/">
+            Home
+          </Button>
+        </div>
       </div>
-    </Form>
+   </div>
   );
 }
 

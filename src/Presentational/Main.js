@@ -21,7 +21,7 @@ const Main = ({
         content={`Hi ${user.memberName.charAt(0).toUpperCase() + user.memberName.slice(1)} your Secret Santa is`}
         className='your-secret-santa'
       />
-      <Button color={data.secretSanta ? 'olive' : 'yellow'} className='reveal-btn' size='large' onClick={revealMySecretSanta}>
+      <Button color={data.secretSanta ? 'red' : 'yellow'} className='reveal-btn' size='large' onClick={revealMySecretSanta}>
         {data.secretSanta ? data.secretSanta : 'Reveal'}
         <Icon name='gift' className='icon-btn' />
       </Button>

@@ -97,47 +97,57 @@
 }
 
 .wishlist-header.wishlist-header.wishlist-header {
-  font-size: 2em;
+  font-size: 1.5em;
   font-family: 'Patrick Hand', cursive;
   color: #53752d;
   position: absolute;
   top: 30%;
-  left: 30%;
+  left: 36%;
 }
 
-.wishlist-form-group {
-  margin-top: 30vh;
-}
-
-.wishlist-input.wishlist-input.wishlist-input {
-  margin: 0.75em 0 0 8.5em;
-}
-
-/* .ui.input { */
-div.wishlist-input-field {
-  font-size: 12px
-}
-
-.wishlist-page-buttons-group {
-  margin-top: auto;
+.flex-container {
   display: flex;
-  justify-content: center;
+  width: 100%;
+  height: 100vh;
 }
 
-.gift-submit-btn.gift-submit-btn.gift-submit-btn {
-  margin-left: 1vw;
-  margin-top: 6vw;
-  width: 28vw;
-  height: 5vh;
-  font-size: 0.9em;
+.flex-item {
+  display: grid;
+  grid-gap: 0.5em;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 2fr;
+  width: 36vw;
+  height: 28vh;
+  margin: auto;
 }
 
-@media (min-width: 1281px) {
+.box-wishlist {
+  border-radius: 2px;
+}
+
+.one-col-span {
+  grid-column: 1 / 3;
+}
+
+.wishlist-input {
+  font-size: 0.75em;
+}
+
+.wishlist-submit-btn.wishlist-submit-btn {
+  font-size: 0.8em;
+}
+
+.ui.green.button {
+  background: #53752d;
+}
+
+
+@media only screen and (min-width: 1281px) {
   /* Main Page - Logged In User */
 
   .container {
     background: url(./assets/main-bg-big.png) no-repeat center;
-    background-size: cover;
+    /* background-size: 115%; */
     display: flex;
     flex-direction: column;
     height: calc(100vh - 47px);
@@ -145,7 +155,8 @@ div.wishlist-input-field {
   }
 
   .container-wishlist {
-    background: url(./assets/wishlist-mobile-big.gif) no-repeat center;
+    background: url(./assets/wishlist-desktop.gif) no-repeat center;
+    background-size: cover;
     display: flex;
     flex-direction: column;
     height: calc(100vh - 5px);
@@ -153,18 +164,18 @@ div.wishlist-input-field {
   }
 
   .your-secret-santa.your-secret-santa.your-secret-santa {
-    font-size: 2.5em;
+    font-size: 2em;
     font-family: 'Patrick Hand', cursive;
     color: #53752d;
     position: absolute;
-    top: 34%;
+    top: 32%;
     left: 37%;
   }
 
   .reveal-btn.reveal-btn.reveal-btn {
-    margin-left: 30vw;
-    margin-top: 24vw;
-    width: 9vw;
+    margin-left: 27vw;
+    margin-top: 20vw;
+    width: 12vw;
     font-size: 1.2em;
   }
 
@@ -180,9 +191,9 @@ div.wishlist-input-field {
 
   .my-wishlist-btn.my-wishlist-btn.my-wishlist-btn {
     margin-right: auto;
-    margin-left: 28vw;
-    margin-bottom: 18vw;
-    width: 12vw;
+    margin-left: 27vw;
+    margin-bottom: 5vw;
+    width: 15vw;
     font-size: 1.2em;
     display: flex;
     justify-content: space-around;
@@ -191,15 +202,50 @@ div.wishlist-input-field {
   .secret-santa-wishlist-btn.secret-santa-wishlist-btn.secret-santa-wishlist-btn {
     margin-left: auto;
     margin-right: 30vw;
-    margin-bottom: 18vw;
-    width: 12vw;
+    margin-bottom: 5vw;
+    width: 16vw;
     font-size: 1.2em;
     display: flex;
     justify-content: space-around;
   }
+
+  .wishlist-header.wishlist-header.wishlist-header {
+    font-size: 3em;
+    font-family: 'Patrick Hand', cursive;
+    color: #53752d;
+    position: absolute;
+    top: 3%;
+    left: 38%;
+  }
+
+  .wishlist-header.wishlist-header.wishlist-header {
+    font-size: 3em;
+    font-family: 'Patrick Hand', cursive;
+    color: #53752d;
+    position: absolute;
+    top: 22%;
+    left: 41%;
+  }
+
+  .flex-item {
+    display: grid;
+    grid-gap: 1.4em;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 2fr;
+    height: 40vh;
+    margin: auto;
+  }
+
+  .wishlist-input {
+    font-size: 1.7em;
+  }
+
+  .wishlist-submit-btn.wishlist-submit-btn {
+    font-size: 1.5em;
+  }
 }
 
-@media (min-width: 1025px) and (max-width: 1280px) {
+@media only screen and (min-width: 1025px) and (max-width: 1280px) {
   /* Main Page - Logged In User */
 
   .container {
@@ -270,46 +316,34 @@ div.wishlist-input-field {
     font-family: 'Patrick Hand', cursive;
     color: #53752d;
     position: absolute;
-    top: 3%;
+    top: 22%;
     left: 38%;
   }
 
-  .wishlist-form-group {
-    margin-top: 28vh;
+  .flex-item {
+    display: grid;
+    grid-gap: 1.4em;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 2fr;
+    height: 40vh;
+    margin: auto;
   }
 
-
-  .wishlist-input.wishlist-input.wishlist-input {
-    margin: 2.2em 0em 0 32em;
-    width: 47vw;
+  .wishlist-input {
+    font-size: 1.6em;
   }
 
-  /* .ui.input { */
-  div.wishlist-input-field {
-    font-size: 1.2em;
-  }
-
-
-  .wishlist-page-buttons-group {
-    margin-top: auto;
-    display: flex;
-    justify-content: center;
-  }
-
-  .gift-submit-btn.gift-submit-btn.gift-submit-btn {
-    margin-left: 1vw;
-    margin-top: 5vw;
-    width: 14vw;
-    height: 5vh;
-    font-size: 1em;
+  .wishlist-submit-btn.wishlist-submit-btn {
+    font-size: 1.5em;
   }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
 
   /* Main Page - Logged In User */
 
   .container {
+    background: url(./assets/main-bg-big.png) no-repeat center;
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -330,13 +364,13 @@ div.wishlist-input-field {
     font-family: 'Patrick Hand', cursive;
     color: #53752d;
     position: absolute;
-    top: 32%;
-    left: 28%;
+    top: 37%;
+    left: 25%;
   }
 
   .reveal-btn.reveal-btn.reveal-btn {
-    margin-left: 21vw;
-    margin-top: 28vw;
+    margin-left: 18vw;
+    margin-top: 57vw;
     width: 16vw;
     font-size: 1.1em;
   }
@@ -354,9 +388,9 @@ div.wishlist-input-field {
   .my-wishlist-btn.my-wishlist-btn.my-wishlist-btn {
     margin-right: auto;
     margin-left: 10vw;
-    margin-bottom: 8vw;
+    margin-bottom: 30vw;
     width: 23vw;
-    font-size: 1.1em;
+    font-size: 1.2em;
     display: flex;
     justify-content: space-around;
   }
@@ -364,52 +398,46 @@ div.wishlist-input-field {
   .secret-santa-wishlist-btn.secret-santa-wishlist-btn.secret-santa-wishlist-btn {
     margin-left: auto;
     margin-right: 10vw;
-    margin-bottom: 8vw;
-    width: 25vw;
-    font-size: 1.1em;
+    margin-bottom: 30vw;
+    width: 27vw;
+    font-size: 1.2em;
     display: flex;
     justify-content: space-around;
   }
 
   .wishlist-header.wishlist-header.wishlist-header {
-    font-size: 4em;
+    font-size: 3.2em;
     font-family: 'Patrick Hand', cursive;
     color: #53752d;
     position: absolute;
-    top: 15%;
-    left: 32%;
+    top: 29%;
+    left: 38%;
   }
 
-  .wishlist-form-group {
-    margin-top: 28vh;
+  .flex-container {
+    width: 93%;
   }
 
-  .wishlist-input.wishlist-input.wishlist-input {
-    margin: 2em 0em 0 17em;
+  .flex-item {
+    display: grid;
+    grid-gap: 1.4em;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 2fr;
+    height: 29vh;
+    margin: auto;
   }
 
-  /* .ui.input { */
-  div.wishlist-input-field {
-    font-size: 17px
+  .wishlist-input {
+    font-size: 1.9em;
   }
 
-  .wishlist-page-buttons-group {
-    margin-top: auto;
-    display: flex;
-    justify-content: center;
-  }
-
-  .gift-submit-btn.gift-submit-btn.gift-submit-btn {
-    margin-left: 1vw;
-    margin-top: 4vw;
-    width: 20vw;
-    height: 7vh;
-    font-size: 1.2em;
+  .wishlist-submit-btn.wishlist-submit-btn {
+    font-size: 1.8em;
   }
 
 }
 
-@media (min-width: 481px) and (max-width: 767px) {
+@media only screen and (min-width: 481px) and (max-width: 767px) {
 
   /* Main Page - Logged In User */
 
@@ -477,39 +505,29 @@ div.wishlist-input-field {
   }
 
   .wishlist-header.wishlist-header.wishlist-header {
-    font-size: 2em;
+    font-size: 2.7em;
     font-family: 'Patrick Hand', cursive;
     color: #53752d;
     position: absolute;
-    top: 30%;
-    left: 30%;
+    top: 16%;
+    left: 38%;
   }
 
-  .wishlist-form-group {
-    margin-top: 30vh;
+  .flex-item {
+    display: grid;
+    grid-gap: 1.4em;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 2fr;
+    height: 40vh;
+    margin: auto;
   }
 
-  .wishlist-input.wishlist-input.wishlist-input {
-    margin: 0.75em 0 0 8.5em;
+  .wishlist-input {
+    font-size: 1.5em;
   }
 
-  /* .ui.input { */
-  div.wishlist-input-field {
-    font-size: 12px
-  }
-
-  .wishlist-page-buttons-group {
-    margin-top: auto;
-    display: flex;
-    justify-content: center;
-  }
-
-  .gift-submit-btn.gift-submit-btn.gift-submit-btn {
-    margin-left: 1vw;
-    margin-top: 6vw;
-    width: 28vw;
-    height: 5vh;
-    font-size: 0.9em;
+  .wishlist-submit-btn.wishlist-submit-btn {
+    font-size: 1.5em;
   }
 
 }
