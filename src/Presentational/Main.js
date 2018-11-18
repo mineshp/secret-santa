@@ -8,21 +8,28 @@ import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid';
 
+const uppercaseFirstLetter = (str) => `${str.charAt(0).toUpperCase() + str.slice(1)}`;
+
 const Main = ({
   data,
   mobile,
   user,
   revealMySecretSanta
 }) => {
+  let decodedSecretSanta;
+  if (data && data.secretSanta) {
+    const decodedStr = Buffer.from(data.secretSanta, 'base64').toString('ascii');
+    decodedSecretSanta = uppercaseFirstLetter(decodedStr);
+  }
   return (
     <div className="container">
       <Header
         as='h3'
-        content={`Hi ${user.memberName.charAt(0).toUpperCase() + user.memberName.slice(1)} your Secret Santa is`}
+        content={`Hi ${uppercaseFirstLetter(user.memberName)} your Secret Santa is`}
         className='your-secret-santa'
       />
       <Button color={data.secretSanta ? 'red' : 'yellow'} className='reveal-btn' size='large' onClick={revealMySecretSanta}>
-        {data.secretSanta ? data.secretSanta : 'Reveal'}
+        {data.secretSanta ? decodedSecretSanta : 'Reveal'}
         <Icon name='gift' className='icon-btn' />
       </Button>
       <div className="wishlist-buttons">
@@ -44,9 +51,9 @@ const Main = ({
             size='large'
             as={Link}
             name='my-wishlist'
-            to={`/giftIdeas/${data.secretSanta}`}
+            to={`/giftIdeas/${decodedSecretSanta}`}
           >
-            {`${data.secretSanta.charAt(0).toUpperCase() + data.secretSanta.slice(1)}'s Wishlist`}
+            {`${decodedSecretSanta}'s Wishlist`}
             <Icon name='user secret' className='icon-btn' />
           </Button>
         }
