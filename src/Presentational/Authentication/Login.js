@@ -13,17 +13,17 @@ const Login = ({
 }) => (
   <div className="container-login">
     <form onSubmit={handleSubmit}>
-      <div class="flex-container">
-        <div class="flex-item flex-item-login box-login">
-          <div class="box-wishlist">
+      <div className="flex-container">
+        <div className="flex-item flex-item-login box-login">
+          <div className="box-wishlist">
             <Image src={logo} className="home-logo" />
           </div>
-          <div class="box-wishlist">
+          <div className="box-wishlist">
             <Header as="h2" className="login-header" textAlign="center">
               Login to Secret Santa
             </Header>
           </div>
-          <div class="box-wishlist one-col-span wishlist-input">
+          <div className="box-wishlist one-col-span login-input">
             <Form.Input
               fluid
               icon='user'
@@ -33,10 +33,10 @@ const Login = ({
               onChange={handleChange}
             />
           </div>
-          <div class="box-wishlist one-col-span wishlist-input">
+          <div className="box-wishlist one-col-span login-input">
             <Form.Input fluid icon='group' iconPosition='left' placeholder='Group name' name='groupID' onChange={handleChange}/>
           </div>
-          <div class="box-wishlist one-col-span wishlist-input">
+          <div className="box-wishlist one-col-span login-input">
             <Form.Input
               fluid
               icon='lock'
@@ -47,7 +47,7 @@ const Login = ({
               onChange={handleChange}
             />
           </div>
-          <div class="box-wishlist one-col-span">
+          <div className="box-wishlist one-col-span">
             <Button color='teal' fluid size='large' className="login-btn">
               Login
             </Button>

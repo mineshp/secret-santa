@@ -8,7 +8,6 @@ import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid';
 
-const uppercaseFirstLetter = (str) => `${str.charAt(0).toUpperCase() + str.slice(1)}`;
 
 const Main = ({
   data,
@@ -16,20 +15,18 @@ const Main = ({
   user,
   revealMySecretSanta
 }) => {
-  let decodedSecretSanta;
+  let decodedStr;
   if (data && data.secretSanta) {
-    const decodedStr = Buffer.from(data.secretSanta, 'base64').toString('ascii');
-    decodedSecretSanta = uppercaseFirstLetter(decodedStr);
+    decodedStr = Buffer.from(data.secretSanta, 'base64').toString('ascii');
   }
+
   return (
     <div className="container">
-      <Header
-        as='h3'
-        content={`Hi ${uppercaseFirstLetter(user.memberName)} your Secret Santa is`}
-        className='your-secret-santa'
-      />
-      <Button color={data.secretSanta ? 'red' : 'yellow'} className='reveal-btn' size='large' onClick={revealMySecretSanta}>
-        {data.secretSanta ? decodedSecretSanta : 'Reveal'}
+      <Header as='h3' className='your-secret-santa'>
+        Hi <span className="toUppperCase">{user.memberName}</span> your Secret Santa is
+      </Header>
+      <Button color={data.secretSanta ? 'red' : 'yellow'} className='reveal-btn toUpperCase' size='large' onClick={revealMySecretSanta}>
+        {decodedStr ? decodedStr : 'Reveal'}
         <Icon name='gift' className='icon-btn' />
       </Button>
       <div className="wishlist-buttons">
@@ -44,16 +41,16 @@ const Main = ({
           My Wishlist
           <Icon name='snowflake' className='icon-btn' />
         </Button>
-        {data.secretSanta &&
+        {decodedStr &&
           <Button
             color='olive'
-            className='secret-santa-wishlist-btn'
+            className='secret-santa-wishlist-btn toUpperCase'
             size='large'
             as={Link}
             name='my-wishlist'
-            to={`/giftIdeas/${decodedSecretSanta}`}
+            to={`/giftIdeas/${decodedStr}`}
           >
-            {`${decodedSecretSanta}'s Wishlist`}
+            {`${decodedStr}'s Wishlist`}
             <Icon name='user secret' className='icon-btn' />
           </Button>
         }
