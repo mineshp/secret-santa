@@ -49,8 +49,8 @@ export default class MainNav extends Component {
                 (
                   <Menu.Item>
                     <Dropdown text={`Welcome ${displayName}`} icon="user circle" floating labeled button className="icon green">
-                    <Dropdown.Menu>
-                      <Dropdown.Item onClick={this.logout}>Logout</Dropdown.Item>
+                      <Dropdown.Menu>
+                        <Dropdown.Item onClick={this.logout}>Logout</Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
                   </Menu.Item>

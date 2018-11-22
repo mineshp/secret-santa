@@ -20,7 +20,7 @@ const Settings = ({
       ? giftIdeas[i]
       : '';
     return (
-      <div class="box-wishlist one-col-span wishlist-input">
+      <div className="box-wishlist one-col-span wishlist-input">
         <Form.Field key={`gift-${i}`}>
           <Form.Input
             name={`giftIdea${i}`}

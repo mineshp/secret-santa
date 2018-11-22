@@ -1,12 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
-import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
-import Divider from 'semantic-ui-react/dist/commonjs/elements/Divider';
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
-import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid';
 
 
 const Main = ({

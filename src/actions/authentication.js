@@ -39,7 +39,6 @@ export function loginUser(loginDetails) {
             ));
         })
         .then((data) => {
-          console.log(data);
           const { token, error } = JSON.parse(data);
           if (token) {
             auth.setToken(token);

@@ -42,7 +42,7 @@ const Login = ({
               icon='lock'
               iconPosition='left'
               placeholder='Code'
-              type='password'
+              // type='password'
               name='passphrase'
               onChange={handleChange}
             />

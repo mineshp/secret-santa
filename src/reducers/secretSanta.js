@@ -69,7 +69,7 @@ const secretSanta = (state = {}, action) => {
   case 'REVEAL_SECRET_SANTA_SUCCESS':
     return {
       notification: {
-          message: `Successfully revealed my secret santa.`,
+          message: 'Successfully revealed my secret santa.',
           level: 'success',
           title: 'Success'
       },
@@ -77,6 +77,50 @@ const secretSanta = (state = {}, action) => {
     };
 
   case 'REVEAL_SECRET_SANTA_ERROR':
+    return {
+      notification: {
+          message: action.error,
+          level: 'error',
+          title: 'Error'
+      },
+      error: {
+          isError: true
+      }
+    };
+
+  case 'SETUP_GROUP_SUCCESS':
+    return {
+      notification: {
+        message: 'Successfully created group.',
+        level: 'success',
+        title: 'Success'
+      },
+      data: { message: 'Success' }
+    };
+
+  case 'SETUP_GROUP_ERROR':
+    return {
+      notification: {
+          message: action.error,
+          level: 'error',
+          title: 'Error'
+      },
+      error: {
+          isError: true
+      }
+    };
+
+  case 'DRAW_SUCCESS':
+    return {
+      notification: {
+        message: 'Successfully generated draw.',
+        level: 'success',
+        title: 'Success'
+      },
+      data: action.data
+    };
+
+  case 'DRAW_ERROR':
     return {
       notification: {
           message: action.error,

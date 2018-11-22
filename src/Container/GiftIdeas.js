@@ -23,7 +23,7 @@ class GiftIdeasComponent extends Component {
   }
 
   async componentDidMount() {
-    const { actions, user, match } = this.props;
+    const { match } = this.props;
 
     if (match.params && match.params.name) {
       this.setState({
@@ -40,8 +40,6 @@ class GiftIdeasComponent extends Component {
       const getGiftIdeasFor = (name) ? name : user.memberName;
       const { type, data } = await actions.getGiftIdeas(getGiftIdeasFor, user.groupID);
       if (type === 'GET_GIFTIDEAS_SUCCESS') {
-        console.log('DATA FROM GET GIFTIDEAS');
-        console.log(data);
         this.setState({
           giftIdea0: data.giftIdeas[0],
           giftIdea1: data.giftIdeas[1],

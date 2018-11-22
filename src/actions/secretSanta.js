@@ -44,6 +44,27 @@ export const errorRevealSecretSanta = (error) => ({
   error
 });
 
+export const successSetupGroup = (data) => ({
+  type: 'SETUP_GROUP_SUCCESS',
+  data
+});
+
+export const errorSetupGroup = (error) => ({
+  type: 'SETUP_GROUP_ERROR',
+  error
+});
+
+export const successDraw = (data) => ({
+  type: 'DRAW_SUCCESS',
+  data
+});
+
+export const errorDraw = (error) => ({
+  type: 'DRAW_ERROR',
+  error
+});
+
+
 export function secretSanta() {
   const token = auth.getToken();
   return (dispatch) =>
@@ -114,4 +135,43 @@ export function revealMySecretSanta(memberName, groupID) {
       })
       .then((data) => dispatch(successRevealSecretSanta(data)))
       .catch((error) => dispatch(errorRevealSecretSanta(error.message)));
+}
+
+export function setup(groupID, group) {
+  const token = auth.getToken();
+  return (dispatch) =>
+    fetch(`${API_URL}/secretsanta/setup/${groupID}`, {
+      method: 'post',
+      headers: setAuthorisationToken(token),
+      body: JSON.stringify(group)
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(
+          new Error(`Error getting message.`)
+        );
+      })
+      .then((data) => dispatch(successSetupGroup(data)))
+      .catch((error) => console.log(error) || dispatch(errorSetupGroup(error.message)));
+}
+
+export function draw(groupID) {
+  const token = auth.getToken();
+  return (dispatch) =>
+    fetch(`${API_URL}/secretsanta/draw/${groupID}`, {
+      headers: setAuthorisationToken(token)
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(
+          new Error(`Error getting message.`)
+        );
+      })
+      .then((data) => console.log(data) || dispatch(successDraw(data)))
+      .catch((error) => dispatch(errorDraw(error.message)));
 }
