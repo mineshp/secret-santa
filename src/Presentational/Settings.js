@@ -40,12 +40,14 @@ const Settings = ({
     <div class="flex-container">
       <div class="flex-item">
         {giftIdeasFields}
-        <div class="box-wishlist">
-          <Button color="yellow" type="submit" className="wishlist-submit-btn">
-          Save
-          </Button>
-        </div>
-        <div class="box-wishlist">
+        { !readOnly &&
+          <div className="box-wishlist">
+            <Button color="yellow" type="submit" className="wishlist-submit-btn">
+            Save
+            </Button>
+          </div>
+        }
+        <div className="box-wishlist">
           <Button color="green" as={Link} className="wishlist-submit-btn" name="home" to="/">
             Home
           </Button>

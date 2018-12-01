@@ -29,7 +29,7 @@ const Main = ({
       <div className="wishlist-buttons">
         <Button
           color='teal'
-          className='my-wishlist-btn'
+          className='my-wishlist-btn toUpperCase'
           size='large'
           as={Link}
           name='my-wishlist'
