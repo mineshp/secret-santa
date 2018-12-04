@@ -20,13 +20,14 @@ const Settings = ({
       ? giftIdeas[i]
       : '';
     return (
-      <div className="box-wishlist one-col-span wishlist-input">
+      <div className="box-wishlist one-col-span wishlist-input"  key={`gift-${i}`}>
         <Form.Field key={`gift-${i}`}>
           <Form.Input
             name={`giftIdea${i}`}
             placeholder={`Gift Idea ${i + 1}`}
             defaultValue={val}
             onChange={handleGiftIdeaNameChange}
+            onSelect={handleGiftIdeaNameChange}
             width={9}
             readOnly={readOnly}
           />
@@ -37,8 +38,8 @@ const Settings = ({
 
 
   return (
-    <div class="flex-container">
-      <div class="flex-item">
+    <div className="flex-container">
+      <div className="flex-item">
         {giftIdeasFields}
         { !readOnly &&
           <div className="box-wishlist">

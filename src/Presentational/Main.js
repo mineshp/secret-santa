@@ -20,7 +20,7 @@ const Main = ({
   return (
     <div className="container">
       <Header as='h3' className='your-secret-santa'>
-        Hi <span className="toUppperCase">{user.memberName}</span> your Secret Santa is
+        Hi <span className="toUpperCase">{user.memberName}</span> your Secret Santa is
       </Header>
       <Button color={data.secretSanta ? 'red' : 'yellow'} className='reveal-btn toUpperCase' size='large' onClick={revealMySecretSanta}>
         {decodedStr ? decodedStr : 'Reveal'}
