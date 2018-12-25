@@ -12,20 +12,22 @@ const GiftIdeas = ({
 }) => {
   return (
     <div className="container-wishlist">
-    <Header
-      as='h1'
-      content={`${wishlistFor.charAt(0).toUpperCase() + wishlistFor.slice(1)}'s Wishlist`}
-      className='wishlist-header'
-    />
-    <form onSubmit={handleSubmit}>
-      <Settings
-        handleGiftIdeaNameChange={handleGiftIdeaNameChange}
-        handleSubmit={handleSubmit}
-        data={data}
-        wishlistFor={wishlistFor}
-        user={user.memberName}
-        />
-    </form>
+      <div className="snow">
+      <Header
+        as='h1'
+        content={`${wishlistFor.charAt(0).toUpperCase() + wishlistFor.slice(1)}'s Wishlist`}
+        className='wishlist-header'
+      />
+      <form onSubmit={handleSubmit}>
+        <Settings
+          handleGiftIdeaNameChange={handleGiftIdeaNameChange}
+          handleSubmit={handleSubmit}
+          data={data}
+          wishlistFor={wishlistFor}
+          user={user.memberName}
+          />
+        </form>
+      </div>
   </div>
   );
 };

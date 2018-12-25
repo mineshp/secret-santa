@@ -19,6 +19,7 @@ const Main = ({
 
   return (
     <div className="container">
+      <div className="snow">
       <Header as='h3' className='your-secret-santa'>
         Hi <span className="toUpperCase">{user.memberName}</span> your Secret Santa is
       </Header>
@@ -51,6 +52,7 @@ const Main = ({
             <Icon name='user secret' className='icon-btn' />
           </Button>
         }
+        </div>
         </div>
     </div>
   );
