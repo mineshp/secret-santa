@@ -640,6 +640,12 @@
   .login-input {
     font-size: 1em;
   }
+
+  /* Admin Panel */
+  .container-admin {
+    margin: 2.5em;
+  }
+
 }
 
 @media only screen and (min-width: 481px) and (max-width: 767px) {
