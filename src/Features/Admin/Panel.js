@@ -12,8 +12,7 @@ import { getToken, setAuthorisationToken } from '../Authentication/Auth';
 import api from '../../Services/api';
 import useMembers from './useMembers';
 
-const allGroups = (groups, handleDraw) => {
-  console.log(groups);
+const allGroups = (groups, handleDraw, deleteGroup, sendEmail) => {
   const groupRows = groups.map(({ groupName, count }) => (
     <Table.Row key={groupName}>
       <Table.Cell>
@@ -25,6 +24,12 @@ const allGroups = (groups, handleDraw) => {
       <Table.Cell><Button color="blue" type="button" id={groupName} onClick={handleDraw}>
         Draw</Button>
       </Table.Cell>
+      <Table.Cell><Button color="teal" type="button" id={groupName} onClick={deleteGroup}>
+        Delete</Button>
+      </Table.Cell>
+      <Table.Cell><Button color="pink" type="button" id={groupName} onClick={sendEmail}>
+        Send</Button>
+      </Table.Cell>
     </Table.Row>
   ));
 
@@ -35,6 +40,8 @@ const allGroups = (groups, handleDraw) => {
           <Table.HeaderCell singleLine>GroupName</Table.HeaderCell>
           <Table.HeaderCell># of Members</Table.HeaderCell>
           <Table.HeaderCell>Draw</Table.HeaderCell>
+          <Table.HeaderCell>Remove</Table.HeaderCell>
+          <Table.HeaderCell>Email</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
 
@@ -92,7 +99,6 @@ export default function Panel(props) {
   const handleDraw = async (event) => {
     event.preventDefault();
     const groupName = event.target.id;
-    console.log(groupName);
 
     const token = getToken();
     await api.get(
@@ -108,6 +114,25 @@ export default function Panel(props) {
       messageHeader: `Error creating draw for ${groupName}, ${err}`
     }));
   };
+
+  const sendEmail = async (event) => {
+    event.preventDefault();
+    const groupName = event.target.id;
+
+    const token = getToken();
+    await api.get(
+      `/secretsanta/admin/sendEmail/${groupName}`,
+      { headers: setAuthorisationToken(token) }
+    )
+    .then((response) => displayNotification({
+      type: 'positive',
+      messageHeader: `Successfully sent email for ${groupName}.`
+    }))
+    .catch((err) => displayNotification({
+      type: 'negative',
+      messageHeader: `Error sending email for ${groupName}, ${err}`
+    }));
+  }
 
   const handleSetupGroup = async (event) => {
     event.preventDefault();
@@ -132,16 +157,44 @@ export default function Panel(props) {
     }
   };
 
+  const deleteGroup = async (event) => {
+    event.preventDefault();
+    const groupName = event.target.id;
+
+    const token = getToken();
+    const { data } = await api.delete(
+      `/secretsanta/${groupName}`,
+      { headers: setAuthorisationToken(token) }
+    ).catch((err) => setShowNotification({
+      type: 'negative',
+      messageHeader: `Unable to delete ${groupName}!`,
+      message: err
+    }));
+
+    if (data) {
+      if (data.error) {
+        displayNotification({
+          type: 'negative',
+          messageHeader: `Unable to delete ${groupName}!`,
+          message: data.error
+        });
+      } else {
+        displayNotification({
+          type: 'positive',
+          messageHeader: `Successfully deleted group ${groupName}!`
+        });
+      }
+    };
+  };
+
 
   useEffect(() => {
-    console.log('use effect called');
     const token = getToken();
     const fetchData = async () => {
       const { data } = await api.get(
         '/secretsanta/admin/allgroups',
         { headers: setAuthorisationToken(token) }
       );
-      console.log(data);
       if (data) setGroups(data);
     };
     fetchData();
@@ -153,48 +206,18 @@ export default function Panel(props) {
     setActiveIndex(newIndex);
   };
 
-  // const handleUpdateGameClick = (event) => {
-  //   setUpdateGameMode(!updateGameMode);
-  //   setGameToUpdate(event.currentTarget.value);
-  // };
-
-  // const handleSubmit = async (evt) => {
-  //   evt.preventDefault();
-  //   const gameDataToUpdate = {
-  //     gameId: gameData.gameId,
-  //     gameName: gameData.gameName,
-  //     gameDate: chosenGameDate.toISOString(),
-  //     gameStatus: updatedGameStatus,
-  //     fileName: `${gameData.gameName.toLowerCase()}-${gameData.gameDate.slice(0, 10)}`
-  //   };
-  //   console.log(gameDataToUpdate);
-  //   await api.put(`admin/game/${gameData.gameName}/update`, JSON.stringify(gameDataToUpdate))
-  //     .then((data) => {
-  //       console.log(data);
-  //       // setNotification({
-  //       //   type: 'success',
-  //       //   messageHeader: `Successfully updated ${gameData.gameName} game data`
-  //       // })
-  //     })
-  //     .catch((err) => console.log(err) || setNotification({
-  //       type: 'error',
-  //       messageHeader: `Unable to update ${gameData.gameName} game data`,
-  //       message: err
-  //     }));
-  // };
-
-
   return (
     <div className="container-admin">
-    <Accordion styled>
-      { showNotification && notificationMessage
-        && (
-        <Notification
-          type={notificationMessage.type}
+    { showNotification && notificationMessage
+      && (
+      <Notification
+        type={notificationMessage.type}
           messageHeader={notificationMessage.messageHeader}
-        />
-        )
-      }
+          message={notificationMessage.message || null}
+      />
+      )
+    }
+    <Accordion styled>
       <Accordion.Title
         active={activeIndex === 0}
         index={0}
@@ -204,7 +227,7 @@ export default function Panel(props) {
         Manage Groups
       </Accordion.Title>
       <Accordion.Content active={activeIndex === 0}>
-          {allGroups(groups, handleDraw)}
+          {allGroups(groups, handleDraw, deleteGroup, sendEmail)}
       </Accordion.Content>
 
       <Accordion.Title

@@ -85,7 +85,7 @@ export default function Wishlist(props) {
     } else {
       displayNotification({
         type: 'negative',
-        messageHeader: `Error updating gift ideas, ${response.error}`
+        messageHeader: `Error updating gift ideas, ${response.error}` // TODO: check if this should be response.data.error?
       });
     }
   };

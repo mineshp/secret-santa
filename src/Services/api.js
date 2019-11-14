@@ -12,7 +12,9 @@ const post = (url, body, headers) => axios.post(`${config.API_URL}${url}`, body,
 
 const put = (url, body, headers) => axios.put(`${config.API_URL}${url}`, body, headers).catch(handleError);
 
-const del = (url, body) => axios.delete(`${config.API_URL}${url}`, { data: body });
+const del = (url, headers) => axios.delete(`${config.API_URL}${url}`, headers).catch(handleError);
+
+// const del = (url, body, headers) => axios.delete(`${config.API_URL}${url}`, { data: body }, headers).catch(handleError);
 
 export default {
   get,
