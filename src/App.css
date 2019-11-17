@@ -71,19 +71,20 @@
 }
 
 .your-secret-santa.your-secret-santa.your-secret-santa {
-  font-size: 1.4em;
+  font-size: 1.6em !important;
   font-family: 'Patrick Hand', cursive;
   color: #53752d;
   position: absolute;
   top: 32%;
-  left: 20%;
+  left: 22%;
 }
 
-.reveal-btn.reveal-btn.reveal-btn {
+/* .reveal-btn.reveal-btn.reveal-btn { */
+.ui.button.reveal-btn {
   margin-left: 1vw;
-  margin-top: 69vw;
-  width: 37vw;
-  font-size: 1em;
+  margin-top: 65vw;
+  width: 25vw;
+  font-size: 1.2em !important;
 }
 
 .icon-btn.icon-btn.icon-btn.icon-btn.icon-btn.icon-btn {
@@ -99,8 +100,8 @@
 .my-wishlist-btn.my-wishlist-btn.my-wishlist-btn {
   margin-right: auto;
   margin-bottom: 10vw;
-  width: 45vw;
-  font-size: 1em;
+  width: 35vw;
+  font-size: 1.2em !important;
   display: flex;
   justify-content: space-around;
 }
@@ -108,8 +109,8 @@
 .secret-santa-wishlist-btn.secret-santa-wishlist-btn.secret-santa-wishlist-btn {
   margin-left: auto;
   margin-bottom: 10vw;
-  width: 53vw;
-  font-size: 1em;
+  width: 55vw;
+  font-size: 1.2em !important;
   display: flex;
   justify-content: space-around;
 }
@@ -119,8 +120,8 @@
   font-family: 'Patrick Hand', cursive;
   color: #53752d;
   position: absolute;
-  top: 30%;
-  left: 36%;
+  top: 32%;
+  left: 38%;
 }
 
 .flex-container {
@@ -131,11 +132,9 @@
 
 .flex-item {
   display: grid;
-  grid-gap: 0.5em;
+  grid-gap: 1.1em;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 2fr;
-  /* width: 36vw;
-  height: 28vh; */
   margin: auto;
 }
 
@@ -192,7 +191,7 @@
 /* Login */
 .box-login {
   padding: 1.1em;
-  border: solid 0.1em #53752d;
+  border: solid 0.1em #1d631a;
   border-radius: 8px;
 }
 
@@ -201,15 +200,16 @@
 }
 
 .login-header.login-header.login-header {
-  color: #53752d;
+  color: #1d631a;
   font-family: 'Patrick Hand', cursive;
-  margin-top: 0.1em;
+  margin-top: 0.5em;
   font-size: 1.3em;
+  padding-top: 0.3em;
 }
 
 .flex-item-login.flex-item-login.flex-item-login {
   grid-template-columns: 1fr 3fr;
-  height: 40vh;
+  height: 45vh;
   width: 65vw;
 }
 
@@ -221,7 +221,7 @@
   font-size: 0.9em;
 }
 
-.toUpperCase {
+.ui.button.toUpperCase {
   text-transform: capitalize;
 }
 
@@ -260,15 +260,15 @@
     font-family: 'Patrick Hand', cursive;
     color: #53752d;
     position: absolute;
-    top: 32%;
-    left: 37%;
+    top: 39%;
+    left: 39%;;
   }
 
   .reveal-btn.reveal-btn.reveal-btn {
-    margin-left: 27vw;
-    margin-top: 20vw;
-    width: 12vw;
-    font-size: 1.2em;
+    margin-left: 18vw;
+    margin-top: 21vw;
+    width: 8vw;
+    font-size: 1.2em !important;
   }
 
   .icon-btn.icon-btn.icon-btn.icon-btn.icon-btn.icon-btn {
@@ -283,20 +283,20 @@
 
   .my-wishlist-btn.my-wishlist-btn.my-wishlist-btn {
     margin-right: auto;
-    margin-left: 27vw;
-    margin-bottom: 5vw;
-    width: 15vw;
-    font-size: 1.2em;
+    margin-bottom: 10vw;
+    margin-left: 18em;
+    width: 10vw;
+    font-size: 1.2em !important;
     display: flex;
     justify-content: space-around;
   }
 
   .secret-santa-wishlist-btn.secret-santa-wishlist-btn.secret-santa-wishlist-btn {
     margin-left: auto;
-    margin-right: 30vw;
-    margin-bottom: 5vw;
-    width: 16vw;
-    font-size: 1.2em;
+    margin-right: 18vw;
+    margin-bottom: 10vw;
+    width: 20vw;;
+    font-size: 1.2em !important;
     display: flex;
     justify-content: space-around;
   }
@@ -356,7 +356,7 @@
 
     .flex-item-login.flex-item-login.flex-item-login {
       grid-template-columns: 1fr 3fr;
-      height: 35vh;
+      height: 65vh;
       width: 43vw;
     }
 
@@ -369,7 +369,7 @@
     }
 }
 
-@media only screen and (min-width: 1025px) and (max-width: 1280px) {
+@media only screen and (min-width: 1024px) and (max-width: 1280px) {
   /* Main Page - Logged In User */
 
   .container {
@@ -403,15 +403,15 @@
     font-family: 'Patrick Hand', cursive;
     color: #53752d;
     position: absolute;
-    top: 32%;
+    top: 37%;
     left: 36%;
   }
 
   .reveal-btn.reveal-btn.reveal-btn {
     margin-left: 27vw;
-    margin-top: 21vw;
-    width: 12vw;
-    font-size: 1em;
+    margin-top: 25vw;
+    width: 8vw;
+    font-size: 1em !important;
   }
 
   .icon-btn.icon-btn.icon-btn.icon-btn.icon-btn.icon-btn {
@@ -426,20 +426,20 @@
 
   .my-wishlist-btn.my-wishlist-btn.my-wishlist-btn {
     margin-right: auto;
-    margin-left: 27vw;
-    margin-bottom: 5vw;
+    margin-left: 25vw;
+    margin-bottom: 10vw;
     width: 12vw;
-    font-size: 1em;
+    font-size: 1em !important;
     display: flex;
     justify-content: space-around;
   }
 
   .secret-santa-wishlist-btn.secret-santa-wishlist-btn.secret-santa-wishlist-btn {
     margin-left: auto;
-    margin-right: 30vw;
-    margin-bottom: 5vw;
-    width: 15vw;
-    font-size: 1em;
+    margin-right: 20vw;
+    margin-bottom: 10vw;
+    width: 20vw;
+    font-size: 1em !important;
     display: flex;
     justify-content: space-around;
   }
@@ -503,7 +503,7 @@
   }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
+@media only screen and (min-width: 769px) and (max-width: 1023px) {
 
   /* Main Page - Logged In User */
 
@@ -538,13 +538,13 @@
     font-family: 'Patrick Hand', cursive;
     color: #53752d;
     position: absolute;
-    top: 37%;
+    top: 36%;
     left: 25%;
   }
 
   .reveal-btn.reveal-btn.reveal-btn {
     margin-left: 18vw;
-    margin-top: 57vw;
+    margin-top: 38vw;
     width: 16vw;
     font-size: 1.1em;
   }
@@ -554,7 +554,7 @@
   }
 
   .wishlist-buttons {
-    margin-top: auto;
+    /* margin-top: auto; */
     display: flex;
     justify-content: center;
   }
@@ -562,7 +562,7 @@
   .my-wishlist-btn.my-wishlist-btn.my-wishlist-btn {
     margin-right: auto;
     margin-left: 10vw;
-    margin-bottom: 30vw;
+    margin-bottom: 22vw;
     width: 23vw;
     font-size: 1.2em;
     display: flex;
@@ -580,12 +580,12 @@
   }
 
   .wishlist-header.wishlist-header.wishlist-header {
-    font-size: 3.2em;
+    font-size: 3em;
     font-family: 'Patrick Hand', cursive;
     color: #53752d;
     position: absolute;
-    top: 29%;
-    left: 38%;
+    top: 24%;
+    left: 36%;
   }
 
   .flex-container {
@@ -597,12 +597,12 @@
     grid-gap: 1.4em;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 2fr;
-    height: 29vh;
+    height: 42vh;
     margin: auto;
   }
 
   .wishlist-input {
-    font-size: 1.9em;
+    font-size: 1.em;
   }
 
   .wishlist-submit-btn.wishlist-submit-btn {
@@ -648,7 +648,7 @@
 
 }
 
-@media only screen and (min-width: 481px) and (max-width: 767px) {
+@media only screen and (min-width: 481px) and (max-width: 768px) {
 
   /* Main Page - Logged In User */
 
@@ -689,8 +689,8 @@
   }
 
   .reveal-btn.reveal-btn.reveal-btn {
-    margin-left: 23vw;
-    margin-top: 43vw;
+    margin-left: 16vw;
+    margin-top: 56vw;
     width: 18vw;
     font-size: 1em;
   }
@@ -707,7 +707,7 @@
 
   .my-wishlist-btn.my-wishlist-btn.my-wishlist-btn {
     margin-right: auto;
-    margin-left: 14vw;
+    margin-left: 16vw;
     margin-bottom: 22vw;
     width: 18vw;
     font-size: 1em;
@@ -729,7 +729,7 @@
     font-family: 'Patrick Hand', cursive;
     color: #53752d;
     position: absolute;
-    top: 16%;
+    top: 25%;
     left: 38%;
   }
 

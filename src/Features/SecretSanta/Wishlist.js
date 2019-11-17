@@ -17,6 +17,7 @@ export default function Wishlist(props) {
   const [wishlistFor, setWishlistFor] = useState(null);
   const [groupName, setGroupName] = useState(null);
   const [readOnlyList, setReadOnlyList] = useState(false);
+  const [deviceBP, setDeviceBP] = useState(null);
   const { match } = props;
 
   const { value: giftIdeaInput1, setValue: setGiftIdeaInput1, bind: bindGiftIdea1 } = useInput('');
@@ -27,6 +28,18 @@ export default function Wishlist(props) {
     setShowNotification(true);
     return setNotificationMessage(messageData);
   };
+
+  useEffect(() => {
+    if (window.innerWidth <= 480) {
+      setDeviceBP('mobile');
+    } else if (window.innerWidth > 481 && window.innerWidth <= 767) {
+      setDeviceBP('tablet');
+    } else if (window.innerWidth > 768 && window.innerWidth <= 1024) {
+      setDeviceBP('laptop')
+    } else if (window.innerWidth > 1024) {
+      setDeviceBP('largeDesktop');
+    }
+  }, []);
 
   useEffect(() => {
     const token = getToken();
@@ -90,6 +103,21 @@ export default function Wishlist(props) {
     }
   };
 
+  const setButtonSizeByDeviceRes = () => {
+    switch (deviceBP) {
+      case 'mobile':
+        return 'tiny';
+      case 'tablet':
+        return 'large';
+      case 'laptop':
+        return 'large';
+      case 'largeDesktop':
+        return 'big'
+      default:
+        break;
+    }
+  };
+
   const buttonClassName = (!readOnlyList)
     ? "box-wishlist"
     : "box-wishlist one-col-span";
@@ -97,6 +125,7 @@ export default function Wishlist(props) {
   if (!wishlistFor && wishlist) {
     return <Loading />;
   }
+
   return (
       <div className="container-wishlist">
         <Header
@@ -151,13 +180,13 @@ export default function Wishlist(props) {
             {
               !readOnlyList &&
               <div className={buttonClassName}>
-                <Button color="yellow" type="submit" className="wishlist-submit-btn">
+                <Button color="yellow" size={setButtonSizeByDeviceRes()} type="submit" className="wishlist-submit-btn">
                 Save
                 </Button>
               </div>
             }
               <div className={buttonClassName}>
-                <Button color="green" as={Link} className="wishlist-submit-btn" name="home" to="/">
+                <Button color="green" size={setButtonSizeByDeviceRes()} as={Link} className="wishlist-submit-btn" name="home" to="/">
                   Home
                 </Button>
             </div>

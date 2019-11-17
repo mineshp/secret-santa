@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
@@ -17,10 +17,23 @@ export default function Login(props) {
   const [notificationMessage, setNotificationMessage] = useState();
   const [state, dispatch] = useStateValue();
   let history = useHistory();
+  const [deviceBP, setDeviceBP] = useState(null);
 
   const { value: memberNameInput, bind: bindMemberName } = useInput('');
   const { value: groupNameInput, bind: bindGroupName } = useInput('');
   const { value: secretCodeInput, bind: bindSecretCode } = useInput('');
+
+  useEffect(() => {
+    if (window.innerWidth <= 480) {
+      setDeviceBP('mobile');
+    } else if (window.innerWidth > 481 && window.innerWidth <= 768) {
+      setDeviceBP('tablet');
+    } else if (window.innerWidth > 768 && window.innerWidth <= 1024) {
+      setDeviceBP('laptop')
+    } else if (window.innerWidth > 1024) {
+      setDeviceBP('largeDesktop');
+    }
+  }, []);
 
   const displayNotification = (messageData) => {
     setShowNotification(true);
@@ -81,6 +94,21 @@ export default function Login(props) {
       }));
   };
 
+  const setButtonSizeByDeviceRes = () => {
+    switch (deviceBP) {
+      case 'mobile':
+        return 'tiny';
+      case 'tablet':
+        return 'large';
+      case 'laptop':
+        return 'small';
+      case 'largeDesktop':
+        return 'big'
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="container-login">
     <form onSubmit={handleSubmit}>
@@ -91,7 +119,7 @@ export default function Login(props) {
           </div>
           <div className="box-wishlist">
             <Header as="h2" className="login-header" textAlign="center">
-              Login to Secret Santa
+              Secret Santa Login
             </Header>
           </div>
           <div className="box-wishlist one-col-span login-input">
@@ -124,7 +152,7 @@ export default function Login(props) {
             />
           </div>
           <div className="box-wishlist one-col-span">
-            <Button color='teal' fluid size='large' className="login-btn">
+            <Button color='teal' fluid size={setButtonSizeByDeviceRes()} className="login-btn">
               Login
             </Button>
             { showNotification && notificationMessage
