@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
@@ -8,17 +8,18 @@ import logo from '../../md-logo-green.png';
 import { getToken, setAuthorisationToken, setToken, getMember } from './Auth';
 import api from '../../Services/api';
 import Notification from '../../Shared/Notification';
-
+import { UserContext } from './useAuth';
 import useInput from '../../Shared/useInput'
 import { useStateValue } from '../../State';
+
 
 export default function Login(props) {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState();
-  const [state, dispatch] = useStateValue();
+
   let history = useHistory();
   const [deviceBP, setDeviceBP] = useState(null);
-
+  const { dispatch }= useContext(UserContext);
   const { value: memberNameInput, bind: bindMemberName } = useInput('');
   const { value: groupNameInput, bind: bindGroupName } = useInput('');
   const { value: secretCodeInput, bind: bindSecretCode } = useInput('');
@@ -51,7 +52,6 @@ export default function Login(props) {
 
     if (response.data) {
       const { token, error } = JSON.parse(response.data);
-
       if (token) {
         setToken(token);
         displayNotification({
@@ -61,8 +61,8 @@ export default function Login(props) {
 
         const decodedUser = getMember(token);
         return dispatch({
-          type: 'SET_MEMBER',
-          member: { ...decodedUser }
+          type: 'SET_USER',
+          user: { ...decodedUser }
         });
       } else if (error) {
         displayNotification({

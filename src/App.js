@@ -1,31 +1,14 @@
 import React from 'react';
-import Routes from './Routes';
+import AppContainer from './AppContainer';
+
 import './App.css';
-import { StateProvider } from './State';
+import { UserProvider } from './Features/Authentication/useAuth';
 
-const App = () => {
-  const initialState = {
-    member: undefined
-  };
-
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case 'SET_MEMBER':
-        return {
-          ...state,
-          member: action.member
-        };
-      default:
-        return state;
-    }
-  };
-
+const App = (props) => {
   return (
-    <StateProvider initialState={initialState} reducer={reducer}>
-      <div className="App main-container">
-        <Routes />
-      </div>
-    </StateProvider>
+    <UserProvider>
+      <AppContainer />
+    </UserProvider>
   );
 };
 

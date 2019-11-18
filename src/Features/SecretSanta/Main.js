@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
-import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
+import Loading from '../../Shared/Loading';
 
 import { getToken, setAuthorisationToken } from '../Authentication/Auth';
 import api from '../../Services/api';
@@ -58,7 +58,7 @@ export default function SecretSanta({ member }) {
 
   return (
     <Container>
-    <div className="container">
+    <div className="container-main">
       <Header as='h3' className='your-secret-santa'>
         Hi <span className="toUppperCase">{member.memberName}</span> your Secret Santa is
       </Header>
