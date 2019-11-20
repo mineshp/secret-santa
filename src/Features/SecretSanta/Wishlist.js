@@ -68,7 +68,7 @@ const myWishlist = (
           </Button>
         }</div>
         <div className="box-wishlist h-wishlist"></div>
-        <div className="box-wishlist i-wishlist"><Button color="greyss" size={setButtonSizeByDeviceRes()} as={Link} className="" name="home" to="/">
+        <div className="box-wishlist i-wishlist"><Button color="grey" size={setButtonSizeByDeviceRes()} as={Link} className="" name="home" to="/">
           Back
     </Button></div>
       </div>
@@ -177,6 +177,12 @@ export default function Wishlist(props) {
       setReadOnlyList(memberName !== wishlistFor);
     }
   }, [wishlistFor]);
+
+  useEffect(() => {
+    if (showNotification) {
+      setTimeout(() => setShowNotification(false), 3000);
+    }
+  }, [showNotification]);
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();

@@ -14,7 +14,7 @@ const Notification = ({ type, messageHeader, message }) => {
   switch (type) {
     case 'negative':
       return (
-        <Message negative>
+        <Message negative size='tiny' className='notification'>
           <NotificationContent
             messageHeader={messageHeader}
             message={message}
@@ -23,7 +23,7 @@ const Notification = ({ type, messageHeader, message }) => {
       );
     case 'positive':
       return (
-        <Message positive>
+        <Message positive size='tiny' className='notification'>
           <NotificationContent
             messageHeader={messageHeader}
             message={message}

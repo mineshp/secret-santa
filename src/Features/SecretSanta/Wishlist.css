@@ -3,7 +3,7 @@ body {
 }
 
 .wishlist-bg {
-  background: url(../../assets/snowman-wishlist-mobile.jpg) center no-repeat;
+  background: url(../../assets/snowman-wishlist-mobile2.jpg) center no-repeat;
   width: 100%;
 }
 
@@ -52,7 +52,7 @@ body {
   grid-row-end: 3;
 }
 .b-wishlist.wishlist-heading {
-  font-family: 'Cinzel', serif;
+  font-family: 'Permanent Marker', cursive;
   font-size: 1.5rem;;
   font-weight: bold;
   text-transform: capitalize;

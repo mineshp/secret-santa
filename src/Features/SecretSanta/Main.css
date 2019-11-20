@@ -1,8 +1,9 @@
 body {
+  font-family: 'Roboto', sans-serif;
 }
 
 .main-bg {
-  background: url(../../assets/santa-main-mobile.jpg) center;
+  background: url(../../assets/santa-main-mobile2.jpg) center;
   width: 100%;
 }
 
@@ -46,7 +47,7 @@ body {
 }
 .b-main.secret-santa-heading {
   font-family: 'Cinzel', serif;
-  font-size: 1.2rem;;
+  font-size: 1.3rem;;
   font-weight: bold;
   color: #78e6d8;
 }
@@ -89,6 +90,16 @@ body {
   align-self: end;
 }
 
-.ui.button.withMemberName {
+/* Hi {memberName} your Secret Santa is */
+span.displayMemberName {
   text-transform: capitalize;
+}
+
+/* Reveal Button Member Name */
+.ui.button.displayMemberName {
+  text-transform: capitalize;
+}
+
+.ui.message.notification {
+  font-family: 'Roboto', sans-serif;
 }
