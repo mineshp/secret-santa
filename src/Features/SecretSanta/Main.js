@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
-import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
-import Loading from '../../Shared/Loading';
+import './Main.css';
 
 import { getToken, setAuthorisationToken } from '../Authentication/Auth';
 import api from '../../Services/api';
@@ -44,7 +43,7 @@ export default function SecretSanta({ member }) {
   const setButtonSizeByDeviceRes = () => {
     switch (deviceBP) {
       case 'mobile':
-        return 'medium';
+        return 'small';
       case 'tablet':
         return 'large';
       case 'laptop':
@@ -58,29 +57,38 @@ export default function SecretSanta({ member }) {
 
   return (
     <Container>
-    <div className="container-main">
-      <Header as='h3' className='your-secret-santa'>
-        Hi <span className="toUppperCase">{member.memberName}</span> your Secret Santa is
-      </Header>
-        <Button color={mySecretSanta ? 'red' : 'yellow'} className='reveal-btn toUpperCase' size={setButtonSizeByDeviceRes()} onClick={revealMySecretSanta}>
-        {mySecretSanta ? mySecretSanta : 'Reveal'}
-      </Button>
-      <div className="wishlist-buttons">
-        <Button
-          color='teal'
-          className='my-wishlist-btn'
-          size={setButtonSizeByDeviceRes()}
-          as={Link}
-          name='my-wishlist'
-          to={`/secretsanta/wishlist/${member.memberName}/${member.groupID}`}
-        >
-          My Wishlist
-        </Button>
-        {
-          mySecretSanta &&
+      <div className="main-bg">
+      <div className="wrapper-main">
+        <div className="box-main a-main merry-christmas">Ho Ho Ho!</div>
+        <div className="box-main b-main secret-santa-heading">Hi <span className="withMemberName">{member.memberName}</span> your Secret Santa is
+        </div>
+        <div className="box-main c-main"></div>
+        <div className="box-main d-main reveal-santa">
+          <Button compact fluid color={mySecretSanta ? 'black' : 'yellow'} className='withMemberName' size={setButtonSizeByDeviceRes()} onClick={revealMySecretSanta}>
+          {mySecretSanta ? mySecretSanta : 'Reveal'}
+          </Button>
+        </div>
+        <div className="box-main e-main"></div>
+        <div className="box-main f-main">
           <Button
+            color='teal'
+            className='my-wishlist-btn'
+            size={setButtonSizeByDeviceRes()}
+            as={Link}
+            name='my-wishlist'
+            to={`/secretsanta/wishlist/${member.memberName}/${member.groupID}`}
+          >
+          My Wishlist
+          </Button>
+        </div>
+        <div className="box-main g-main"></div>
+        <div className="box-main h-main">{
+          mySecretSanta &&
+            <Button
+            compact
+            fluid
             color='purple'
-            className='secret-santa-wishlist-btn toUpperCase'
+            className='withMemberName'
             size={setButtonSizeByDeviceRes()}
             as={Link}
             name='my-wishlist'
@@ -88,9 +96,9 @@ export default function SecretSanta({ member }) {
           >
             {`${mySecretSanta}'s Wishlist`}
           </Button>
-        }
-      </div>
-      </div>
+        }</div>
+        </div>
+        </div>
       </Container>
   );
 };

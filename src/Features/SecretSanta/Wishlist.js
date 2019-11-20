@@ -1,14 +1,113 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
-import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
 import Loading from '../../Shared/Loading';
+import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import Notification from '../../Shared/Notification';
+import './Wishlist.css';
 
 import useInput from '../../Shared/useInput'
 import { getToken, getMember, setAuthorisationToken } from '../Authentication/Auth';
 import api from '../../Services/api';
+
+const myWishlist = (
+  showNotification,
+  notificationMessage,
+  wishlistFor,
+  setButtonSizeByDeviceRes,
+  bindGiftIdea1,
+  bindGiftIdea2,
+  bindGiftIdea3,
+  handleSubmit) => (
+    <Form size='tiny' onSubmit={handleSubmit}>
+    <div className="wishlist-bg">
+      <div className="wrapper-wishlist">
+        <div className="box-wishlist a-wishlist">
+        { showNotification && notificationMessage
+          && (
+          <Notification
+            type={notificationMessage.type}
+            messageHeader={notificationMessage.messageHeader}
+          />
+          )
+        }
+        </div>
+        <div className="box-wishlist b-wishlist wishlist-heading">{`${wishlistFor}'s Wishlist`}</div>
+        <div className="box-wishlist c-wishlist"><Form.Field key='gift-1'>
+          <Form.Input
+            name='giftIdea1'
+            placeholder='Gift Idea 1'
+            width={9}
+            {...bindGiftIdea1}
+          />
+        </Form.Field></div>
+        <div className="box-wishlist d-wishlist"><Form.Field key='gift-1'>
+          <Form.Field key='gift-2'>
+            <Form.Input
+              name='giftIdea2'
+              placeholder='Gift Idea 2'
+              width={9}
+
+              {...bindGiftIdea2}
+            />
+          </Form.Field>
+        </Form.Field></div>
+        <div className="box-wishlist e-wishlist"><Form.Field key='gift-3'>
+          <Form.Input
+            name='giftIdea3'
+            placeholder='Gift Idea 3'
+            width={9}
+            {...bindGiftIdea3}
+          />
+        </Form.Field></div>
+        <div className="box-wishlist f-wishlist"></div>
+        <div className="box-wishlist g-wishlist">{
+          <Button color="purple" size={setButtonSizeByDeviceRes()} type="submit" className="">
+            Save
+          </Button>
+        }</div>
+        <div className="box-wishlist h-wishlist"></div>
+        <div className="box-wishlist i-wishlist"><Button color="greyss" size={setButtonSizeByDeviceRes()} as={Link} className="" name="home" to="/">
+          Back
+    </Button></div>
+      </div>
+    </div>
+  </Form>
+  );
+
+const secretSantasWishlist = (
+    showNotification,
+    notificationMessage,
+    wishlistFor,
+    setButtonSizeByDeviceRes,
+    wishlist
+) => (
+      <div className="wishlist-bg">
+        <div className="wrapper-wishlist">
+          <div className="box-wishlist a-wishlist">
+          { showNotification && notificationMessage
+            && (
+            <Notification
+              type={notificationMessage.type}
+              messageHeader={notificationMessage.messageHeader}
+            />
+            )
+          }
+          </div>
+          <div className="box-wishlist b-wishlist wishlist-heading">{`${wishlistFor}'s Wishlist`}</div>
+        <div className="box-wishlist c-wishlist readonlylist">{wishlist[0]}</div>
+          <div className="box-wishlist d-wishlist readonlylist">{wishlist[1]}</div>
+          <div className="box-wishlist e-wishlist readonlylist">{wishlist[2]}</div>
+          <div className="box-wishlist f-wishlist"></div>
+          <div className="box-wishlist g-wishlist"></div>
+          <div className="box-wishlist h-wishlist"><Button color="grey" size={setButtonSizeByDeviceRes()} as={Link} className="" name="home" to="/">
+          Back
+    </Button></div>
+          <div className="box-wishlist i-wishlist"></div>
+        </div>
+      </div>
+  );
 
 export default function Wishlist(props) {
   const [showNotification, setShowNotification] = useState(false);
@@ -118,81 +217,32 @@ export default function Wishlist(props) {
     }
   };
 
-  const buttonClassName = (!readOnlyList)
-    ? "box-wishlist"
-    : "box-wishlist one-col-span";
-
   if (!wishlistFor && wishlist) {
     return <Loading />;
   }
 
   return (
-      <div className="container-wishlist">
-        <Header
-          as='h1'
-          content={`${wishlistFor.charAt(0).toUpperCase() + wishlistFor.slice(1)}'s Wishlist`}
-          className='wishlist-header'
-        />
-        <form onSubmit={handleSubmit}>
-          <div className="flex-container">
-          <div className="flex-item">
-          { showNotification && notificationMessage
-            && (
-            <Notification
-              type={notificationMessage.type}
-              messageHeader={notificationMessage.messageHeader}
-            />
-            )
-          }
-              <div className="box-wishlist one-col-span wishlist-input" key='gift-1'>
-                <Form.Field key='gift-1'>
-                  <Form.Input
-                    name='giftIdea1'
-                    placeholder='Gift Idea 1'
-                    width={9}
-                    readOnly={readOnlyList}
-                    {...bindGiftIdea1}
-                  />
-                </Form.Field>
-            </div>
-            <div className="box-wishlist one-col-span wishlist-input" key='gift-2'>
-                <Form.Field key='gift-2'>
-                  <Form.Input
-                    name='giftIdea2'
-                    placeholder='Gift Idea 2'
-                    width={9}
-                    readOnly={readOnlyList}
-                    {...bindGiftIdea2}
-                  />
-                </Form.Field>
-            </div>
-            <div className="box-wishlist one-col-span wishlist-input" key='gift-3'>
-                <Form.Field key='gift-3'>
-                  <Form.Input
-                    name='giftIdea3'
-                    placeholder='Gift Idea 3'
-                    width={9}
-                    readOnly={readOnlyList}
-                    {...bindGiftIdea3}
-                  />
-                </Form.Field>
-            </div>
-            {
-              !readOnlyList &&
-              <div className={buttonClassName}>
-                <Button color="yellow" size={setButtonSizeByDeviceRes()} type="submit" className="wishlist-submit-btn">
-                Save
-                </Button>
-              </div>
-            }
-              <div className={buttonClassName}>
-                <Button color="green" size={setButtonSizeByDeviceRes()} as={Link} className="wishlist-submit-btn" name="home" to="/">
-                  Home
-                </Button>
-            </div>
-            </div>
-        </div>
-        </form>
-      </div>
+    <Container>
+      {
+        readOnlyList
+        ? secretSantasWishlist(
+          showNotification,
+          notificationMessage,
+          wishlistFor,
+          setButtonSizeByDeviceRes,
+          wishlist
+          )
+        : myWishlist(
+          showNotification,
+          notificationMessage,
+          wishlistFor,
+          setButtonSizeByDeviceRes,
+          bindGiftIdea1,
+          bindGiftIdea2,
+          bindGiftIdea3,
+          handleSubmit
+        )
+    }
+    </Container>
     );
 };

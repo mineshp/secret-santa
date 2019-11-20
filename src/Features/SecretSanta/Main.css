@@ -1,0 +1,94 @@
+body {
+}
+
+.main-bg {
+  background: url(../../assets/santa-main-mobile.jpg) center;
+  width: 100%;
+}
+
+.wrapper-main {
+  display: grid;
+  min-height: calc(100vh - 42px); /* Calculate height removing nav menu so we don't see scrollbars */
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 40px repeat(2, min-content) 1fr;
+  grid-gap: 1px;
+  color: #FFF;
+}
+
+.box-main {
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 120%;
+  text-align: center;
+}
+
+.box-button-main {
+  border-radius: 5px;
+  font-size: 100%;
+  text-align: center;
+}
+.a-main {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.a-main.merry-christmas {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2rem;;
+}
+.b-main {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+.b-main.secret-santa-heading {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;;
+  font-weight: bold;
+  color: #78e6d8;
+}
+.c-main {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+.d-main {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+.e-main {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+.f-main {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 4;
+  grid-row-end: 5;
+  align-self: end;
+}
+.g-main {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 4;
+  grid-row-end: 5;
+}
+.h-main {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 4;
+  grid-row-end: 5;
+  align-self: end;
+}
+
+.ui.button.withMemberName {
+  text-transform: capitalize;
+}

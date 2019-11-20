@@ -1,0 +1,107 @@
+body {
+  /* margin: 40px; */
+}
+
+.wishlist-bg {
+  background: url(../../assets/snowman-wishlist-mobile.jpg) center no-repeat;
+  width: 100%;
+}
+
+.wrapper-wishlist {
+  display: grid;
+  min-height: calc(100vh - 42px); /* Calculate height removing nav menu so we don't see scrollbars */
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 40px repeat(13, min-content) 1fr;
+  grid-gap: 10px;
+  color: #FFF;
+}
+
+.box-wishlist {
+  color: #000;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 120%;
+  text-align: center;
+}
+
+.readonlylist {
+  font-family: 'Permanent Marker', cursive;
+  color: purple;
+  text-align: left;
+  padding-left: 5%;
+  padding-top: 7%;
+}
+
+.box-button-wishlist {
+  color: #000;
+  border-radius: 5px;
+  font-size: 150%;
+  text-align: center;
+}
+
+.a-wishlist {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+.b-wishlist {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+.b-wishlist.wishlist-heading {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;;
+  font-weight: bold;
+  text-transform: capitalize;
+  color: #b70909
+}
+.c-wishlist {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 12;
+  grid-row-end: 13;
+}
+.d-wishlist {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 13;
+  grid-row-end: 14;
+}
+.e-wishlist {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 15;
+  grid-row-end: 16;
+}
+.f-wishlist {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 6;
+  grid-row-end: 7;
+}
+.g-wishlist {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 16;
+  grid-row-end: 17;
+  align-self: end;
+}
+.h-wishlist {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 16;
+  grid-row-end: 17;
+  align-self: end;
+}
+.i-wishlist {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 16;
+  grid-row-end: 17;
+}
+.ui.button.withMemberName {
+  text-transform: capitalize;
+}
