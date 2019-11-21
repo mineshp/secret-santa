@@ -3,7 +3,7 @@ body {
 }
 
 .wishlist-bg {
-  background: url(../../assets/snowman-wishlist-mobile2.jpg) center no-repeat;
+  background: url(../../assets/snowman-wishlist-mobile2.jpg) no-repeat center center fixed #FFF;
   width: 100%;
 }
 
@@ -11,7 +11,7 @@ body {
   display: grid;
   min-height: calc(100vh - 42px); /* Calculate height removing nav menu so we don't see scrollbars */
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 40px repeat(13, min-content) 1fr;
+  grid-template-rows: 40px repeat(15, min-content) 1fr;
   grid-gap: 10px;
   color: #FFF;
 }
@@ -26,7 +26,7 @@ body {
 
 .readonlylist {
   font-family: 'Permanent Marker', cursive;
-  color: purple;
+  color: rgba(12, 65, 106, 0.989);
   text-align: left;
   padding-left: 5%;
   padding-top: 7%;
@@ -53,55 +53,143 @@ body {
 }
 .b-wishlist.wishlist-heading {
   font-family: 'Permanent Marker', cursive;
-  font-size: 1.5rem;;
+  font-size: 2.2rem;;
   font-weight: bold;
   text-transform: capitalize;
-  color: #b70909
+  color: #b15082;
+  padding-left: inherit;
 }
 .c-wishlist {
-  grid-column-start: 1;
-  grid-column-end: 4;
-  grid-row-start: 12;
-  grid-row-end: 13;
-}
-.d-wishlist {
-  grid-column-start: 1;
-  grid-column-end: 4;
-  grid-row-start: 13;
-  grid-row-end: 14;
-}
-.e-wishlist {
   grid-column-start: 1;
   grid-column-end: 4;
   grid-row-start: 15;
   grid-row-end: 16;
 }
+.d-wishlist {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 16;
+  grid-row-end: 17;
+}
+.e-wishlist {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 17;
+  grid-row-end: 18;
+}
 .f-wishlist {
   grid-column-start: 1;
   grid-column-end: 4;
-  grid-row-start: 6;
-  grid-row-end: 7;
+  grid-row-start: 18;
+  grid-row-end: 19;
 }
 .g-wishlist {
   grid-column-start: 1;
   grid-column-end: 2;
-  grid-row-start: 16;
-  grid-row-end: 17;
+  grid-row-start: 19;
+  grid-row-end: 20;
   align-self: end;
 }
 .h-wishlist {
   grid-column-start: 2;
   grid-column-end: 3;
-  grid-row-start: 16;
-  grid-row-end: 17;
+  grid-row-start: 19;
+  grid-row-end: 20;
   align-self: end;
 }
 .i-wishlist {
   grid-column-start: 3;
   grid-column-end: 4;
-  grid-row-start: 16;
-  grid-row-end: 17;
+  grid-row-start: 19;
+  grid-row-end: 20;
+  align-self: end;
 }
 .ui.button.withMemberName {
   text-transform: capitalize;
+}
+
+.ui.form input[type="text"] {
+  color: rgba(12, 65, 106, 0.989) !important;;
+  font-family: 'Permanent Marker', cursive !important;
+}
+
+@media (min-width: 640px) {
+  .wishlist-bg {
+    background: url(../../assets/wishlist-tablet.jpg) no-repeat center center fixed #FFF;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+  .b-wishlist.wishlist-heading {
+    font-size: 2.6rem;
+  }
+
+  .box-wishlist {
+    padding-left: 33%;
+    font-size: 140%;
+  }
+}
+
+@media (min-width: 768px) {
+  .wishlist-bg {
+    background: url(../../assets/snowman-wl-desktop.jpg) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  .b-wishlist.wishlist-heading {
+    font-size: 3rem;
+  }
+
+  .box-wishlist {
+    padding-left: 33%;
+    font-size: 150%;
+  }
+}
+
+@media (min-width: 1024px){
+  .wishlist-bg {
+    background: url(../../assets/snowman-wl-desktop.jpg) no-repeat center center fixed #FFF;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+  .b-wishlist.wishlist-heading {
+    font-size: 4rem;
+  }
+
+  .box-wishlist {
+    padding-left: 33%;
+    font-size: 170%;
+  }
+}
+
+@media (min-width: 1200px){
+  .wishlist-bg {
+    background: url(../../assets/snowman-wl-desktop.jpg)) no-repeat center center fixed #FFF;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+  .b-wishlist.wishlist-heading {
+    font-size: 6rem;
+  }
+
+  .box-wishlist {
+    padding-left: 33%;
+    font-size: 200%;
+  }
+
+  .readonlylist {
+    /* font-family: 'Permanent Marker', cursive; */
+    text-align: left;
+    padding-left: 50%;
+  }
 }

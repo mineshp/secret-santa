@@ -103,3 +103,60 @@ span.displayMemberName {
 .ui.message.notification {
   font-family: 'Roboto', sans-serif;
 }
+
+@media (min-width: 640px) {
+  .main-bg {
+    background: url(../../assets/santa-tablet.jpg) no-repeat center center fixed #FFF;
+  }
+
+  .a-main.merry-christmas {
+    font-size: 2.5rem;;
+  }
+
+  .b-main.secret-santa-heading {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .main-bg {
+    background: url(../../assets/santa-tablet.jpg) no-repeat center center fixed #FFF;
+  }
+
+  .a-main.merry-christmas {
+    font-size: 2.8rem;;
+  }
+
+  .b-main.secret-santa-heading {
+    font-size: 2.1rem;
+  }
+}
+
+@media (min-width: 1024px){
+  .main-bg {
+    background: url(../../assets/santa-laptop.jpg) no-repeat center center fixed #FFF;
+  }
+
+  .a-main.merry-christmas {
+    font-size: 3rem;;
+  }
+
+  .b-main.secret-santa-heading {
+    font-size: 2.3rem;
+  }
+}
+
+
+@media (min-width: 1200px){
+  .main-bg {
+    background: url(../../assets/santa-main.jpg) no-repeat center center fixed #FFF;
+  }
+
+  .a-main.merry-christmas {
+    font-size: 3rem;;
+  }
+
+  .b-main.secret-santa-heading {
+    font-size: 2.3rem;
+  }
+}

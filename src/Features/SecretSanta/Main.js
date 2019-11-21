@@ -64,7 +64,7 @@ export default function SecretSanta({ member }) {
         </div>
         <div className="box-main c-main"></div>
         <div className="box-main d-main reveal-santa">
-          <Button compact fluid color={mySecretSanta ? 'black' : 'yellow'} className='displayMemberName' size={setButtonSizeByDeviceRes()} onClick={revealMySecretSanta}>
+          <Button compact fluid color={mySecretSanta ? 'olive' : 'yellow'} className='displayMemberName' size={setButtonSizeByDeviceRes()} onClick={revealMySecretSanta}>
           {mySecretSanta ? mySecretSanta : 'Reveal'}
           </Button>
         </div>
@@ -87,7 +87,7 @@ export default function SecretSanta({ member }) {
             <Button
             compact
             fluid
-            color='purple'
+            color='blue'
             className='displayMemberName'
             size={setButtonSizeByDeviceRes()}
             as={Link}
