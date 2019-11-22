@@ -1,9 +1,18 @@
+/* Main Page */
 body {
   font-family: 'Roboto', sans-serif;
 }
 
+.background-main {
+  background-image: url('../../assets/santa-main.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #a23535;
+}
+
 .main-bg {
-  background: url(../../assets/santa-main-mobile2.jpg) center;
   width: 100%;
 }
 
@@ -37,7 +46,7 @@ body {
 }
 .a-main.merry-christmas {
   font-family: 'Permanent Marker', cursive;
-  font-size: 2rem;;
+  font-size: 2rem;
 }
 .b-main {
   grid-column-start: 1;
@@ -49,7 +58,7 @@ body {
   font-family: 'Cinzel', serif;
   font-size: 1.3rem;;
   font-weight: bold;
-  color: #78e6d8;
+  color: #070846fc
 }
 .c-main {
   grid-column-start: 1;
@@ -100,15 +109,12 @@ span.displayMemberName {
   text-transform: capitalize;
 }
 
-.ui.message.notification {
-  font-family: 'Roboto', sans-serif;
+.ui.inverted.menu .toUpperCase {
+  color: #FFF;
+  text-transform: capitalize;
 }
 
 @media (min-width: 640px) {
-  .main-bg {
-    background: url(../../assets/santa-tablet.jpg) no-repeat center center fixed #FFF;
-  }
-
   .a-main.merry-christmas {
     font-size: 2.5rem;;
   }
@@ -119,10 +125,6 @@ span.displayMemberName {
 }
 
 @media (min-width: 768px) {
-  .main-bg {
-    background: url(../../assets/santa-tablet.jpg) no-repeat center center fixed #FFF;
-  }
-
   .a-main.merry-christmas {
     font-size: 2.8rem;;
   }
@@ -133,10 +135,6 @@ span.displayMemberName {
 }
 
 @media (min-width: 1024px){
-  .main-bg {
-    background: url(../../assets/santa-laptop.jpg) no-repeat center center fixed #FFF;
-  }
-
   .a-main.merry-christmas {
     font-size: 3rem;;
   }
@@ -148,10 +146,6 @@ span.displayMemberName {
 
 
 @media (min-width: 1200px){
-  .main-bg {
-    background: url(../../assets/santa-main.jpg) no-repeat center center fixed #FFF;
-  }
-
   .a-main.merry-christmas {
     font-size: 3rem;;
   }

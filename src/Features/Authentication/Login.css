@@ -1,4 +1,21 @@
 /* Login */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.background-login {
+  background-image: url('../../assets/login-bg.gif');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #4e93d0;
+}
+
+.login-bg {
+  width: 100%;
+}
+
 .box-login {
   padding: 1.1em;
   border: solid 0.1em #1d631a;
@@ -9,9 +26,9 @@
   height: 2.6em;
 }
 
-.login-header.login-header.login-header {
-  color: #1d631a;
-  font-family: 'Patrick Hand', cursive;
+.ui.header.login-header {
+  font-family: 'Permanent Marker', cursive;
+  color: #0c416afc;
   margin-top: 0.5em;
   font-size: 1.3em;
   padding-top: 0.3em;
@@ -29,4 +46,9 @@
 
 .login-input {
   font-size: 0.9em;
+}
+
+.unknown-login-details {
+  font-family: 'Permanent Marker', cursive;
+  color: #0c416afc;
 }

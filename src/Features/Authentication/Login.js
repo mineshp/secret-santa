@@ -4,12 +4,16 @@ import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
 import Image from 'semantic-ui-react/dist/commonjs/elements/Image';
+import Message from 'semantic-ui-react/dist/commonjs/collections/Message';
+import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid';
+import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment';
 import logo from '../../md-logo-green.png';
+
 import { getToken, setAuthorisationToken, setToken, getMember } from './Auth';
 import api from '../../Services/api';
 import Notification from '../../Shared/Notification';
 import { UserContext } from './useAuth';
-import useInput from '../../Shared/useInput'
+import useInput from '../../Shared/useInput';
 import './Login.css';
 
 
@@ -23,6 +27,8 @@ export default function Login(props) {
   const { value: memberNameInput, bind: bindMemberName } = useInput('');
   const { value: groupNameInput, bind: bindGroupName } = useInput('');
   const { value: secretCodeInput, bind: bindSecretCode } = useInput('');
+
+  document.body.className = 'background-login';
 
   useEffect(() => {
     if (window.innerWidth <= 480) {
@@ -83,9 +89,9 @@ export default function Login(props) {
       });
     }
     await loginUser({
-      memberName: memberNameInput,
-      groupID: groupNameInput,
-      passphrase: secretCodeInput
+      memberName: memberNameInput.toLowerCase(),
+      groupID: groupNameInput.toLowerCase(),
+      passphrase: secretCodeInput.toLowerCase()
     })
       .then(() => history.push('/'))
       .catch((err) => displayNotification({
@@ -110,63 +116,56 @@ export default function Login(props) {
   };
 
   return (
-    <div className="container-login">
-    <form onSubmit={handleSubmit}>
-      <div className="flex-container">
-        <div className="flex-item flex-item-login box-login">
-          <div className="box-wishlist">
-            <Image src={logo} className="home-logo" />
-          </div>
-          <div className="box-wishlist">
-            <Header as="h2" className="login-header" textAlign="center">
-              Secret Santa Login
-            </Header>
-          </div>
-          <div className="box-wishlist one-col-span login-input">
-            <Form.Input
-              fluid
-              icon='user'
-              iconPosition='left'
-              placeholder='Name'
-              name='memberName'
-              {...bindMemberName}
-            />
-          </div>
-          <div className="box-wishlist one-col-span login-input">
-              <Form.Input
-                fluid icon='group'
-                iconPosition='left'
-                placeholder='Group name'
-                name='groupID'
-                {...bindGroupName}
-              />
-          </div>
-          <div className="box-wishlist one-col-span login-input">
-            <Form.Input
-              fluid
-              icon='lock'
-              iconPosition='left'
-              placeholder='Code'
-              name='passphrase'
-              {...bindSecretCode}
-            />
-          </div>
-          <div className="box-wishlist one-col-span">
-            <Button color='teal' fluid size={setButtonSizeByDeviceRes()} className="login-btn">
-              Login
-            </Button>
-            { showNotification && notificationMessage
-              && (
-              <Notification
-                type={notificationMessage.type}
-                messageHeader={notificationMessage.messageHeader}
-              />
-              )
-            }
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
+    <div className="login-bg">
+    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+    <Grid.Column style={{ maxWidth: 450 }}>
+      <Header as='h2'  textAlign='center' className="login-header">
+        <Image src={logo} /> Secret Santa Login
+      </Header>
+      <Form size='large' onSubmit={handleSubmit}>
+        <Segment stacked>
+          <Form.Input
+            fluid
+            icon='user'
+            iconPosition='left'
+            placeholder='Name'
+            name='memberName'
+            {...bindMemberName}
+          />
+          <Form.Input
+            fluid icon='group'
+            iconPosition='left'
+            placeholder='Group name'
+            name='groupID'
+            {...bindGroupName}
+          />
+          <Form.Input
+            fluid
+            icon='lock'
+            iconPosition='left'
+            placeholder='Code'
+            name='passphrase'
+            {...bindSecretCode}
+          />
+          <Button color='red' fluid size='large'>
+            Login
+          </Button>
+        </Segment>
+      </Form>
+      <Message>
+      { showNotification && notificationMessage
+        ? (
+        <Notification
+          type={notificationMessage.type}
+          messageHeader={notificationMessage.messageHeader}
+        />
+        )
+        : <span className="unknown-login-details">See email for login details</span>
+      }
+
+      </Message>
+    </Grid.Column>
+    </Grid>
+    </div>
   )
 }

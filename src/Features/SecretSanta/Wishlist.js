@@ -34,36 +34,32 @@ const myWishlist = (
         }
         </div>
         <div className="box-wishlist b-wishlist wishlist-heading">{`${wishlistFor}'s Wishlist`}</div>
-        <div className="box-wishlist c-wishlist"><Form.Field key='gift-1'>
+        <div className="box-wishlist c-wishlist"><Form.Field key='gift-1' width="sixteen">
           <Form.Input
             name='giftIdea1'
             placeholder='Gift Idea 1'
-            width={9}
             {...bindGiftIdea1}
           />
         </Form.Field></div>
-        <div className="box-wishlist d-wishlist"><Form.Field key='gift-1'>
+        <div className="box-wishlist d-wishlist"><Form.Field key='gift-1' width="sixteen">
           <Form.Field key='gift-2'>
             <Form.Input
               name='giftIdea2'
               placeholder='Gift Idea 2'
-              width={9}
-
               {...bindGiftIdea2}
             />
           </Form.Field>
         </Form.Field></div>
-        <div className="box-wishlist e-wishlist"><Form.Field key='gift-3'>
+        <div className="box-wishlist e-wishlist"><Form.Field key='gift-3' width="sixteen">
           <Form.Input
             name='giftIdea3'
             placeholder='Gift Idea 3'
-            width={9}
             {...bindGiftIdea3}
           />
         </Form.Field></div>
         <div className="box-wishlist f-wishlist"></div>
         <div className="box-wishlist g-wishlist">{
-          <Button color="purple" size={setButtonSizeByDeviceRes()} type="submit" className="">
+          <Button color="pink" size={setButtonSizeByDeviceRes()} type="submit" className="">
             Save
           </Button>
         }</div>
@@ -96,9 +92,9 @@ const secretSantasWishlist = (
           }
           </div>
           <div className="box-wishlist b-wishlist wishlist-heading">{`${wishlistFor}'s Wishlist`}</div>
-        <div className="box-wishlist c-wishlist readonlylist">{wishlist[0]}</div>
-          <div className="box-wishlist d-wishlist readonlylist">{wishlist[1]}</div>
-          <div className="box-wishlist e-wishlist readonlylist">{wishlist[2]}</div>
+          <div className="c-wishlist readonlylist">{wishlist[0]}</div>
+          <div className="d-wishlist readonlylist">{wishlist[1]}</div>
+          <div className="e-wishlist readonlylist">{wishlist[2]}</div>
           <div className="box-wishlist f-wishlist"></div>
           <div className="box-wishlist g-wishlist"></div>
           <div className="box-wishlist h-wishlist"><Button color="grey" size={setButtonSizeByDeviceRes()} as={Link} className="" name="home" to="/">
@@ -127,6 +123,8 @@ export default function Wishlist(props) {
     setShowNotification(true);
     return setNotificationMessage(messageData);
   };
+
+  document.body.className = 'background-wishlist';
 
   useEffect(() => {
     if (window.innerWidth <= 480) {

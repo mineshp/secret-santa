@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import './Main.css';
+import Notification from '../../Shared/Notification';
+
 
 import { getToken, setAuthorisationToken } from '../Authentication/Auth';
 import api from '../../Services/api';
@@ -10,6 +12,8 @@ import api from '../../Services/api';
 export default function SecretSanta({ member }) {
   const [mySecretSanta, setMySecretSanta] = useState(false);
   const [deviceBP, setDeviceBP] = useState(null);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState();
 
   useEffect(() => {
     if (window.innerWidth <= 480) {
@@ -23,6 +27,19 @@ export default function SecretSanta({ member }) {
     }
   }, []);
 
+  useEffect(() => {
+    if (showNotification) {
+      setTimeout(() => setShowNotification(false), 3000);
+    }
+  }, [showNotification]);
+
+  const displayNotification = (messageData) => {
+    setShowNotification(true);
+    return setNotificationMessage(messageData);
+  };
+
+  document.body.className = 'background-main';
+
   const revealMySecretSanta = async () => {
     const token = getToken();
 
@@ -31,10 +48,14 @@ export default function SecretSanta({ member }) {
       { headers: setAuthorisationToken(token) }
     )
       .catch((err) => {
-        console.log(`Error getting messages ${err}`);
+        console.error(`Error getting messages ${err}`);
+        displayNotification({
+          type: 'negative',
+          messageHeader: err.message
+        });
       });
 
-    if (response.data && response.data.secretSanta) {
+    if (response && response.data && response.data.secretSanta) {
       const decodedStr = Buffer.from(response.data.secretSanta, 'base64').toString('ascii');
       setMySecretSanta(decodedStr);
     }
@@ -59,12 +80,25 @@ export default function SecretSanta({ member }) {
     <Container>
       <div className="main-bg">
       <div className="wrapper-main">
-        <div className="box-main a-main merry-christmas">Ho Ho Ho!</div>
-        <div className="box-main b-main secret-santa-heading">Hi <span className="displayMemberName">{member.memberName}</span> your Secret Santa is
+        <div className="box-main a-main merry-christmas">
+            {
+              showNotification && notificationMessage
+                ?
+                  (
+                    <Notification
+                      type={notificationMessage.type}
+                      messageHeader={notificationMessage.messageHeader}
+                    />
+                  )
+                : "Ho Ho Ho!"
+        }
+        </div>
+        <div className="box-main b-main secret-santa-heading">
+        Hi <span className="displayMemberName">{member.memberName}</span> your Secret Santa is
         </div>
         <div className="box-main c-main"></div>
         <div className="box-main d-main reveal-santa">
-          <Button compact fluid color={mySecretSanta ? 'olive' : 'yellow'} className='displayMemberName' size={setButtonSizeByDeviceRes()} onClick={revealMySecretSanta}>
+          <Button compact fluid color={mySecretSanta ? 'violet' : 'yellow'} className='displayMemberName' size={setButtonSizeByDeviceRes()} onClick={revealMySecretSanta}>
           {mySecretSanta ? mySecretSanta : 'Reveal'}
           </Button>
         </div>

@@ -9,7 +9,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+/* General CSS */
+
+/* Uppercase Name in Navigation Menu */
+.ui.inverted.menu .toUpperCase {
+  color: #FFF;
+  text-transform: capitalize;
+}
+
+.ui.message.notification .header {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
 }

@@ -1,9 +1,27 @@
+/*  Page */
 body {
-  /* margin: 40px; */
+  font-family: 'Roboto', sans-serif;
+  color: #0c416afc;
+}
+
+.background-wishlist {
+  background-image: url('../../assets/snowman-mobile-transparent.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #4e93d0;
+}
+
+.ui.button.pink {
+  background: #b15082;
+}
+
+.ui.input {
+  color: #0c416afc;
 }
 
 .wishlist-bg {
-  background: url(../../assets/snowman-wishlist-mobile2.jpg) no-repeat center center fixed #FFF;
   width: 100%;
 }
 
@@ -17,7 +35,7 @@ body {
 }
 
 .box-wishlist {
-  color: #000;
+  color: #0c416afc;
   border-radius: 5px;
   padding: 10px;
   font-size: 120%;
@@ -25,15 +43,17 @@ body {
 }
 
 .readonlylist {
+  /* background-color: rgba(50, 115, 220, 0.1); */
   font-family: 'Permanent Marker', cursive;
-  color: rgba(12, 65, 106, 0.989);
-  text-align: left;
+  color: #0c416afc;
   padding-left: 5%;
   padding-top: 7%;
+  text-align: center;
+  font-size: 120%;
 }
 
 .box-button-wishlist {
-  color: #000;
+  color: #0c416afc;
   border-radius: 5px;
   font-size: 150%;
   text-align: center;
@@ -109,17 +129,13 @@ body {
 }
 
 .ui.form input[type="text"] {
-  color: rgba(12, 65, 106, 0.989) !important;;
-  font-family: 'Permanent Marker', cursive !important;
+  color: #0c416afc;
+  font-family: 'Courgette', cursive;
 }
 
 @media (min-width: 640px) {
-  .wishlist-bg {
-    background: url(../../assets/wishlist-tablet.jpg) no-repeat center center fixed #FFF;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+  .background-wishlist {
+    background-image: url('../../assets/snowman-mobile-transparent.jpg');
   }
 
   .b-wishlist.wishlist-heading {
@@ -133,13 +149,10 @@ body {
 }
 
 @media (min-width: 768px) {
-  .wishlist-bg {
-    background: url(../../assets/snowman-wl-desktop.jpg) no-repeat center center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+  .background-wishlist {
+    background-image: url('../../assets/snowman-wl-desktop.jpg');
   }
+
   .b-wishlist.wishlist-heading {
     font-size: 3rem;
   }
@@ -151,12 +164,8 @@ body {
 }
 
 @media (min-width: 1024px){
-  .wishlist-bg {
-    background: url(../../assets/snowman-wl-desktop.jpg) no-repeat center center fixed #FFF;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+  .background-wishlist {
+    background-image: url('../../assets/snowman-wl-desktop.jpg');
   }
 
   .b-wishlist.wishlist-heading {
@@ -170,12 +179,8 @@ body {
 }
 
 @media (min-width: 1200px){
-  .wishlist-bg {
-    background: url(../../assets/snowman-wl-desktop.jpg)) no-repeat center center fixed #FFF;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+  .background-wishlist {
+    background-image: url('../../assets/snowman-wl-desktop.jpg');
   }
 
   .b-wishlist.wishlist-heading {
@@ -188,7 +193,6 @@ body {
   }
 
   .readonlylist {
-    /* font-family: 'Permanent Marker', cursive; */
     text-align: left;
     padding-left: 50%;
   }
