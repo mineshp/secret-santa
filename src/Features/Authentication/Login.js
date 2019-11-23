@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
@@ -22,25 +22,12 @@ export default function Login(props) {
   const [notificationMessage, setNotificationMessage] = useState();
 
   let history = useHistory();
-  const [deviceBP, setDeviceBP] = useState(null);
   const { dispatch }= useContext(UserContext);
   const { value: memberNameInput, bind: bindMemberName } = useInput('');
   const { value: groupNameInput, bind: bindGroupName } = useInput('');
   const { value: secretCodeInput, bind: bindSecretCode } = useInput('');
 
   document.body.className = 'background-login';
-
-  useEffect(() => {
-    if (window.innerWidth <= 480) {
-      setDeviceBP('mobile');
-    } else if (window.innerWidth > 481 && window.innerWidth <= 768) {
-      setDeviceBP('tablet');
-    } else if (window.innerWidth > 768 && window.innerWidth <= 1024) {
-      setDeviceBP('laptop')
-    } else if (window.innerWidth > 1024) {
-      setDeviceBP('largeDesktop');
-    }
-  }, []);
 
   const displayNotification = (messageData) => {
     setShowNotification(true);
