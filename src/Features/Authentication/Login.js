@@ -100,21 +100,6 @@ export default function Login(props) {
       }));
   };
 
-  const setButtonSizeByDeviceRes = () => {
-    switch (deviceBP) {
-      case 'mobile':
-        return 'tiny';
-      case 'tablet':
-        return 'large';
-      case 'laptop':
-        return 'small';
-      case 'largeDesktop':
-        return 'big'
-      default:
-        break;
-    }
-  };
-
   return (
     <div className="login-bg">
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>

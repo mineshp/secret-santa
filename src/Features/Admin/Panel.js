@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Accordion from 'semantic-ui-react/dist/commonjs/modules/Accordion';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
+import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import Divider from 'semantic-ui-react/dist/commonjs/elements/Divider';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
+import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
 import Table from 'semantic-ui-react/dist/commonjs/collections/Table';
@@ -10,13 +12,14 @@ import Notification from '../../Shared/Notification';
 import useInput from '../../Shared/useInput';
 import { getToken, setAuthorisationToken } from '../Authentication/Auth';
 import api from '../../Services/api';
-import useMembers from './useMembers';
+import useMembers from './useMembers'
+import './Panel.css';;
 
 const allGroups = (groups, handleDraw, deleteGroup, sendEmail) => {
   const groupRows = groups.map(({ groupName, count }) => (
     <Table.Row key={groupName}>
       <Table.Cell>
-        <Header as='h3' textAlign='center'>
+        <Header as='h3' textAlign='center' className="group-name">
           {groupName}
         </Header>
       </Table.Cell>
@@ -34,7 +37,7 @@ const allGroups = (groups, handleDraw, deleteGroup, sendEmail) => {
   ));
 
   return (
-    <Table celled>
+    <Table celled className="groups-admin">
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell singleLine>GroupName</Table.HeaderCell>
@@ -60,34 +63,32 @@ export default function Panel(props) {
   const [notificationMessage, setNotificationMessage] = useState();
   const { value: groupNameValue, bind: bindGroupName } = useInput('');
 
+  document.body.className = 'background-admin';
+
   const groupMembers = () => {
     return newMembers.map((row) => (
-      <div className="flex-setup-form member-row" key={row.rowId}>
-      <div className="box-wishlist setup-input two-col-span">
+      <div className="form-input" key={row.rowId}>
         <Form.Field key={`member-${row.rowId}`}>
           <Form.Input
             id={row.rowId}
             name={'memberName'}
             placeholder={'Name'}
-            width={4}
+            width={12}
             value={row.memberName}
             onChange={updateMember('name')}
           />
         </Form.Field>
-      </div>
-      <div className="box-wishlist setup-input">
         <Form.Field key={`email-${row.rowId}`}>
-        <Form.Input
-          id={row.rowId}
-          name={'email'}
-          placeholder={'Email'}
-          width={4}
-          value={row.email}
-          onChange={updateMember('email')}
+          <Form.Input
+            id={row.rowId}
+            name={'email'}
+            placeholder={'Email'}
+            width={12}
+            value={row.email}
+            onChange={updateMember('email')}
           />
         </Form.Field>
       </div>
-    </div>
     ))
   };
 
@@ -198,7 +199,7 @@ export default function Panel(props) {
       if (data) setGroups(data);
     };
     fetchData();
-  }, []);
+  }, [groups]);
 
   const handleAccordionClick = (e, titleProps) => {
     const { index } = titleProps;
@@ -207,7 +208,10 @@ export default function Panel(props) {
   };
 
   return (
-    <div className="container-admin">
+    <Container>
+      <div className="admin-bg">
+      <Grid textAlign='center' verticalAlign='middle'>
+      <Grid.Column style={{ maxWidth: 700 }}>
     { showNotification && notificationMessage
       && (
       <Notification
@@ -222,8 +226,9 @@ export default function Panel(props) {
         active={activeIndex === 0}
         index={0}
         onClick={handleAccordionClick}
+        className="accordion-panel"
       >
-        <Icon name="dropdown" />
+        <Icon name="dropdown" color="blue"/>
         Manage Groups
       </Accordion.Title>
       <Accordion.Content active={activeIndex === 0}>
@@ -234,38 +239,43 @@ export default function Panel(props) {
         active={activeIndex === 1}
         index={1}
         onClick={handleAccordionClick}
+        className="accordion-panel"
       >
-        <Icon name="dropdown" />
+        <Icon name="dropdown" color="blue"/>
         Setup New Group
       </Accordion.Title>
       <Accordion.Content active={activeIndex === 1}>
-      <Header as='h3'>
+      <Header as='h3' className="admin-header">
         Setup <span className="toUpperCase">{groupNameValue}</span> Group
       </Header>
-      <div className="box-wishlist">
-        <Divider />
-        <form onSubmit={handleSetupGroup}>
+      <div className="">
+        <Form onSubmit={handleSetupGroup}>
           <Form.Field key="new-group-name">
             <Form.Input
               id="group-name"
               name={'groupName'}
               placeholder={'New Group Name'}
-              width={4}
+              width={12}
               {...bindGroupName}
             />
           </Form.Field>
           <Divider />
           {groupMembers()}
-          <Button color="yellow" onClick={addMember} onKeyPress={addMember} type="button" className="setup-add-row-btn">
-            Add Member
-          </Button>
-          <Button color="green" type="submit">
-            Setup
-          </Button>
-        </form>
+          <div className="button-spacing">
+            <Button color="pink" onClick={addMember} onKeyPress={addMember} type="button" className="button-spacing">
+              Add Member
+            </Button>
+            <Button color="blue" type="submit">
+              Setup
+            </Button>
+          </div>
+        </Form>
       </div>
       </Accordion.Content>
-      </Accordion>
+            </Accordion>
+          </Grid.Column>
+          </Grid>
       </div>
+      </Container>
   );
 }

@@ -1,0 +1,49 @@
+/*  Page */
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #0c416afc;
+}
+
+.background-admin {
+  background-image: url('../../assets/admin-bg.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #4e93d0;
+}
+
+.admin-bg {
+  width: 100%;
+}
+
+div.form-input {
+  color: #0c416afc;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+div.button-spacing {
+  padding-top: 20px;
+}
+
+.ui.header.admin-header {
+  font-family: 'Permanent Marker', cursive;
+  color: #0c416afc;
+  font-size: 1.5em;
+}
+
+.ui.accordion .title.accordion-panel {
+  font-family: 'Cinzel', serif;
+  color: #070846fc
+}
+
+.groups-admin {
+  font-family: 'Cinzel', serif;
+  color: #070846fc
+}
+
+.ui.header.group-name {
+  font-family: 'Permanent Marker', cursive;
+  color: #070846fc
+}
