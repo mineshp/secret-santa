@@ -186,7 +186,16 @@ export default function Wishlist(props) {
     evt.preventDefault();
     const token = getToken();
     const allGiftIdeaSuggestions = [];
-    allGiftIdeaSuggestions.push(giftIdeaInput1, giftIdeaInput2, giftIdeaInput3);
+    if (giftIdeaInput1 && giftIdeaInput1 !== "") {
+      allGiftIdeaSuggestions.push(giftIdeaInput1);
+    };
+    if (giftIdeaInput2 && giftIdeaInput2 !== "") {
+      allGiftIdeaSuggestions.push(giftIdeaInput2);
+    };
+    if (giftIdeaInput3 && giftIdeaInput3 !== "") {
+      allGiftIdeaSuggestions.push(giftIdeaInput3);
+    };
+
     const response = await api.put(
       `/secretsanta/giftIdeas/${wishlistFor}/${groupName}`,
       JSON.stringify({ giftIdeas: allGiftIdeaSuggestions }),
