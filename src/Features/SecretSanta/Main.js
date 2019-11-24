@@ -15,6 +15,8 @@ export default function SecretSanta({ member }) {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState();
 
+  document.body.className = 'background-main';
+
   useEffect(() => {
     if (window.innerWidth <= 480) {
       setDeviceBP('mobile');
@@ -37,8 +39,6 @@ export default function SecretSanta({ member }) {
     setShowNotification(true);
     return setNotificationMessage(messageData);
   };
-
-  document.body.className = 'background-main';
 
   const revealMySecretSanta = async () => {
     const token = getToken();

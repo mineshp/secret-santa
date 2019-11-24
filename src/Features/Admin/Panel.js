@@ -138,22 +138,26 @@ export default function Panel(props) {
   const handleSetupGroup = async (event) => {
     event.preventDefault();
     const payload = newMembers.reduce((acc, { memberName, email }) =>
-      [...acc, { memberName, email }], []);
+      [...acc, { memberName: memberName.toLowerCase(), email: email.toLowerCase(0) }], []);
 
     if (groupNameValue) {
       const token = getToken();
+      const groupName = groupNameValue.toLowerCase();
       await api.post(
-        `/secretsanta/setup/${groupNameValue}`,
+        `/secretsanta/setup/${groupName}`,
         payload,
         { headers: setAuthorisationToken(token) }
       )
-        .then(({ data }) => displayNotification({
-          type: 'positive',
-          messageHeader: `Successfully created new secret santa group ${groupNameValue}.`
-        }))
+        .then(({ data }) => {
+          displayNotification({
+            type: 'positive',
+            messageHeader: `Successfully created new secret santa group ${groupName}.`
+          });
+          setActiveIndex(0)
+        })
         .catch((err) => displayNotification({
           type: 'negative',
-          messageHeader: `Error creating new secret santa group ${groupNameValue}, ${err}`
+          messageHeader: `Error creating new secret santa group ${groupName}, ${err}`
         }));
     }
   };
@@ -199,7 +203,7 @@ export default function Panel(props) {
       if (data) setGroups(data);
     };
     fetchData();
-  }, [groups]);
+  }, []);
 
   const handleAccordionClick = (e, titleProps) => {
     const { index } = titleProps;

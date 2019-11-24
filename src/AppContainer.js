@@ -12,7 +12,7 @@ const MainNavigation = ({ handleLogout, user }) => {
     {
       user && user.memberName
       &&
-      <Menu fluid size="tiny" inverted secondary className='nav-main'>
+      <Menu className='nav-main' inverted secondary>
         <Menu.Menu position='right'>
         <Dropdown item className="toUpperCase" text={user.memberName}>
           <Dropdown.Menu>
@@ -48,7 +48,7 @@ const AppContainer = (props) => {
   };
 
   return (
-    <Container fluid>
+    <Container>
       <MainNavigation handleLogout={handleLogout} user={user} />
       <div className="App main-container">
         <Routes />
