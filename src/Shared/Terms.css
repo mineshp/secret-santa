@@ -1,0 +1,36 @@
+.background-terms {
+  background-image: url('../assets/login-bg.gif');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #4e93d0;
+}
+
+.ui.header.headings {
+  font-family: 'Cinzel', serif;
+  color: #b15082;
+}
+
+p.terms-content {
+  color: #0c416afc;
+}
+
+.terms-bg {
+  width: 100%;
+}
+
+ol {
+  list-style-type: decimal;
+  padding-left: 1em;
+}
+
+ol ol {
+  list-style-type: lower-latin;
+  padding-bottom: 1em;
+}
+
+ol ol ol {
+  list-style-type: square;
+}
+
