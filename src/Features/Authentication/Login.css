@@ -3,7 +3,7 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.background-login {
+.login-page {
   background-image: url('../../assets/login-bg.gif');
   background-position: center center;
   background-repeat: no-repeat;
@@ -50,5 +50,13 @@ body {
 
 .unknown-login-details {
   font-family: 'Permanent Marker', cursive;
+  color: #0c416afc;
+}
+
+.login-page .ui.menu {
+  color: #0c416afc;
+}
+
+.login-page .ui.secondary.menu .dropdown.item:hover {
   color: #0c416afc;
 }

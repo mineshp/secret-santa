@@ -1,10 +1,18 @@
-.background-terms {
+.terms-page::after {
+  content: "";
   background-image: url('../assets/login-bg.gif');
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   background-color: #e8e1bf;
+  opacity: 0.1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
 }
 
 .ui.header.headings {
@@ -34,3 +42,10 @@ ol ol ol {
   list-style-type: square;
 }
 
+.terms-page .ui.menu {
+  color: #0c416afc;
+}
+
+.terms-page .ui.secondary.menu .dropdown.item:hover {
+  color: #0c416afc;
+}

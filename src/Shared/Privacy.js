@@ -4,27 +4,43 @@ import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
 import './Terms.css';
 
 const Privacy = () => {
-  document.body.className = 'background-terms';
+  document.body.className = 'terms-page';
   return (
     <Container>
       <div className='terms-bg'>
         <Header as='h2' className='headings'>Privacy Policy</Header>
         <ol>
-          <li><Header as='h4' className='headings'>Installation and Use of the App</Header></li>
+          <li><Header as='h4' className='headings'>Santa's Secret App</Header></li>
           <p className='terms-content'>
-        Under data protection laws, we are required to provide you with certain information about who we are, how we process your personal data and for what purposes, and your rights in relation to your personal data. This information is set out in this Privacy Policy. It is important that you read this Policy, the Terms of Use, Amazon’s Privacy Policy and Alexa Skills Terms of Use before installation and use of this Skill.  By installing and using this Skill you hereby agree to all terms and various privacy policies.
-          </p>
+        Welcome to Santa’s Secret, this application consists of an Alexa skill developed by mineshdesigns
+        (“App”) and below is a short guide on how the App is used by the User (“You”, “Your” or “User”) and
+        mineshdesigns (“We”, “Us”, or “Our”).
+        </p>
+        <li><Header as='h4' className='headings'>Installation and Use of the App</Header></li>
+        <p className='terms-content'>
+        Under data protection laws, we are required to provide you with certain information about who we are, how we
+        process your personal data and for what purposes, and your rights in relation to your personal data. This
+        information is provided in the Santa’s Secret Privacy Policy and Amazon’s <a href='https://developer.amazon.com/docs/policy-center/privacy-security.html' target='_blank' rel='noopener noreferrer'>Privacy Policy</a> and it is important
+        that you read that information together with Alexa <a href='https://www.amazon.co.uk/gp/help/customer/display.html?nodeId=201809740' target='_blank' rel='noopener noreferrer'>Terms of Use</a> before installation and use of this App. By
+        installing and using this App you hereby agree to all terms and aforementioned privacy policies.
+        </p>
           <li>
             <Header as='h4' className='headings'>The data we collect about you and how we use it</Header>
             <ol>
               <li>The only personal data that we shall collect, use, store and transfer is your first name.</li>
-              <li>We will only use your personal data for the purpose for which we collected it, which is to enable you to use the Skill.</li>
+              <li>We will only use your personal data for the purpose for which we collected it, which is to enable you to use the App.</li>
             </ol>
           </li>
 
           <li><Header as='h4' className='headings'>Sharing data with Amazon</Header></li>
           <p className='terms-content'>
-        When you use the Skill you have to talk to Alexa, providing your name and a code word. This voice input is sent to Amazon and mineshdesigns where we use it to understand what the Skill's response should be. This is absolutely necessary for our service to give you an appropriate answer.
+          When you use the App you have to talk to Alexa, providing your first name, Santa's Secret group and a code
+          word. Users can only use the App currently if they have been setup to do so, i.e. they would have been
+          emailed these details as part of the setup and draw of their Secret Santa group which is handled via the web
+          application and outside of the App. This voice input is sent to Amazon and mineshdesigns where we use it to
+          understand what the App’s response should be. This is absolutely necessary for our service to give you an
+          appropriate answer. The only personal data we request is your first name, which is collected, stored and
+          processed in line with Our Privacy Policy and Amazon’s Privacy Policy.
           </p>
           <li><Header as='h4' className='headings'>Your rights</Header></li>
           <p className='terms-content'>You have the right to:</p>

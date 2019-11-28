@@ -3,26 +3,53 @@ import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import Routes from './Routes';
 import { Link } from 'react-router-dom';
 import Menu from 'semantic-ui-react/dist/commonjs/collections/Menu';
+import Image from 'semantic-ui-react/dist/commonjs/elements/Image';
 import Dropdown from 'semantic-ui-react/dist/commonjs/modules/Dropdown';
 import { UserContext } from './Features/Authentication/useAuth';
 import { loggedIn, logout, getMember } from './Features/Authentication/Auth';
+import logo from './assets/secretsantalogo_transparent_small.png';
 
 const MainNavigation = ({ handleLogout, user }) => (
     <div>
     {
       user && user.memberName
-      &&
-      <Menu className='nav-main' inverted secondary>
+      ?
+      <Menu className='nav-main' secondary>
+        <Menu.Item><Image src={logo} size='mini'/></Menu.Item>
         <Menu.Menu position='right'>
-        <Dropdown item className="toUpperCase" text={user.memberName}>
+        <Dropdown item className="toUpperCase menu-style" text={user.memberName}>
           <Dropdown.Menu>
             <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-                { user.admin && <Dropdown.Item as={Link} to='/admin'>Admin</Dropdown.Item> }
+              {user.admin && <Dropdown.Item as={Link} to='/admin'>Admin</Dropdown.Item>}
+              <Dropdown item text='Policies'>
+              <Dropdown.Menu>
+                <Dropdown.Item as={Link} to='/privacy'>Privacy</Dropdown.Item>
+                <Dropdown.Item as={Link} to='/terms'>Terms</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Dropdown.Menu>
+        </Dropdown>
+      </Menu.Menu>
+      </Menu>
+        :
+        <Menu className='nav-main' secondary>
+        <Menu.Item><Image src={logo} size='mini'/></Menu.Item>
+        <Menu.Menu position='right'>
+        <Dropdown item className="toUpperCase" text="Santas Secret App">
+          <Dropdown.Menu>
+              <Dropdown.Item as={Link} to='/'>Login</Dropdown.Item>
+              <Dropdown item text='Policies'>
+              <Dropdown.Menu>
+                <Dropdown.Item as={Link} to='/privacy'>Privacy</Dropdown.Item>
+                <Dropdown.Item as={Link} to='/terms'>Terms</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </Dropdown.Menu>
         </Dropdown>
       </Menu.Menu>
     </Menu>
     }
+
     </div>
   );
 

@@ -3,7 +3,7 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.background-main {
+.main-page {
   background-image: url('../../assets/santa-main.jpg');
   background-position: center center;
   background-repeat: no-repeat;
@@ -110,8 +110,15 @@ span.displayMemberName {
 }
 
 .ui.inverted.menu .toUpperCase {
-  color: #FFF;
   text-transform: capitalize;
+}
+
+.main-page  .ui.menu .menu-style {
+  color: #FFF;
+}
+
+.main-page .ui.secondary.menu .menu-style .dropdown.item:hover {
+  color: #FFF;;
 }
 
 @media (min-width: 640px) {

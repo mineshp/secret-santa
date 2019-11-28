@@ -8,6 +8,7 @@ import Message from 'semantic-ui-react/dist/commonjs/collections/Message';
 import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid';
 import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment';
 import logo from '../../md-logo-green.png';
+import santalogo from '../../assets/secretsantalogo_transparent_small.png';
 
 import { getToken, setAuthorisationToken, setToken, getMember } from './Auth';
 import api from '../../Services/api';
@@ -27,7 +28,7 @@ export default function Login(props) {
   const { value: groupNameInput, bind: bindGroupName } = useInput('');
   const { value: secretCodeInput, bind: bindSecretCode } = useInput('');
 
-  document.body.className = 'background-login';
+  document.body.className = 'login-page';
 
   const displayNotification = (messageData) => {
     setShowNotification(true);
@@ -92,7 +93,7 @@ export default function Login(props) {
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
       <Header as='h2'  textAlign='center' className="login-header">
-        <Image src={logo} /> Secret Santa Login
+        <Image src={santalogo} /> Secret Santa Login
       </Header>
       <Form size='large' onSubmit={handleSubmit}>
         <Segment stacked>

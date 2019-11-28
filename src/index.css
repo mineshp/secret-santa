@@ -12,8 +12,7 @@ body {
 /* General CSS */
 
 /* Uppercase Name in Navigation Menu */
-.ui.inverted.menu .toUpperCase {
-  color: #FFF;
+.ui.menu .toUpperCase {
   text-transform: capitalize;
 }
 

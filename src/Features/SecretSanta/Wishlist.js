@@ -124,7 +124,7 @@ export default function Wishlist(props) {
     return setNotificationMessage(messageData);
   };
 
-  document.body.className = 'background-wishlist';
+  document.body.className = 'wishlist-page';
 
   useEffect(() => {
     if (window.innerWidth <= 480) {

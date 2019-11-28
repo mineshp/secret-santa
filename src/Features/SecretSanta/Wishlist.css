@@ -4,7 +4,7 @@ body {
   color: #0c416afc;
 }
 
-.background-wishlist {
+.wishlist-page {
   background-image: url('../../assets/snowman-mobile-transparent.jpg');
   background-position: center center;
   background-repeat: no-repeat;
@@ -128,9 +128,21 @@ body {
   text-transform: capitalize;
 }
 
-.ui.form input[type="text"] {
+.wishlist-page .ui.form input[type="text"] {
   color: #0c416afc;
   font-family: 'Courgette', cursive;
+}
+
+.wishlist-page .ui.form input[type="text"]:focus {
+  color: #0c416afc;
+}
+
+.wishlist-page .ui.menu .menu-style {
+  color: #0c416afc;
+}
+
+.wishlist-page .ui.secondary.menu .dropdown.item:hover {
+  color: #0c416afc;
 }
 
 @media (min-width: 640px) {
