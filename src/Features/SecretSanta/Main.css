@@ -18,7 +18,7 @@ body {
 
 .wrapper-main {
   display: grid;
-  min-height: calc(100vh - 42px); /* Calculate height removing nav menu so we don't see scrollbars */
+  min-height: calc(100vh - 70px); /* Calculate height removing nav menu so we don't see scrollbars */
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 40px repeat(2, min-content) 1fr;
   grid-gap: 1px;

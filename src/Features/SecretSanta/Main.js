@@ -94,7 +94,7 @@ export default function SecretSanta({ member }) {
         }
         </div>
         <div className="box-main b-main secret-santa-heading">
-        Hi <span className="displayMemberName">{member.memberName}</span> your Secret Santa is
+        Hi <span className="displayMemberName">{member.memberName}</span> your giftee is
         </div>
         <div className="box-main c-main"></div>
         <div className="box-main d-main reveal-santa">

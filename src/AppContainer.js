@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import Routes from './Routes';
-import { Link } from 'react-router-dom';
+import { Link, useHistory  } from 'react-router-dom';
 import Menu from 'semantic-ui-react/dist/commonjs/collections/Menu';
 import Image from 'semantic-ui-react/dist/commonjs/elements/Image';
 import Dropdown from 'semantic-ui-react/dist/commonjs/modules/Dropdown';
@@ -56,6 +56,8 @@ const MainNavigation = ({ handleLogout, user }) => (
 const AppContainer = (props) => {
   const { user, dispatch } = useContext(UserContext);
 
+  let history = useHistory();
+
   useEffect(() => {
     // SET_USER if global state does not exist but user is loggedIn
     if (!user && loggedIn()) {
@@ -72,6 +74,7 @@ const AppContainer = (props) => {
     dispatch({
       type: 'REMOVE_USER'
     });
+    history.push('/')
   };
 
   return (
