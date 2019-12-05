@@ -6,7 +6,7 @@ import Wishlist from './Features/SecretSanta/Wishlist';
 import Panel from './Features/Admin/Panel';
 import Terms from './Shared/Terms';
 import Privacy from './Shared/Privacy';
-
+import Enrol from './Features/Authentication/Enrol';
 import NotFound from './Shared/NotFound';
 
 const Routes = () => (
@@ -16,6 +16,7 @@ const Routes = () => (
     <Route exact path="/secretsanta/wishlist/:memberName/:groupID" component={Wishlist} />
     <Route exact path="/terms" component={Terms} />
     <Route exact path="/privacy" component={Privacy} />
+    <Route exact path="/enrol" component={Enrol} />
     <Route exact path="/admin" component={Panel} />
     <Route path="*" component={NotFound} />
   </Switch>
