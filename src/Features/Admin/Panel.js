@@ -10,13 +10,14 @@ import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
 import Table from 'semantic-ui-react/dist/commonjs/collections/Table';
 import Notification from '../../Shared/Notification';
 import useInput from '../../Shared/useInput';
+import { formatDate } from '../../Utils/Date';
 import { getToken, setAuthorisationToken } from '../Authentication/Auth';
 import api from '../../Services/api';
 import useMembers from './useMembers'
 import './Panel.css';;
 
 const displayMembersForGroup = (members, sendEmailToMember) => {
-  const memberRows = members.map(({ memberName, email, drawn }) => (
+  const memberRows = members.map(({ memberName, email, drawn, lastLoggedIn }) => (
     <Table.Row key={memberName}>
       <Table.Cell>
         <Header as='h3' textAlign='center' className="group-name">
@@ -25,6 +26,7 @@ const displayMembersForGroup = (members, sendEmailToMember) => {
       </Table.Cell>
       <Table.Cell>{email}</Table.Cell>
       <Table.Cell className="has-drawn">{drawn ? <Icon name='check' color='green' /> : <Icon name='close' color='red' />}</Table.Cell>
+      <Table.Cell>{ lastLoggedIn ? formatDate(lastLoggedIn) : 'never' }</Table.Cell>
       <Table.Cell><Button color="pink" type="button" id={memberName} onClick={sendEmailToMember}>
         Send</Button>
       </Table.Cell>
@@ -38,6 +40,7 @@ const displayMembersForGroup = (members, sendEmailToMember) => {
           <Table.HeaderCell singleLine>Name</Table.HeaderCell>
           <Table.HeaderCell>Email</Table.HeaderCell>
           <Table.HeaderCell>Giftee Assigned</Table.HeaderCell>
+          <Table.HeaderCell>Last Logged In</Table.HeaderCell>
           <Table.HeaderCell>Send Email</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
@@ -276,10 +279,6 @@ export default function Panel(props) {
       )
         .then(({ data }) => {
           setMembersForGroup(data);
-          displayNotification({
-            type: 'positive',
-            messageHeader: `Successfully created new secret santa group ${groupName}.`
-          });
         })
         .catch((err) => displayNotification({
           type: 'negative',
