@@ -16,14 +16,14 @@ import Notification from '../../Shared/Notification';
 import { UserContext } from './useAuth';
 import useInput from '../../Shared/useInput';
 import './Login.css';
-
+// import decode from 'jwt-decode';
 
 export default function Login(props) {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState();
 
   let history = useHistory();
-  const { dispatch }= useContext(UserContext);
+  const { dispatch } = useContext(UserContext);
   const { value: memberNameInput, bind: bindMemberName } = useInput('');
   const { value: groupNameInput, bind: bindGroupName } = useInput('');
   const { value: secretCodeInput, bind: bindSecretCode } = useInput('');
@@ -53,7 +53,7 @@ export default function Login(props) {
           messageHeader: `${memberNameInput.toUpperCase()} - Successfully logged in`
         });
 
-        const decodedUser = getMember(token);
+        const decodedUser = getMember();
         return dispatch({
           type: 'SET_USER',
           user: { ...decodedUser }
@@ -70,8 +70,9 @@ export default function Login(props) {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     setShowNotification(false);
-    if (!memberNameInput && !groupNameInput && !secretCodeInput) {
-      displayNotification({
+
+    if (!memberNameInput || !groupNameInput || !secretCodeInput) {
+      return displayNotification({
         type: 'negative',
         messageHeader: 'Name, group or passphrase missing!'
       });
@@ -97,27 +98,36 @@ export default function Login(props) {
       </Header>
       <Form size='large' onSubmit={handleSubmit}>
         <Segment stacked>
+          <label htmlFor="memberName" className="visibilly-hidden">memberName</label>
           <Form.Input
             fluid
             icon='user'
             iconPosition='left'
             placeholder='Name'
             name='memberName'
+            id="memberName"
+            data-testid='memberName'
             {...bindMemberName}
           />
+          <label htmlFor="groupID" className="visibilly-hidden">groupID</label>
           <Form.Input
             fluid icon='group'
             iconPosition='left'
             placeholder='Group name'
             name='groupID'
+            id="groupID"
+            data-testid='groupID'
             {...bindGroupName}
           />
+          <label htmlFor="passphrase" className="visibilly-hidden">passphrase</label>
           <Form.Input
             fluid
             icon='lock'
             iconPosition='left'
             placeholder='Code'
             name='passphrase'
+            id='passphrase'
+            data-testid='passphrase'
             {...bindSecretCode}
           />
           <Button color='red' fluid size='large'>

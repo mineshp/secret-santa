@@ -19,8 +19,15 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "deploy": "npm run build && AWS_PROFILE=min-aws-s3-deploy aws s3 sync build/ s3://secretsanta.mineshdesigns.co.uk",
-    "test": "react-scripts test",
+    "test": "CI=true react-scripts test --colors --env=jsdom",
+    "test:watch": "npm run test -- --watch",
     "eject": "react-scripts eject"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test",
+      "pre-push": "npm run test"
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -33,6 +40,10 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@testing-library/react": "^9.4.0"
+    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^9.4.0",
+    "history": "^4.10.1",
+    "husky": "^4.2.3",
+    "jest": "^24.9.0"
   }
 }

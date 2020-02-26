@@ -43,7 +43,6 @@ const setAuthorisationToken = (token) => {
       Authorization: `Bearer ${token}`,
       credentials: 'same-origin'
     });
-
     return tokenHeader;
   }
   delete headers.Authorization;

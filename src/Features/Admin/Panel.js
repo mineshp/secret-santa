@@ -34,7 +34,7 @@ const displayMembersForGroup = (members, sendEmailToMember) => {
   ));
 
   return (
-    <Table celled className="groups-admin">
+    <Table celled className="groups-admin" id="membersList">
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell singleLine>Name</Table.HeaderCell>

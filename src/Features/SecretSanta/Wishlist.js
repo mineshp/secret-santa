@@ -139,32 +139,6 @@ export default function Wishlist(props) {
   }, []);
 
   useEffect(() => {
-    const token = getToken();
-    const getGiftIdeasForMember = async (member) => {
-      return api.get(
-        `/secretsanta/giftIdeas/${wishlistFor}/${groupName}`,
-        { headers: setAuthorisationToken(token) }
-      ).catch(console.error);
-    }
-
-    const fetchData = async () => {
-      const { data } = await getGiftIdeasForMember(wishlistFor);
-      if (data && data.giftIdeas) {
-        setWishlist(data.giftIdeas);
-      }
-    };
-    fetchData();
-  }, [groupName, wishlistFor]);
-
-  useEffect(() => {
-    if (wishlist && wishlist.length > 0) {
-      setGiftIdeaInput1(wishlist[0]);
-      setGiftIdeaInput2(wishlist[1]);
-      setGiftIdeaInput3(wishlist[2]);
-    }
-  }, [setGiftIdeaInput1, setGiftIdeaInput2, setGiftIdeaInput3, wishlist]);
-
-  useEffect(() => {
     setWishlistFor(match.params.memberName);
     setGroupName(match.params.groupID);
   }, [match]);
@@ -175,6 +149,34 @@ export default function Wishlist(props) {
       setReadOnlyList(memberName !== wishlistFor);
     }
   }, [wishlistFor]);
+
+
+  useEffect(() => {
+    const token = getToken();
+    if (wishlistFor) {
+      const getGiftIdeasForMember = async (member) => {
+        return api.get(
+          `/secretsanta/giftIdeas/${wishlistFor}/${groupName}`,
+          { headers: setAuthorisationToken(token) }
+        ).catch((err) => console.error(err) || err);
+      }
+
+      void async function () {
+        const { data } = await getGiftIdeasForMember(wishlistFor);
+        if (data && data.giftIdeas) {
+          setWishlist(data.giftIdeas);
+        }
+      }();
+    }
+  }, [groupName, wishlistFor]);
+
+  useEffect(() => {
+    if (wishlist && wishlist.length > 0) {
+      setGiftIdeaInput1(wishlist[0]);
+      setGiftIdeaInput2(wishlist[1]);
+      setGiftIdeaInput3(wishlist[2]);
+    }
+  }, [setGiftIdeaInput1, setGiftIdeaInput2, setGiftIdeaInput3, wishlist]);
 
   useEffect(() => {
     if (showNotification) {
