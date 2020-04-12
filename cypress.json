@@ -1,0 +1,14 @@
+{
+  "baseUrl": "http://secretsanta.mineshdesigns.co.uk/",
+  "viewportWidth": 1280,
+  "viewportHeight": 1200,
+  "defaultCommandTimeout": 45000,
+  "chromeWebSecurity": false,
+  "fixturesFolder": "acceptance/cypress/fixtures",
+  "integrationFolder": "acceptance/cypress/integration",
+  "pluginsFile": "acceptance/cypress/plugins/index.js",
+  "screenshotsFolder": "acceptance/cypress/screenshots",
+  "supportFile": "acceptance/cypress/support/index.js",
+  "videosFolder": "acceptance/cypress/videos",
+  "video": false
+}

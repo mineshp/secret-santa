@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import './Main.css';
@@ -23,7 +23,7 @@ export default function SecretSanta({ member }) {
     } else if (window.innerWidth > 481 && window.innerWidth <= 768) {
       setDeviceBP('tablet');
     } else if (window.innerWidth > 768 && window.innerWidth <= 1024) {
-      setDeviceBP('laptop')
+      setDeviceBP('laptop');
     } else if (window.innerWidth > 1024) {
       setDeviceBP('largeDesktop');
     }
@@ -69,7 +69,7 @@ export default function SecretSanta({ member }) {
       case 'laptop':
         return 'small';
       case 'largeDesktop':
-        return 'large'
+        return 'large';
       default:
         break;
     }
@@ -78,8 +78,8 @@ export default function SecretSanta({ member }) {
   return (
     <Container>
       <div className="main-bg">
-      <div className="wrapper-main">
-        <div className="box-main a-main merry-christmas">
+        <div className="wrapper-main">
+          <div className="box-main a-main merry-christmas">
             {
               showNotification && notificationMessage
                 ?
@@ -89,49 +89,53 @@ export default function SecretSanta({ member }) {
                       messageHeader={notificationMessage.messageHeader}
                     />
                   )
-                : "Ho Ho Ho!"
+                : 'Ho Ho Ho!'
         }
-        </div>
-        <div className="box-main b-main secret-santa-heading">
+          </div>
+          <div className="box-main b-main secret-santa-heading">
         Hi <span className="displayMemberName">{member.memberName}</span> your giftee is
-        </div>
-        <div className="box-main c-main"></div>
-        <div className="box-main d-main reveal-santa">
-          <Button compact fluid color={mySecretSanta ? 'violet' : 'yellow'} className='displayMemberName' size={setButtonSizeByDeviceRes()} onClick={revealMySecretSanta}>
-          {mySecretSanta ? mySecretSanta : 'Reveal'}
-          </Button>
-        </div>
-        <div className="box-main e-main"></div>
-        <div className="box-main f-main">
-          <Button
-            color='teal'
-            className='my-wishlist-btn'
-            size={setButtonSizeByDeviceRes()}
-            as={Link}
-            name='my-wishlist'
-            to={`/secretsanta/wishlist/${member.memberName}/${member.groupID}`}
+          </div>
+          <div className="box-main c-main"></div>
+          <div className="box-main d-main reveal-santa">
+            <Button compact fluid color={mySecretSanta ? 'violet' : 'yellow'} className='displayMemberName' size={setButtonSizeByDeviceRes()}
+              onClick={revealMySecretSanta}
+              data-testid='reveal-btn'>
+              {mySecretSanta ? mySecretSanta : 'Reveal'}
+            </Button>
+          </div>
+          <div className="box-main e-main"></div>
+          <div className="box-main f-main">
+            <Button
+              color='teal'
+              className='my-wishlist-btn'
+              size={setButtonSizeByDeviceRes()}
+              as={Link}
+              name='my-wishlist'
+              to={`/secretsanta/wishlist/${member.memberName}/${member.groupID}`}
+              data-testid='my-wishlist-btn'
           >
           My Wishlist
-          </Button>
-        </div>
-        <div className="box-main g-main"></div>
-        <div className="box-main h-main">{
+            </Button>
+          </div>
+          <div className="box-main g-main"></div>
+          <div className="box-main h-main">{
           mySecretSanta &&
             <Button
-            compact
-            fluid
-            color='blue'
-            className='displayMemberName'
-            size={setButtonSizeByDeviceRes()}
-            as={Link}
-            name='my-wishlist'
-            to={`/secretsanta/wishlist/${mySecretSanta}/${member.groupID}`}
+              compact
+              fluid
+              color='blue'
+              className='displayMemberName'
+              size={setButtonSizeByDeviceRes()}
+              as={Link}
+              name='my-wishlist'
+              to={`/secretsanta/wishlist/${mySecretSanta}/${member.groupID}`}
+              data-testid='giftees-wishlist-btn'
           >
-            {`${mySecretSanta}'s Wishlist`}
-          </Button>
+              {`${mySecretSanta}'s Wishlist`}
+            </Button>
         }</div>
         </div>
-        </div>
-      </Container>
+      </div>
+    </Container>
   );
-};
+}

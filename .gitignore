@@ -2,6 +2,12 @@
 
 # dependencies
 /node_modules
+cypress.env.json
+acceptance/mochawesome-report
+acceptance/cypress/screenshots
+acceptance/cypress/fixtures
+acceptance/cypress/videos
+acceptance/utils
 /.pnp
 .pnp.js
 
@@ -21,3 +27,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Cypress
+cypress.env.json

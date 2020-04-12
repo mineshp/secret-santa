@@ -16,6 +16,14 @@ Unit tests are written using React Testing Library (RTL), to run them locally us
 
 ```AWS_PROFILE=<> npm run test```
 
+## Acceptance Tests
+
+Acceptance tests are written using Cypress, to run them
+
+```bash
+npm run cy:run
+```
+
 ### Deploy serverless app to aws
 
 ```AWS_PROFILE=<> sls deploy```

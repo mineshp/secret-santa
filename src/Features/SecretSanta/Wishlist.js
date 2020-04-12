@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
 import Loading from '../../Shared/Loading';
@@ -7,7 +7,7 @@ import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import Notification from '../../Shared/Notification';
 import './Wishlist.css';
 
-import useInput from '../../Shared/useInput'
+import useInput from '../../Shared/useInput';
 import { getToken, getMember, setAuthorisationToken } from '../Authentication/Auth';
 import api from '../../Services/api';
 
@@ -19,12 +19,13 @@ const myWishlist = (
   bindGiftIdea1,
   bindGiftIdea2,
   bindGiftIdea3,
-  handleSubmit) => (
-    <Form size='tiny' onSubmit={handleSubmit}>
+  handleSubmit
+) => (
+  <Form size='tiny' onSubmit={handleSubmit}>
     <div className="wishlist-bg">
       <div className="wrapper-wishlist">
         <div className="box-wishlist a-wishlist">
-        { showNotification && notificationMessage
+          { showNotification && notificationMessage
           && (
           <Notification
             type={notificationMessage.type}
@@ -33,7 +34,7 @@ const myWishlist = (
           )
         }
         </div>
-        <div className="box-wishlist b-wishlist wishlist-heading">{`${wishlistFor}'s Wishlist`}</div>
+        <div data-testid="members-wishlist" className="box-wishlist b-wishlist wishlist-heading">{`${wishlistFor}'s Wishlist`}</div>
         <div className="box-wishlist c-wishlist"><Form.Field key='gift-1' width="sixteen">
           <Form.Input
             name='giftIdea1'
@@ -59,14 +60,14 @@ const myWishlist = (
         </Form.Field></div>
         <div className="box-wishlist f-wishlist"></div>
         <div className="box-wishlist g-wishlist">{
-          <Button color="pink" size={setButtonSizeByDeviceRes()} type="submit" className="">
+          <Button color="pink" size={setButtonSizeByDeviceRes()} type="submit" className="" data-testid="save-btn">
             Save
           </Button>
         }</div>
         <div className="box-wishlist h-wishlist"></div>
-        <div className="box-wishlist i-wishlist"><Button color="grey" size={setButtonSizeByDeviceRes()} as={Link} className="" name="home" to="/">
+        <div className="box-wishlist i-wishlist"><Button color="grey" size={setButtonSizeByDeviceRes()} as={Link} className="" name="home" to="/" data-testid="back-btn">
           Back
-    </Button></div>
+        </Button></div>
       </div>
     </div>
   </Form>
@@ -79,10 +80,10 @@ const secretSantasWishlist = (
     setButtonSizeByDeviceRes,
     wishlist
 ) => (
-      <div className="wishlist-bg">
-        <div className="wrapper-wishlist">
-          <div className="box-wishlist a-wishlist">
-          { showNotification && notificationMessage
+  <div className="wishlist-bg">
+    <div className="wrapper-wishlist">
+      <div className="box-wishlist a-wishlist">
+        { showNotification && notificationMessage
             && (
             <Notification
               type={notificationMessage.type}
@@ -90,19 +91,19 @@ const secretSantasWishlist = (
             />
             )
           }
-          </div>
-          <div className="box-wishlist b-wishlist wishlist-heading">{`${wishlistFor}'s Wishlist`}</div>
-          <div className="c-wishlist readonlylist">{wishlist[0]}</div>
-          <div className="d-wishlist readonlylist">{wishlist[1]}</div>
-          <div className="e-wishlist readonlylist">{wishlist[2]}</div>
-          <div className="box-wishlist f-wishlist"></div>
-          <div className="box-wishlist g-wishlist"></div>
-          <div className="box-wishlist h-wishlist"><Button color="grey" size={setButtonSizeByDeviceRes()} as={Link} className="" name="home" to="/">
-          Back
-    </Button></div>
-          <div className="box-wishlist i-wishlist"></div>
-        </div>
       </div>
+      <div data-testid="giftees-wishlist" className="box-wishlist b-wishlist wishlist-heading">{`${wishlistFor}'s Wishlist`}</div>
+      <div data-testid="giftIdea1" className="c-wishlist readonlylist">{wishlist[0]}</div>
+      <div data-testid="giftIdea2" className="d-wishlist readonlylist">{wishlist[1]}</div>
+      <div data-testid="giftIdea3" className="e-wishlist readonlylist">{wishlist[2]}</div>
+      <div className="box-wishlist f-wishlist"></div>
+      <div className="box-wishlist g-wishlist"></div>
+      <div className="box-wishlist h-wishlist"><Button color="grey" size={setButtonSizeByDeviceRes()} as={Link} className="" name="home" to="/" data-testid="back-btn">
+          Back
+      </Button></div>
+      <div className="box-wishlist i-wishlist"></div>
+    </div>
+  </div>
   );
 
 export default function Wishlist(props) {
@@ -132,7 +133,7 @@ export default function Wishlist(props) {
     } else if (window.innerWidth > 481 && window.innerWidth <= 767) {
       setDeviceBP('tablet');
     } else if (window.innerWidth > 768 && window.innerWidth <= 1024) {
-      setDeviceBP('laptop')
+      setDeviceBP('laptop');
     } else if (window.innerWidth > 1024) {
       setDeviceBP('largeDesktop');
     }
@@ -159,7 +160,7 @@ export default function Wishlist(props) {
           `/secretsanta/giftIdeas/${wishlistFor}/${groupName}`,
           { headers: setAuthorisationToken(token) }
         ).catch((err) => console.error(err) || err);
-      }
+      };
 
       void async function () {
         const { data } = await getGiftIdeasForMember(wishlistFor);
@@ -188,15 +189,15 @@ export default function Wishlist(props) {
     evt.preventDefault();
     const token = getToken();
     const allGiftIdeaSuggestions = [];
-    if (giftIdeaInput1 && giftIdeaInput1 !== "") {
+    if (giftIdeaInput1 && giftIdeaInput1 !== '') {
       allGiftIdeaSuggestions.push(giftIdeaInput1);
-    };
-    if (giftIdeaInput2 && giftIdeaInput2 !== "") {
+    }
+    if (giftIdeaInput2 && giftIdeaInput2 !== '') {
       allGiftIdeaSuggestions.push(giftIdeaInput2);
-    };
-    if (giftIdeaInput3 && giftIdeaInput3 !== "") {
+    }
+    if (giftIdeaInput3 && giftIdeaInput3 !== '') {
       allGiftIdeaSuggestions.push(giftIdeaInput3);
-    };
+    }
 
     const response = await api.put(
       `/secretsanta/giftIdeas/${wishlistFor}/${groupName}`,
@@ -226,7 +227,7 @@ export default function Wishlist(props) {
       case 'laptop':
         return 'large';
       case 'largeDesktop':
-        return 'big'
+        return 'big';
       default:
         break;
     }
@@ -260,4 +261,4 @@ export default function Wishlist(props) {
     }
     </Container>
     );
-};
+}

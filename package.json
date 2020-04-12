@@ -21,7 +21,9 @@
     "deploy": "npm run build && AWS_PROFILE=min-aws-s3-deploy aws s3 sync build/ s3://secretsanta.mineshdesigns.co.uk",
     "test": "CI=true react-scripts test --colors --env=jsdom",
     "test:watch": "npm run test -- --watch",
-    "eject": "react-scripts eject"
+    "cy:run": "cypress open .",
+    "eject": "react-scripts eject",
+    "lint": "eslint . && stylelint './src/**/*.js'"
   },
   "husky": {
     "hooks": {
@@ -40,10 +42,22 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@testing-library/cypress": "^6.0.0",
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^9.4.0",
+    "cypress": "^4.3.0",
+    "cypress-wait-until": "^1.6.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^3.0.0",
     "history": "^4.10.1",
     "husky": "^4.2.3",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "jsonwebtoken": "^8.5.1",
+    "stylelint": "^13.3.0",
+    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.10.0"
   }
 }

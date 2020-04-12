@@ -13,8 +13,8 @@ import useInput from '../../Shared/useInput';
 import { formatDate } from '../../Utils/Date';
 import { getToken, setAuthorisationToken } from '../Authentication/Auth';
 import api from '../../Services/api';
-import useMembers from './useMembers'
-import './Panel.css';;
+import useMembers from './useMembers';
+import './Panel.css';
 
 const displayMembersForGroup = (members, sendEmailToMember) => {
   const memberRows = members.map(({ memberName, email, drawn, lastLoggedIn }) => (
@@ -50,7 +50,7 @@ const displayMembersForGroup = (members, sendEmailToMember) => {
       </Table.Body>
     </Table>
   );
-}
+};
 
 const allGroups = (groups, handleDraw, deleteGroup, sendEmailToAll) => {
   const groupRows = groups.map(({ groupName, count }) => (
@@ -61,20 +61,20 @@ const allGroups = (groups, handleDraw, deleteGroup, sendEmailToAll) => {
         </Header>
       </Table.Cell>
       <Table.Cell singleLine>{count}</Table.Cell>
-      <Table.Cell><Button color="blue" type="button" id={groupName} onClick={handleDraw}>
+      <Table.Cell><Button color="blue" type="button" id={groupName} onClick={handleDraw} data-testid='draw-btn'>
         Draw</Button>
       </Table.Cell>
-      <Table.Cell><Button color="teal" type="button" id={groupName} onClick={deleteGroup}>
+      <Table.Cell><Button color="teal" type="button" id={groupName} onClick={deleteGroup} data-testid={`${groupName}-delete-btn`}>
         Delete</Button>
       </Table.Cell>
-      <Table.Cell><Button color="pink" type="button" id={groupName} onClick={sendEmailToAll}>
+      <Table.Cell><Button color="pink" type="button" id={groupName} onClick={sendEmailToAll} data-testid='send-email-all-btn'>
         Send</Button>
       </Table.Cell>
     </Table.Row>
   ));
 
   return (
-    <Table celled className="groups-admin">
+    <Table celled className="groups-admin" data-testid='allgroups'>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell singleLine>GroupName</Table.HeaderCell>
@@ -146,7 +146,7 @@ export default function Panel(props) {
           />
         </Form.Field>
       </div>
-    ))
+    ));
   };
 
   const displayNotification = (messageData) => {
@@ -190,7 +190,7 @@ export default function Panel(props) {
       type: 'negative',
       messageHeader: `Error sending email for ${groupName}, ${err}`
     }));
-  }
+  };
 
   const sendEmailToMember = async (event) => {
     event.preventDefault();
@@ -209,7 +209,7 @@ export default function Panel(props) {
       type: 'negative',
       messageHeader: `Error sending email for ${searchGroupName} to ${memberName}, ${err}`
     }));
-  }
+  };
 
   const handleSetupGroup = async (event) => {
     event.preventDefault();
@@ -229,7 +229,7 @@ export default function Panel(props) {
             type: 'positive',
             messageHeader: `Successfully created new secret santa group ${groupName}.`
           });
-          setActiveIndex(0)
+          setActiveIndex(0);
         })
         .catch((err) => displayNotification({
           type: 'negative',
@@ -265,7 +265,7 @@ export default function Panel(props) {
           messageHeader: `Successfully deleted group ${groupName}!`
         });
       }
-    };
+    }
   };
 
   const handleSearchSubmit = async (event) => {
@@ -285,102 +285,105 @@ export default function Panel(props) {
           messageHeader: `Unable to find secret santa group ${groupName}, ${err}`
         }));
     }
-  }
+  };
 
   return (
     <Container>
       <div className="admin-bg">
-      <Grid textAlign='center' verticalAlign='middle'>
-      <Grid.Column style={{ maxWidth: 700 }}>
-    { showNotification && notificationMessage
+        <Grid textAlign='center' verticalAlign='middle'>
+          <Grid.Column style={{ maxWidth: 700 }}>
+            { showNotification && notificationMessage
       && (
       <Notification
         type={notificationMessage.type}
-          messageHeader={notificationMessage.messageHeader}
-          message={notificationMessage.message || null}
+        messageHeader={notificationMessage.messageHeader}
+        message={notificationMessage.message || null}
       />
       )
     }
-    <Accordion styled>
-      <Accordion.Title
-        active={activeIndex === 0}
-        index={0}
-        onClick={handleAccordionClick}
-        className="accordion-panel"
+            <Accordion styled>
+              <Accordion.Title
+                active={activeIndex === 0}
+                index={0}
+                onClick={handleAccordionClick}
+                className="accordion-panel"
+                data-testid="manage-groups-accordion"
       >
-        <Icon name="dropdown" color="blue"/>
+                <Icon name="dropdown" color="blue"/>
         Manage Groups
-      </Accordion.Title>
-      <Accordion.Content active={activeIndex === 0}>
-          {allGroups(groups, handleDraw, deleteGroup, sendEmailToAll)}
-      </Accordion.Content>
+              </Accordion.Title>
+              <Accordion.Content active={activeIndex === 0}>
+                {allGroups(groups, handleDraw, deleteGroup, sendEmailToAll)}
+              </Accordion.Content>
 
-      <Accordion.Title
-      active={activeIndex === 1}
-      index={1}
-      onClick={handleAccordionClick}
-      className="accordion-panel"
+              <Accordion.Title
+                active={activeIndex === 1}
+                index={1}
+                onClick={handleAccordionClick}
+                className="accordion-panel"
+                data-testid="search-groups-accordion"
     >
-      <Icon name="dropdown" color="blue"/>
+                <Icon name="dropdown" color="blue"/>
       Search Group
-    </Accordion.Title>
-    <Accordion.Content active={activeIndex === 1}>
-    <div className="search-input-wrapper">
-      <Form onSubmit={handleSetupGroup}>
-        <Form.Group key="search-group" className="search-input">
-          <Form.Input
-            id="searchGroup"
-            name={'groupName'}
-            placeholder={'Search Group Name'}
-            width={9}
-            {...bindSearchGroupName}
+              </Accordion.Title>
+              <Accordion.Content active={activeIndex === 1}>
+                <div className="search-input-wrapper">
+                  <Form onSubmit={handleSetupGroup}>
+                    <Form.Group key="search-group" className="search-input">
+                      <Form.Input
+                        id="searchGroup"
+                        name={'groupName'}
+                        placeholder={'Search Group Name'}
+                        width={9}
+                        {...bindSearchGroupName}
           />
-          <Button type="button" onClick={handleSearchSubmit} onKeyPress={handleSearchSubmit}>Search</Button>
-        </Form.Group>
-        <Divider />
-        {displayMembersForGroup(membersForGroup, sendEmailToMember)}
-      </Form>
-    </div>
-    </Accordion.Content>
+                      <Button type="button" onClick={handleSearchSubmit} onKeyPress={handleSearchSubmit} data-testid="search-group-btn">Search</Button>
+                    </Form.Group>
+                    <Divider />
+                    {displayMembersForGroup(membersForGroup, sendEmailToMember)}
+                  </Form>
+                </div>
+              </Accordion.Content>
 
-      <Accordion.Title
-        active={activeIndex === 2}
-        index={2}
-        onClick={handleAccordionClick}
-        className="accordion-panel"
+              <Accordion.Title
+                active={activeIndex === 2}
+                index={2}
+                onClick={handleAccordionClick}
+                className="accordion-panel"
+                data-testid="setup-groups-accordion"
       >
-        <Icon name="dropdown" color="blue"/>
+                <Icon name="dropdown" color="blue"/>
         Setup New Group
-      </Accordion.Title>
-      <Accordion.Content active={activeIndex === 2}>
-      <div className="">
-        <Form onSubmit={handleSetupGroup}>
-          <Form.Field key="new-group-name">
-            <Form.Input
-              id="group-name"
-              name={'groupName'}
-              placeholder={'New Group Name'}
-              width={12}
-              {...bindGroupName}
+              </Accordion.Title>
+              <Accordion.Content active={activeIndex === 2}>
+                <div className="">
+                  <Form onSubmit={handleSetupGroup}>
+                    <Form.Field key="new-group-name">
+                      <Form.Input
+                        id="group-name"
+                        name={'groupName'}
+                        placeholder={'New Group Name'}
+                        width={12}
+                        {...bindGroupName}
             />
-          </Form.Field>
-          <Divider />
-          {addNewGroupMember()}
-          <div className="button-spacing">
-            <Button color="pink" onClick={addMember} onKeyPress={addMember} type="button" className="button-spacing">
+                    </Form.Field>
+                    <Divider />
+                    {addNewGroupMember()}
+                    <div className="button-spacing">
+                      <Button color="pink" onClick={addMember} onKeyPress={addMember} type="button" className="button-spacing" data-testid="add-member-btn">
               Add Member
-            </Button>
-            <Button color="blue" type="submit">
+                      </Button>
+                      <Button color="blue" type="submit" data-testid="setup-group-btn">
               Setup
-            </Button>
-          </div>
-        </Form>
-      </div>
-      </Accordion.Content>
+                      </Button>
+                    </div>
+                  </Form>
+                </div>
+              </Accordion.Content>
             </Accordion>
           </Grid.Column>
-          </Grid>
+        </Grid>
       </div>
-      </Container>
+    </Container>
   );
 }

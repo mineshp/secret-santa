@@ -10,47 +10,47 @@ import { loggedIn, logout, getMember } from './Features/Authentication/Auth';
 import logo from './assets/secretsantalogo_transparent_small.png';
 
 const MainNavigation = ({ handleLogout, user }) => (
-    <div>
+  <div>
     {
       user && user.memberName
       ?
-      <Menu className='nav-main' secondary>
-        <Menu.Item><Image src={logo} size='mini'/></Menu.Item>
-        <Menu.Menu position='right'>
-        <Dropdown item className="toUpperCase menu-style" text={user.memberName}>
-          <Dropdown.Menu>
-            <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-              {user.admin && <Dropdown.Item as={Link} to='/admin'>Admin</Dropdown.Item>}
-              <Dropdown item text='Policies'>
+        <Menu className='nav-main' secondary>
+          <Menu.Item><Image src={logo} size='mini'/></Menu.Item>
+          <Menu.Menu position='right'>
+            <Dropdown item className="toUpperCase menu-style" text={user.memberName}data-testid='main-user-nav'>
               <Dropdown.Menu>
-                <Dropdown.Item as={Link} to='/privacy'>Privacy</Dropdown.Item>
-                <Dropdown.Item as={Link} to='/terms'>Terms</Dropdown.Item>
+                <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                {user.admin && <Dropdown.Item as={Link} to='/admin'>Admin</Dropdown.Item>}
+                <Dropdown item text='Policies'>
+                  <Dropdown.Menu>
+                    <Dropdown.Item as={Link} to='/privacy'>Privacy</Dropdown.Item>
+                    <Dropdown.Item as={Link} to='/terms'>Terms</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </Dropdown.Menu>
             </Dropdown>
-          </Dropdown.Menu>
-        </Dropdown>
-      </Menu.Menu>
-      </Menu>
+          </Menu.Menu>
+        </Menu>
         :
         <Menu className='nav-main' secondary>
-        <Menu.Item><Image src={logo} size='mini'/></Menu.Item>
-        <Menu.Menu position='right'>
-        <Dropdown item className="toUpperCase" text="Santas Secret App">
-          <Dropdown.Menu>
-              <Dropdown.Item as={Link} to='/'>Login</Dropdown.Item>
-              <Dropdown item text='Policies'>
+          <Menu.Item><Image src={logo} size='mini'/></Menu.Item>
+          <Menu.Menu position='right'>
+            <Dropdown item className="toUpperCase" text="Santas Secret App" data-testid='main-nav'>
               <Dropdown.Menu>
-                <Dropdown.Item as={Link} to='/privacy'>Privacy</Dropdown.Item>
-                <Dropdown.Item as={Link} to='/terms'>Terms</Dropdown.Item>
+                <Dropdown.Item as={Link} to='/'>Login</Dropdown.Item>
+                <Dropdown item text='Policies'>
+                  <Dropdown.Menu>
+                    <Dropdown.Item as={Link} to='/privacy'>Privacy</Dropdown.Item>
+                    <Dropdown.Item as={Link} to='/terms'>Terms</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </Dropdown.Menu>
             </Dropdown>
-          </Dropdown.Menu>
-        </Dropdown>
-      </Menu.Menu>
-    </Menu>
+          </Menu.Menu>
+        </Menu>
     }
 
-    </div>
+  </div>
   );
 
 const AppContainer = (props) => {
@@ -74,7 +74,7 @@ const AppContainer = (props) => {
     dispatch({
       type: 'REMOVE_USER'
     });
-    history.push('/')
+    history.push('/');
   };
 
   return (
@@ -84,7 +84,7 @@ const AppContainer = (props) => {
         <Routes />
       </div>
     </Container>
-  )
+  );
 };
 
   export default AppContainer;
