@@ -7,7 +7,6 @@ import Image from 'semantic-ui-react/dist/commonjs/elements/Image';
 import Message from 'semantic-ui-react/dist/commonjs/collections/Message';
 import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid';
 import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment';
-import logo from '../../md-logo-green.png';
 import santalogo from '../../assets/secretsantalogo_transparent_small.png';
 
 import { getToken, setAuthorisationToken, setToken, getMember } from './Auth';
@@ -18,7 +17,7 @@ import useInput from '../../Shared/useInput';
 import './Login.css';
 // import decode from 'jwt-decode';
 
-export default function Login(props) {
+export default function Login() {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState();
 
@@ -83,7 +82,7 @@ export default function Login(props) {
       passphrase: secretCodeInput.toLowerCase()
     })
       .then(() => history.push('/'))
-      .catch((err) => displayNotification({
+      .catch(() => displayNotification({
         type: 'negative',
         messageHeader: 'Login failed, details maybe incorrect!'
       }));
@@ -131,7 +130,7 @@ export default function Login(props) {
                 {...bindSecretCode}
           />
               <Button color='red' fluid size='large' data-testid='login-btn'>
-            Login
+                Login
               </Button>
             </Segment>
           </Form>

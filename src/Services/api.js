@@ -14,8 +14,6 @@ const put = (url, body, headers) => axios.put(`${config.API_URL}${url}`, body, h
 
 const del = (url, headers) => axios.delete(`${config.API_URL}${url}`, headers).catch(handleError);
 
-// const del = (url, body, headers) => axios.delete(`${config.API_URL}${url}`, { data: body }, headers).catch(handleError);
-
 export default {
   get,
   post,

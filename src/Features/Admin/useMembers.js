@@ -3,7 +3,7 @@ import uuidv4 from 'uuid/v4';
 
 function useMembers(initialState) {
   const memberReducer = (prevState, data) => {
-    const index = prevState.findIndex((member) => member.rowId === data.id)
+    const index = prevState.findIndex((member) => member.rowId === data.id);
     // duplicate the state array, not modify
     const newState = [...prevState];
 
@@ -33,7 +33,7 @@ function useMembers(initialState) {
       default:
         return prevState;
     }
-  }
+  };
 
   const [members, dispatch] = useReducer(memberReducer, [
     ...initialState,
@@ -48,7 +48,7 @@ function useMembers(initialState) {
     type: `UPDATE_${type.toUpperCase()}`,
     id: data.id,
     value: event.target.value
-  })
+  });
 
   const add = () => dispatch({ type: 'ADD' });
 
@@ -56,7 +56,7 @@ function useMembers(initialState) {
     members,
     add,
     update
-  ]
-};
+  ];
+}
 
 export default useMembers;

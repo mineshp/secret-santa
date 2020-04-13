@@ -7,9 +7,9 @@ import './index.css';
 import App from './App';
 
 render(
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>,
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

@@ -1,8 +1,8 @@
-import { render, queries } from '@testing-library/react'
+import { render, queries } from '@testing-library/react';
 // import * as customQueries from './custom-queries'
 
 const customRender = (ui, options) =>
-  render(ui, { queries: { ...queries }, ...options })
+  render(ui, { queries: { ...queries }, ...options });
   // render(ui, { queries: { ...queries, ...customQueries }, ...options })
 
 const getTextBySelector = (selector, component) => Array.prototype.map.call(
@@ -10,7 +10,7 @@ const getTextBySelector = (selector, component) => Array.prototype.map.call(
 );
 
 // re-export everything
-export * from '@testing-library/react'
+export * from '@testing-library/react';
 
 // override render method
-export { customRender as render, getTextBySelector }
+export { customRender as render, getTextBySelector };

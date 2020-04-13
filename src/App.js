@@ -4,7 +4,7 @@ import AppContainer from './AppContainer';
 // import './App.css';
 import { UserProvider } from './Features/Authentication/useAuth';
 
-const App = (props) => {
+const App = () => {
   return (
     <UserProvider>
       <AppContainer />

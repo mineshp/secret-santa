@@ -92,7 +92,7 @@ const allGroups = (groups, handleDraw, deleteGroup, sendEmailToAll) => {
   );
 };
 
-export default function Panel(props) {
+export default function Panel() {
   const [newMembers, addMember, updateMember] = useMembers([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [groups, setGroups] = useState([]);
@@ -163,7 +163,7 @@ export default function Panel(props) {
       `/secretsanta/draw/${groupName}`,
       { headers: setAuthorisationToken(token) }
     )
-    .then(({ data }) => displayNotification({
+    .then(() => displayNotification({
       type: 'positive',
       messageHeader: `Successfully created draw for ${groupName}.`
     }))
@@ -182,7 +182,7 @@ export default function Panel(props) {
       `/secretsanta/admin/sendEmail/${groupName}`,
       { headers: setAuthorisationToken(token) }
     )
-    .then((response) => displayNotification({
+    .then(() => displayNotification({
       type: 'positive',
       messageHeader: `Successfully sent email for ${groupName}.`
     }))
@@ -201,7 +201,7 @@ export default function Panel(props) {
       `/secretsanta/admin/sendEmail/${searchGroupName}/${memberName}`,
       { headers: setAuthorisationToken(token) }
     )
-    .then((response) => displayNotification({
+    .then(() => displayNotification({
       type: 'positive',
       messageHeader: `Successfully sent email for ${searchGroupName} to ${memberName}.`
     }))
@@ -224,7 +224,7 @@ export default function Panel(props) {
         payload,
         { headers: setAuthorisationToken(token) }
       )
-        .then(({ data }) => {
+        .then(() => {
           displayNotification({
             type: 'positive',
             messageHeader: `Successfully created new secret santa group ${groupName}.`
@@ -310,7 +310,7 @@ export default function Panel(props) {
                 data-testid="manage-groups-accordion"
       >
                 <Icon name="dropdown" color="blue"/>
-        Manage Groups
+                Manage Groups
               </Accordion.Title>
               <Accordion.Content active={activeIndex === 0}>
                 {allGroups(groups, handleDraw, deleteGroup, sendEmailToAll)}
@@ -324,7 +324,7 @@ export default function Panel(props) {
                 data-testid="search-groups-accordion"
     >
                 <Icon name="dropdown" color="blue"/>
-      Search Group
+                Search Group
               </Accordion.Title>
               <Accordion.Content active={activeIndex === 1}>
                 <div className="search-input-wrapper">
@@ -353,7 +353,7 @@ export default function Panel(props) {
                 data-testid="setup-groups-accordion"
       >
                 <Icon name="dropdown" color="blue"/>
-        Setup New Group
+                Setup New Group
               </Accordion.Title>
               <Accordion.Content active={activeIndex === 2}>
                 <div className="">
@@ -371,10 +371,10 @@ export default function Panel(props) {
                     {addNewGroupMember()}
                     <div className="button-spacing">
                       <Button color="pink" onClick={addMember} onKeyPress={addMember} type="button" className="button-spacing" data-testid="add-member-btn">
-              Add Member
+                        Add Member
                       </Button>
                       <Button color="blue" type="submit" data-testid="setup-group-btn">
-              Setup
+                        Setup
                       </Button>
                     </div>
                   </Form>

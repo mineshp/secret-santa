@@ -56,6 +56,6 @@ const Terms = () => {
       </div>
     </Container>
   );
-}
+};
 
 export default Terms;

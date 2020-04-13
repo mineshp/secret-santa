@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import PropTypes from 'prop-types';
 
 const initialState = {};
 
@@ -8,23 +9,26 @@ const authReducer = (prevState, data) => {
       return {
         ...prevState,
         ...data
-      }
+      };
     case 'GET_USER':
       return prevState;
-    case 'REMOVE_USER':
+    case 'REMOVE_USER': {
       const {
+        // eslint-disable-next-line no-unused-vars
         user,
         ...loggedOutUser
       } = prevState;
       return {
         ...loggedOutUser
-      }
+      };
+    }
     default:
       return prevState;
   }
 };
 
 export const UserContext = React.createContext({});
+
 
 export function UserProvider(props) {
   const [state, dispatch] = useReducer(authReducer, initialState);
@@ -33,5 +37,9 @@ export function UserProvider(props) {
     <UserContext.Provider value={{ user: state.user, dispatch }}>
       {props.children}
     </UserContext.Provider>
-  );
-}
+    );
+  }
+
+UserProvider.propTypes = {
+  children: PropTypes.element.isRequired
+};

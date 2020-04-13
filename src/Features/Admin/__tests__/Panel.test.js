@@ -2,18 +2,17 @@ import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { fireEvent, render, waitForElement, wait } from '@testing-library/react';
+import { fireEvent, render, waitForElement } from '@testing-library/react';
 import { UserProvider } from '../../Authentication/useAuth';
 import Panel from '../Panel';
 import api from '../../../Services/api';
-import { getTextBySelector } from '../../../test-utils/test-utils';
 
 
 jest.mock('../../../Services/api');
 
 const mockJwtToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZW1iZXJOYW1lIjoic2FudGEiLCJpYXQiOjE1MTYyMzkwMjJ9.T_ZxErKlKM9s92-dOsEHOpGa-mB2BU_SVGoEZHx_g2s';
 
-const renderWithContext = (context, memberName = 'santa') => {
+const renderWithContext = (context) => {
   const history = createMemoryHistory();
 
   window.localStorage.setItem('jwtToken', mockJwtToken); // Set explicit jwtToken to mock logged in user
@@ -22,11 +21,10 @@ const renderWithContext = (context, memberName = 'santa') => {
     api.get.mockRejectedValue(new Error('Oopsy unable to retrieve all groups!'));
   } else {
     const mockAllGroupsResponse = {
-      data: [{ groupName: "group1", count:2 }, { groupName: "group2", count: 3 }]
+      data: [{ groupName: 'group1', count:2 }, { groupName: 'group2', count: 3 }]
     };
     api.get.mockResolvedValue(mockAllGroupsResponse);
-  };
-
+  }
 
   return [
     render(
@@ -59,14 +57,20 @@ describe('Admin Panel', () => {
             'Content-Type': 'application/json',
             'credentials': 'same-origin'
           }
-        });
+        }
+);
 
       const targetTableRowColumn = (row, col) => `table > tbody > tr:nth-child(${row}) > td:nth-child(${col})`;
-      const groupNameRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 1)} > h3`).textContent)
-      const groupMembersCountRow1 = await waitForElement(() => container.querySelector(targetTableRowColumn(1, 2)).textContent);
-      const groupMemberDrawRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 3)} > button`).textContent);
-      const groupMemberRemoveRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 4)} > button`).textContent);
-      const groupMemberEmailRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 5)} > button`).textContent);
+      const groupNameRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 1)} > h3`).textContent);
+      const groupMembersCountRow1 = await waitForElement(() =>
+        container.querySelector(targetTableRowColumn(1, 2)).textContent);
+      const groupMemberDrawRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 3)} > button`).textContent);
+      const groupMemberRemoveRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 4)} > button`).textContent);
+      const groupMemberEmailRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 5)} > button`).textContent);
 
       expect(groupNameRow1).toEqual('group1');
       expect(groupMembersCountRow1).toEqual('2');
@@ -83,7 +87,8 @@ describe('Admin Panel', () => {
 
       const targetTableRowColumn = (row, col) => `table > tbody > tr:nth-child(${row}) > td:nth-child(${col})`;
 
-      const groupMemberDrawRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 3)} > button`));
+      const groupMemberDrawRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 3)} > button`));
       fireEvent.click(groupMemberDrawRow1);
 
       expect(api.get).toHaveBeenCalledTimes(2);
@@ -97,7 +102,8 @@ describe('Admin Panel', () => {
             'Content-Type': 'application/json',
             'credentials': 'same-origin'
           }
-        });
+        }
+      );
 
         await waitForElement(() => getByText('Successfully created draw for group1.'));
     });
@@ -110,7 +116,8 @@ describe('Admin Panel', () => {
 
       const targetTableRowColumn = (row, col) => `table > tbody > tr:nth-child(${row}) > td:nth-child(${col})`;
 
-      const groupMemberDrawRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 3)} > button`));
+      const groupMemberDrawRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 3)} > button`));
       fireEvent.click(groupMemberDrawRow1);
 
       expect(api.get).toHaveBeenCalledTimes(2);
@@ -124,7 +131,8 @@ describe('Admin Panel', () => {
             'Content-Type': 'application/json',
             'credentials': 'same-origin'
           }
-        });
+        }
+);
 
         await waitForElement(() => getByText('Error creating draw for group1, oops something bad happened!'));
     });
@@ -137,7 +145,8 @@ describe('Admin Panel', () => {
 
       const targetTableRowColumn = (row, col) => `table > tbody > tr:nth-child(${row}) > td:nth-child(${col})`;
 
-      const groupMemberDrawRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 3)} > button`));
+      const groupMemberDrawRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 3)} > button`));
       fireEvent.click(groupMemberDrawRow1);
 
       expect(api.get).toHaveBeenCalledTimes(2);
@@ -151,7 +160,8 @@ describe('Admin Panel', () => {
             'Content-Type': 'application/json',
             'credentials': 'same-origin'
           }
-        });
+        }
+);
 
         await waitForElement(() => getByText('Successfully created draw for group1.'));
     });
@@ -164,7 +174,8 @@ describe('Admin Panel', () => {
 
       const targetTableRowColumn = (row, col) => `table > tbody > tr:nth-child(${row}) > td:nth-child(${col})`;
 
-      const groupDeleteRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 4)} > button`));
+      const groupDeleteRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 4)} > button`));
       fireEvent.click(groupDeleteRow1);
 
       expect(api.delete).toHaveBeenCalledTimes(1);
@@ -177,7 +188,8 @@ describe('Admin Panel', () => {
             'Content-Type': 'application/json',
             'credentials': 'same-origin'
           }
-        });
+        }
+);
 
         await waitForElement(() => getByText('Successfully deleted group group1!'));
     });
@@ -190,7 +202,8 @@ describe('Admin Panel', () => {
 
       const targetTableRowColumn = (row, col) => `table > tbody > tr:nth-child(${row}) > td:nth-child(${col})`;
 
-      const groupDeleteRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 4)} > button`));
+      const groupDeleteRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 4)} > button`));
       fireEvent.click(groupDeleteRow1);
 
       expect(api.delete).toHaveBeenCalledTimes(1);
@@ -203,9 +216,10 @@ describe('Admin Panel', () => {
             'Content-Type': 'application/json',
             'credentials': 'same-origin'
           }
-        });
+        }
+      );
 
-        await waitForElement(() => getByText('Unable to delete group1!'));
+      await waitForElement(() => getByText('Unable to delete group1!'));
     });
 
     it('successfully sends an email to everyone in the group, regarding who they drew', async () => {
@@ -216,7 +230,8 @@ describe('Admin Panel', () => {
 
       const targetTableRowColumn = (row, col) => `table > tbody > tr:nth-child(${row}) > td:nth-child(${col})`;
 
-      const groupSendRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 5)} > button`));
+      const groupSendRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 5)} > button`));
       fireEvent.click(groupSendRow1);
 
       expect(api.get).toHaveBeenCalledTimes(2);
@@ -230,7 +245,8 @@ describe('Admin Panel', () => {
             'Content-Type': 'application/json',
             'credentials': 'same-origin'
           }
-        });
+        }
+);
 
         await waitForElement(() => getByText('Successfully sent email for group1.'));
     });
@@ -243,7 +259,8 @@ describe('Admin Panel', () => {
 
       const targetTableRowColumn = (row, col) => `table > tbody > tr:nth-child(${row}) > td:nth-child(${col})`;
 
-      const groupSendRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 5)} > button`));
+      const groupSendRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 5)} > button`));
       fireEvent.click(groupSendRow1);
 
       expect(api.get).toHaveBeenCalledTimes(2);
@@ -257,7 +274,8 @@ describe('Admin Panel', () => {
             'Content-Type': 'application/json',
             'credentials': 'same-origin'
           }
-        });
+        }
+);
 
         await waitForElement(() => getByText('Error sending email for group1, oops something bad happended!'));
     });
@@ -269,7 +287,7 @@ describe('Admin Panel', () => {
 
       fireEvent.click(getByText('Search Group'));
 
-      const mockSearchResponse = { data :[{ memberName: "member1", email: "member1@group1.com", drawn: true, admin: false }] };
+      const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
       const groupNameInput = await waitForElement(() => getByPlaceholderText('Search Group Name'));
@@ -287,15 +305,21 @@ describe('Admin Panel', () => {
             'Content-Type': 'application/json',
             'credentials': 'same-origin'
           }
-        });
+        }
+);
 
       const targetTableRowColumn = (row, col) => `#membersList > tbody > tr:nth-child(${row}) > td:nth-child(${col})`;
 
-      const memberNameRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 1)} > h3`).textContent)
-      const memberEmailRow1 = await waitForElement(() => container.querySelector(targetTableRowColumn(1, 2)).textContent);
-      const memberDrawAssignedRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 3)} > i`).className);
-      const memberLastLoggedInRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 4)}`).textContent);
-      const memberSendEmailRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 5)} > button`).textContent);
+      const memberNameRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 1)} > h3`).textContent);
+      const memberEmailRow1 = await waitForElement(() =>
+        container.querySelector(targetTableRowColumn(1, 2)).textContent);
+      const memberDrawAssignedRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 3)} > i`).className);
+      const memberLastLoggedInRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 4)}`).textContent);
+      const memberSendEmailRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 5)} > button`).textContent);
 
       expect(memberNameRow1).toEqual('member1');
       expect(memberEmailRow1).toEqual('member1@group1.com');
@@ -327,7 +351,8 @@ describe('Admin Panel', () => {
             'Content-Type': 'application/json',
             'credentials': 'same-origin'
           }
-        });
+        }
+);
 
       expect(container.querySelector('#membersList > tbody > tr')).not.toBeInTheDocument();
 
@@ -339,7 +364,7 @@ describe('Admin Panel', () => {
 
       fireEvent.click(getByText('Search Group'));
 
-      const mockSearchResponse = { data :[{ memberName: "member1", email: "member1@group1.com", drawn: true, admin: false }] };
+      const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
       const groupNameInput = await waitForElement(() => getByPlaceholderText('Search Group Name'));
@@ -357,14 +382,16 @@ describe('Admin Panel', () => {
             'Content-Type': 'application/json',
             'credentials': 'same-origin'
           }
-        });
+        }
+      );
 
       const targetTableRowColumn = (row, col) => `#membersList > tbody > tr:nth-child(${row}) > td:nth-child(${col})`;
 
       const mockSendMemberEmailResponse = [];
       api.get.mockImplementationOnce(() => Promise.resolve(mockSendMemberEmailResponse));
 
-      const memberSendEmailRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 5)} > button`));
+      const memberSendEmailRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 5)} > button`));
       fireEvent.click(memberSendEmailRow1);
 
       expect(api.get).toHaveBeenCalledTimes(3);
@@ -378,9 +405,10 @@ describe('Admin Panel', () => {
             'Content-Type': 'application/json',
             'credentials': 'same-origin'
           }
-        });
+        }
+      );
 
-      await waitForElement(() => getByText('Successfully sent email for group1 to member1.'))
+      await waitForElement(() => getByText('Successfully sent email for group1 to member1.'));
     });
 
     it('Displays an error when unable to send an email to a member to remind them who they have drawn', async () => {
@@ -388,7 +416,7 @@ describe('Admin Panel', () => {
 
       fireEvent.click(getByText('Search Group'));
 
-      const mockSearchResponse = { data :[{ memberName: "member1", email: "member1@group1.com", drawn: true, admin: false }] };
+      const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
       const groupNameInput = await waitForElement(() => getByPlaceholderText('Search Group Name'));
@@ -406,14 +434,16 @@ describe('Admin Panel', () => {
             'Content-Type': 'application/json',
             'credentials': 'same-origin'
           }
-        });
+        }
+      );
 
       const targetTableRowColumn = (row, col) => `#membersList > tbody > tr:nth-child(${row}) > td:nth-child(${col})`;
 
       const mockSendMemberEmailResponse = 'problems connecting to server!';
       api.get.mockImplementationOnce(() => Promise.reject(mockSendMemberEmailResponse));
 
-      const memberSendEmailRow1 = await waitForElement(() => container.querySelector(`${targetTableRowColumn(1, 5)} > button`));
+      const memberSendEmailRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 5)} > button`));
       fireEvent.click(memberSendEmailRow1);
 
       expect(api.get).toHaveBeenCalledTimes(3);
@@ -427,9 +457,10 @@ describe('Admin Panel', () => {
             'Content-Type': 'application/json',
             'credentials': 'same-origin'
           }
-        });
+        }
+);
 
-      await waitForElement(() => getByText('Error sending email for group1 to member1, problems connecting to server!'))
+      await waitForElement(() => getByText('Error sending email for group1 to member1, problems connecting to server!'));
     });
   });
 
@@ -439,7 +470,7 @@ describe('Admin Panel', () => {
 
       fireEvent.click(getByText('Setup New Group'));
 
-      const mockSearchResponse = { data :[{ memberName: "member1", email: "member1@group1.com", drawn: true, admin: false }] };
+      const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
       const groupNameInput = await waitForElement(() => getByPlaceholderText('New Group Name'));
@@ -467,7 +498,8 @@ describe('Admin Panel', () => {
             'Content-Type': 'application/json',
             'credentials': 'same-origin'
           },
-        });
+        }
+      );
 
       await waitForElement(() => getByText('Successfully created new secret santa group newgroupx.'));
     });
@@ -477,7 +509,7 @@ describe('Admin Panel', () => {
 
       fireEvent.click(getByText('Setup New Group'));
 
-      const mockSearchResponse = { data :[{ memberName: "member1", email: "member1@group1.com", drawn: true, admin: false }] };
+      const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
       const groupNameInput = await waitForElement(() => getByPlaceholderText('New Group Name'));
@@ -505,7 +537,8 @@ describe('Admin Panel', () => {
             'Content-Type': 'application/json',
             'credentials': 'same-origin'
           },
-        });
+        }
+      );
 
       await waitForElement(() => getByText('Error creating new secret santa group newgroupx, oops unexpected error occurred!'));
     });
@@ -515,7 +548,7 @@ describe('Admin Panel', () => {
 
       fireEvent.click(getByText('Setup New Group'));
 
-      const mockSearchResponse = { data :[{ memberName: "member1", email: "member1@group1.com", drawn: true, admin: false }] };
+      const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
       const groupNameInput = await waitForElement(() => getByPlaceholderText('New Group Name'));

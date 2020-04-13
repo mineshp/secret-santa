@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Message from 'semantic-ui-react/dist/commonjs/collections/Message';
 
 const NotificationContent = ({ messageHeader, message }) => (
@@ -36,5 +37,10 @@ const Notification = ({ type, messageHeader, message }) => {
   }
 };
 
+NotificationContent.propTypes = {
+  messageHeader: PropTypes.string,
+  message: PropTypes.string
+};
 
 export default Notification;
+

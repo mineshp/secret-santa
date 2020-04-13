@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
@@ -98,9 +99,11 @@ const secretSantasWishlist = (
       <div data-testid="giftIdea3" className="e-wishlist readonlylist">{wishlist[2]}</div>
       <div className="box-wishlist f-wishlist"></div>
       <div className="box-wishlist g-wishlist"></div>
-      <div className="box-wishlist h-wishlist"><Button color="grey" size={setButtonSizeByDeviceRes()} as={Link} className="" name="home" to="/" data-testid="back-btn">
+      <div className="box-wishlist h-wishlist">
+        <Button color="grey" size={setButtonSizeByDeviceRes()} as={Link} className="" name="home" to="/" data-testid="back-btn">
           Back
-      </Button></div>
+        </Button>
+      </div>
       <div className="box-wishlist i-wishlist"></div>
     </div>
   </div>
@@ -155,7 +158,7 @@ export default function Wishlist(props) {
   useEffect(() => {
     const token = getToken();
     if (wishlistFor) {
-      const getGiftIdeasForMember = async (member) => {
+      const getGiftIdeasForMember = async () => {
         return api.get(
           `/secretsanta/giftIdeas/${wishlistFor}/${groupName}`,
           { headers: setAuthorisationToken(token) }
@@ -163,7 +166,7 @@ export default function Wishlist(props) {
       };
 
       void async function () {
-        const { data } = await getGiftIdeasForMember(wishlistFor);
+        const { data } = await getGiftIdeasForMember();
         if (data && data.giftIdeas) {
           setWishlist(data.giftIdeas);
         }
@@ -213,7 +216,7 @@ export default function Wishlist(props) {
     } else {
       displayNotification({
         type: 'negative',
-        messageHeader: `Error updating gift ideas, ${response.error}` // TODO: check if this should be response.data.error?
+        messageHeader: `Error updating gift ideas, ${response.error}`
       });
     }
   };
@@ -262,3 +265,12 @@ export default function Wishlist(props) {
     </Container>
     );
 }
+
+Wishlist.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      memberName: PropTypes.string,
+      groupID: PropTypes.string
+    })
+  })
+};

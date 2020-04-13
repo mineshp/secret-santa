@@ -10,6 +10,12 @@ Application is deployed as a static website to S3
 
 ```AWS_PROFILE=<> npm run deploy```
 
+## Run linter
+
+Eslint and stylelint are in place to lint the code
+
+```AWS_PROFILE=<> npm run lint:fix```
+
 ## Run tests
 
 Unit tests are written using React Testing Library (RTL), to run them locally use the following command.

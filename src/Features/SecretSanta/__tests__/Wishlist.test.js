@@ -21,7 +21,7 @@ const renderWithContext = (context, memberName = 'santa') => {
       memberName,
       groupID: 'northpole'
     }
-  }
+  };
 
   if (context === 'errorGetWishlist') {
     api.get.mockRejectedValue(new Error('Oopsy unable to retrieve wishlist!'));
@@ -30,7 +30,7 @@ const renderWithContext = (context, memberName = 'santa') => {
       data: { giftIdeas: ['idea1', 'idea2', 'idea3'] }
     };
     api.get.mockResolvedValue(mockWishlistIdeasResponse);
-  };
+  }
 
 
   return [
@@ -63,7 +63,8 @@ describe('Wishlist', () => {
           'Content-Type': 'application/json',
           'credentials': 'same-origin'
         }
-      });
+      }
+);
 
     await expect(api.get()).rejects.toThrow('Oopsy unable to retrieve wishlist!');
   });
@@ -81,7 +82,8 @@ describe('Wishlist', () => {
           'Content-Type': 'application/json',
           'credentials': 'same-origin'
         }
-      });
+      }
+);
     expect(getByText('santa\'s Wishlist'));
 
     const giftIdea1 = await waitForElement(() => container.querySelector('input[name="giftIdea1"]'));
@@ -117,7 +119,8 @@ describe('Wishlist', () => {
           'Content-Type': 'application/json',
           'credentials': 'same-origin'
         }
-      });
+      }
+);
     expect(getByText('santa\'s Wishlist'));
 
     const giftIdea1 = await waitForElement(() => container.querySelector('input[name="giftIdea1"]'));
@@ -149,7 +152,8 @@ describe('Wishlist', () => {
           'Content-Type': 'application/json',
           'credentials': 'same-origin'
         }
-      });
+      }
+);
 
     expect(getByText('elve\'s Wishlist'));
 

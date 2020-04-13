@@ -1,6 +1,6 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
-import { Router } from 'react-router-dom'
+import { Router } from 'react-router-dom';
 import { fireEvent, render, waitForElement } from '@testing-library/react';
 import { UserProvider } from '../useAuth';
 import Login from '../Login';

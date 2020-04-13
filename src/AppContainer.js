@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import Routes from './Routes';
 import { Link, useHistory  } from 'react-router-dom';
@@ -53,7 +54,7 @@ const MainNavigation = ({ handleLogout, user }) => (
   </div>
   );
 
-const AppContainer = (props) => {
+const AppContainer = () => {
   const { user, dispatch } = useContext(UserContext);
 
   let history = useHistory();
@@ -87,4 +88,12 @@ const AppContainer = (props) => {
   );
 };
 
-  export default AppContainer;
+MainNavigation.propTypes = {
+  handleLogout: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    memberName: PropTypes.string,
+    admin: PropTypes.bool
+  })
+};
+
+export default AppContainer;

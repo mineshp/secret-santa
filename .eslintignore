@@ -1,0 +1,3 @@
+build/*
+src/Shared/Terms.js
+src/Shared/Privacy.js

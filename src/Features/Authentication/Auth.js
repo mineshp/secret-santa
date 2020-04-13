@@ -23,7 +23,7 @@ const loggedIn = () => {
   };
 
   return !!token && !isTokenExpired(token);
-}
+};
 
 const setToken = (jwtToken) => {
   localStorage.setItem('jwtToken', jwtToken);

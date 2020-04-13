@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
@@ -93,7 +94,7 @@ export default function SecretSanta({ member }) {
         }
           </div>
           <div className="box-main b-main secret-santa-heading">
-        Hi <span className="displayMemberName">{member.memberName}</span> your giftee is
+            Hi <span className="displayMemberName">{member.memberName}</span> your giftee is
           </div>
           <div className="box-main c-main"></div>
           <div className="box-main d-main reveal-santa">
@@ -114,7 +115,7 @@ export default function SecretSanta({ member }) {
               to={`/secretsanta/wishlist/${member.memberName}/${member.groupID}`}
               data-testid='my-wishlist-btn'
           >
-          My Wishlist
+              My Wishlist
             </Button>
           </div>
           <div className="box-main g-main"></div>
@@ -139,3 +140,10 @@ export default function SecretSanta({ member }) {
     </Container>
   );
 }
+
+SecretSanta.propTypes = {
+  member: PropTypes.shape({
+    memberName: PropTypes.string,
+    groupID: PropTypes.string,
+  })
+};
