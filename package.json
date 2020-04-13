@@ -22,6 +22,7 @@
     "test": "CI=true react-scripts test --colors --env=jsdom",
     "test:watch": "npm run test -- --watch",
     "cy:run": "cypress open .",
+    "cy:ci": "cypress run --headless",
     "eject": "react-scripts eject",
     "lint": "eslint . && stylelint './src/**/*.js'",
     "lint:fix": "npm run lint -- --fix"
@@ -29,7 +30,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint && npm run test",
-      "pre-push": "npm run test && npm run cy:run"
+      "pre-push": "npm run test && npm run cy:ci"
     }
   },
   "eslintConfig": {
