@@ -114,6 +114,7 @@ export default function Wishlist(props) {
   const [notificationMessage, setNotificationMessage] = useState();
   const [wishlist, setWishlist] = useState([]);
   const [wishlistFor, setWishlistFor] = useState(null);
+  const [wishlistUpdated, setWishlistUpdated] = useState(false);
   const [groupName, setGroupName] = useState(null);
   const [readOnlyList, setReadOnlyList] = useState(false);
   const [deviceBP, setDeviceBP] = useState(null);
@@ -176,9 +177,9 @@ export default function Wishlist(props) {
 
   useEffect(() => {
     if (wishlist && wishlist.length > 0) {
-      setGiftIdeaInput1(wishlist[0]);
-      setGiftIdeaInput2(wishlist[1]);
-      setGiftIdeaInput3(wishlist[2]);
+      setGiftIdeaInput1(wishlist[0] || 'Suprise Me');
+      setGiftIdeaInput2(wishlist[1] || 'Suprise Me');
+      setGiftIdeaInput3(wishlist[2] || 'Suprise Me');
     }
   }, [setGiftIdeaInput1, setGiftIdeaInput2, setGiftIdeaInput3, wishlist]);
 
@@ -187,6 +188,23 @@ export default function Wishlist(props) {
       setTimeout(() => setShowNotification(false), 3000);
     }
   }, [showNotification]);
+
+  useEffect(() => {
+    if (wishlistUpdated) {
+      const token = getToken();
+      const setGiftIdeasLastUpdated = async () => {
+      return api.put(
+        `/secretsanta/giftIdeas/${wishlistFor}/${groupName}/updated`,
+        JSON.stringify({ giftIdeasLastUpdated: new Date().toISOString() }),
+        { headers: setAuthorisationToken(token) }
+      ).catch((err) => console.error(err) || err);
+    };
+
+    void async function () {
+      await setGiftIdeasLastUpdated();
+    }();
+    }
+  }, [wishlistUpdated, wishlistFor, groupName]);
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
@@ -209,6 +227,7 @@ export default function Wishlist(props) {
     );
 
     if (response.data) {
+      setWishlistUpdated(true);
       displayNotification({
         type: 'positive',
         messageHeader: 'Successfully updated gift ideas.'

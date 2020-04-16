@@ -2,14 +2,24 @@ import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { fireEvent, render, waitForElement } from '@testing-library/react';
+import { fireEvent, render, waitForElement, wait } from '@testing-library/react';
 import { UserProvider } from '../../Authentication/useAuth';
 import Wishlist from '../Wishlist';
 import api from '../../../Services/api';
 
 jest.mock('../../../Services/api');
 
+
 const mockJwtToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZW1iZXJOYW1lIjoic2FudGEiLCJpYXQiOjE1MTYyMzkwMjJ9.T_ZxErKlKM9s92-dOsEHOpGa-mB2BU_SVGoEZHx_g2s';
+
+const HEADERS = {
+  headers: {
+    Accept: 'application/json',
+    Authorization: `Bearer ${mockJwtToken}`,
+    'Content-Type': 'application/json',
+    'credentials': 'same-origin'
+  }
+};
 
 const renderWithContext = (context, memberName = 'santa') => {
   const history = createMemoryHistory();
@@ -56,14 +66,7 @@ describe('Wishlist', () => {
     expect(api.get).toHaveBeenCalledTimes(1);
     expect(api.get).toHaveBeenCalledWith(
       '/secretsanta/giftIdeas/santa/northpole',
-      {
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${mockJwtToken}`,
-          'Content-Type': 'application/json',
-          'credentials': 'same-origin'
-        }
-      }
+      HEADERS
 );
 
     await expect(api.get()).rejects.toThrow('Oopsy unable to retrieve wishlist!');
@@ -75,14 +78,7 @@ describe('Wishlist', () => {
     expect(api.get).toHaveBeenCalledTimes(1);
     expect(api.get).toHaveBeenCalledWith(
       '/secretsanta/giftIdeas/santa/northpole',
-      {
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${mockJwtToken}`,
-          'Content-Type': 'application/json',
-          'credentials': 'same-origin'
-        }
-      }
+      HEADERS
 );
     expect(getByText('santa\'s Wishlist'));
 
@@ -92,15 +88,32 @@ describe('Wishlist', () => {
 
     fireEvent.change(giftIdea1, { target: { value: 'baubel' } });
     fireEvent.change(giftIdea2, { target: { value: 'tree topper' } });
-    fireEvent.change(giftIdea3, { target: { value: 'suprise me' } });
+    fireEvent.change(giftIdea3, { target: { value: 'surprise me' } });
 
     const mockSubmitWishlistIdeasResponse = { data: [] };
     api.put.mockImplementationOnce(() => Promise.resolve(mockSubmitWishlistIdeasResponse));
+
+    const mockSaveWishlistLastUpdatedResponse = { data: [] };
+    api.put.mockImplementationOnce(() => Promise.resolve(mockSaveWishlistLastUpdatedResponse));
 
     expect(await waitForElement(() => getByText('Back'))).toBeInTheDocument();
     expect(await waitForElement(() => getByText('Save'))).toBeInTheDocument();
 
     fireEvent.click(getByText('Save'));
+
+    await wait(); // Needed for the useEffect for setGiftIdeasLastUpdated to fire
+
+    expect(api.put).toHaveBeenCalledTimes(2);
+
+    expect(api.put).toHaveBeenNthCalledWith(1,
+      '/secretsanta/giftIdeas/santa/northpole',
+      JSON.stringify({ giftIdeas: ['baubel', 'tree topper', 'surprise me'] }),
+      HEADERS);
+
+    expect(api.put).toHaveBeenNthCalledWith(2,
+      '/secretsanta/giftIdeas/santa/northpole/updated',
+      expect.any(String),
+      HEADERS);
 
     await waitForElement(() => getByText('Successfully updated gift ideas.'));
 
@@ -112,14 +125,7 @@ describe('Wishlist', () => {
     expect(api.get).toHaveBeenCalledTimes(1);
     expect(api.get).toHaveBeenCalledWith(
       '/secretsanta/giftIdeas/santa/northpole',
-      {
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${mockJwtToken}`,
-          'Content-Type': 'application/json',
-          'credentials': 'same-origin'
-        }
-      }
+      HEADERS
 );
     expect(getByText('santa\'s Wishlist'));
 
@@ -136,6 +142,8 @@ describe('Wishlist', () => {
 
     fireEvent.click(getByText('Save'));
 
+    expect(api.put).toHaveBeenCalledTimes(1);
+
     await waitForElement(() => getByText('Error updating gift ideas, oops something bad happened!'));
   });
 
@@ -145,14 +153,7 @@ describe('Wishlist', () => {
     expect(api.get).toHaveBeenCalledTimes(1);
     expect(api.get).toHaveBeenCalledWith(
       '/secretsanta/giftIdeas/elve/northpole',
-      {
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${mockJwtToken}`,
-          'Content-Type': 'application/json',
-          'credentials': 'same-origin'
-        }
-      }
+      HEADERS
 );
 
     expect(getByText('elve\'s Wishlist'));

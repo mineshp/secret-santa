@@ -7,6 +7,7 @@ import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
 import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon';
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header';
+import Popup from 'semantic-ui-react/dist/commonjs/modules/Popup';
 import Table from 'semantic-ui-react/dist/commonjs/collections/Table';
 import Notification from '../../Shared/Notification';
 import useInput from '../../Shared/useInput';
@@ -17,7 +18,13 @@ import useMembers from './useMembers';
 import './Panel.css';
 
 const displayMembersForGroup = (members, sendEmailToMember) => {
-  const memberRows = members.map(({ memberName, email, drawn, lastLoggedIn }) => (
+  const memberRows = members.map(({
+    memberName,
+    email,
+    drawn,
+    wishlistUpdated,
+    lastLoggedIn
+  }) => (
     <Table.Row key={memberName}>
       <Table.Cell>
         <Header as='h3' textAlign='center' className="group-name">
@@ -25,7 +32,22 @@ const displayMembersForGroup = (members, sendEmailToMember) => {
         </Header>
       </Table.Cell>
       <Table.Cell>{email}</Table.Cell>
-      <Table.Cell className="has-drawn">{drawn ? <Icon name='check' color='green' /> : <Icon name='close' color='red' />}</Table.Cell>
+      <Table.Cell className="format-center">{drawn ? <Icon name='check' color='green' /> : <Icon name='close' color='red' />}</Table.Cell>
+      <Table.Cell className="format-center">
+        {
+          wishlistUpdated
+            ? <Popup
+              trigger={<Icon name='check' color='green' />}
+              content={`Wishlist last updated ${formatDate(wishlistUpdated)}`}
+              position='top center'
+            />
+            : <Popup
+              trigger={<Icon name='close' color='red' />}
+              content='Wishlist has not been updated'
+              position='top center'
+          />
+        }
+      </Table.Cell>
       <Table.Cell>{ lastLoggedIn ? formatDate(lastLoggedIn) : 'never' }</Table.Cell>
       <Table.Cell><Button color="pink" type="button" id={memberName} onClick={sendEmailToMember}>
         Send</Button>
@@ -40,6 +62,7 @@ const displayMembersForGroup = (members, sendEmailToMember) => {
           <Table.HeaderCell singleLine>Name</Table.HeaderCell>
           <Table.HeaderCell>Email</Table.HeaderCell>
           <Table.HeaderCell>Giftee Assigned</Table.HeaderCell>
+          <Table.HeaderCell>Wishlist Updated</Table.HeaderCell>
           <Table.HeaderCell>Last Logged In</Table.HeaderCell>
           <Table.HeaderCell>Send Email</Table.HeaderCell>
         </Table.Row>
@@ -291,7 +314,7 @@ export default function Panel() {
     <Container>
       <div className="admin-bg">
         <Grid textAlign='center' verticalAlign='middle'>
-          <Grid.Column style={{ maxWidth: 700 }}>
+          <Grid.Column style={{ maxWidth: 780 }}>
             { showNotification && notificationMessage
       && (
       <Notification

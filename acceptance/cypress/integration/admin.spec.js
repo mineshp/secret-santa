@@ -110,8 +110,9 @@ describe('Admin Panel', () => {
               cy.get('td').eq(0).contains('dancer');
               cy.get('td').eq(1).contains('mineshdesigns@gmail.com');
               cy.get('td').eq(2).get('i').should('have.class', 'green check icon');
-              cy.get('td').eq(3).contains('never');
-              cy.get('td').eq(4).contains('button', 'Send');
+              cy.get('td').eq(3).get('i').should('have.class', 'red close icon');
+              cy.get('td').eq(4).contains('never');
+              cy.get('td').eq(5).contains('button', 'Send');
         });
     });
   });

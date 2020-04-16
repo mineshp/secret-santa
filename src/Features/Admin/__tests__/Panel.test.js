@@ -316,14 +316,17 @@ describe('Admin Panel', () => {
         container.querySelector(targetTableRowColumn(1, 2)).textContent);
       const memberDrawAssignedRow1 = await waitForElement(() =>
         container.querySelector(`${targetTableRowColumn(1, 3)} > i`).className);
+      const memberWishlistLastUpdatedInRow1 = await waitForElement(() =>
+        container.querySelector(`${targetTableRowColumn(1, 4)} > i`).className);
       const memberLastLoggedInRow1 = await waitForElement(() =>
-        container.querySelector(`${targetTableRowColumn(1, 4)}`).textContent);
+        container.querySelector(`${targetTableRowColumn(1, 5)}`).textContent);
       const memberSendEmailRow1 = await waitForElement(() =>
-        container.querySelector(`${targetTableRowColumn(1, 5)} > button`).textContent);
+        container.querySelector(`${targetTableRowColumn(1, 6)} > button`).textContent);
 
       expect(memberNameRow1).toEqual('member1');
       expect(memberEmailRow1).toEqual('member1@group1.com');
       expect(memberDrawAssignedRow1).toEqual('green check icon');
+      expect(memberWishlistLastUpdatedInRow1).toEqual('red close icon');
       expect(memberLastLoggedInRow1).toEqual('never');
       expect(memberSendEmailRow1).toEqual('Send');
     });
@@ -391,7 +394,7 @@ describe('Admin Panel', () => {
       api.get.mockImplementationOnce(() => Promise.resolve(mockSendMemberEmailResponse));
 
       const memberSendEmailRow1 = await waitForElement(() =>
-        container.querySelector(`${targetTableRowColumn(1, 5)} > button`));
+        container.querySelector(`${targetTableRowColumn(1, 6)} > button`));
       fireEvent.click(memberSendEmailRow1);
 
       expect(api.get).toHaveBeenCalledTimes(3);
@@ -443,7 +446,7 @@ describe('Admin Panel', () => {
       api.get.mockImplementationOnce(() => Promise.reject(mockSendMemberEmailResponse));
 
       const memberSendEmailRow1 = await waitForElement(() =>
-        container.querySelector(`${targetTableRowColumn(1, 5)} > button`));
+        container.querySelector(`${targetTableRowColumn(1, 6)} > button`));
       fireEvent.click(memberSendEmailRow1);
 
       expect(api.get).toHaveBeenCalledTimes(3);

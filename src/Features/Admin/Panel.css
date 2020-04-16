@@ -39,7 +39,7 @@ div.search-input {
   display: inline-block;
 }
 
-.has-drawn {
+.ui.table, td.format-center {
   text-align: center;
 }
 

@@ -26,8 +26,28 @@ Unit tests are written using React Testing Library (RTL), to run them locally us
 
 Acceptance tests are written using Cypress, to run them
 
+### Local
+
 ```bash
-npm run cy:run
+npm run cy:local
+```
+
+### Prod
+
+Runs against the production version
+
+
+```bash
+npm run cy:prod
+```
+
+### CI mode
+
+Runs in headless mode, as part of the process to push the branch
+
+
+```bash
+npm run cy:ci
 ```
 
 ### Deploy serverless app to aws
