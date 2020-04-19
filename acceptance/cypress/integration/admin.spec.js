@@ -24,6 +24,46 @@ describe('Admin Panel', () => {
     cy.login(user);
   });
 
+  // TODO: Change users and groups to be testGroup
+
+  describe('Access Admin Area', () => {
+    it('Admin user has access to the admin area', () => {
+      const ADMIN_MEMBERNAME = 'min';
+      const ADMIN_PASSPHRASE = 'angel';
+
+      cy.goTo('/');
+      cy.get('input[name=memberName]').type(ADMIN_MEMBERNAME);
+      cy.get('input[name=groupID]').type(GROUPNAME);
+      cy.get('input[name=passphrase]').type(ADMIN_PASSPHRASE);
+
+      cy.get('[data-testid="login-btn"]').click();
+      selectItemFromDropdown('admin');
+
+      cy.get('[data-testid="manage-groups-accordion"]');
+    });
+
+    it('Non admin user does not have access to the admin area', () => {
+      const NONADMIN_MEMBERNAME = 'jigs';
+      const NONADMIN_PASSPHRASE = 'turkey';
+
+      cy.goTo('/');
+      cy.get('input[name=memberName]').type(NONADMIN_MEMBERNAME);
+      cy.get('input[name=groupID]').type(GROUPNAME);
+      cy.get('input[name=passphrase]').type(NONADMIN_PASSPHRASE);
+
+      cy.get('[data-testid="login-btn"]').click();
+
+      // Click User menu
+      cy.get('[data-testid="main-user-nav"]').click();
+      cy.get('a[href*=admin]').should('not.exist');
+
+      // Try going direct to admin area
+      cy.visit('/admin');
+      cy.get('[data-testid="manage-groups-accordion"]').should('not.exist');
+      cy.get('h2').contains('401 Unauthorised!');
+    });
+  });
+
   describe('Setup new group', () => {
     it('Creates a group with members', () => {
       cy.server();

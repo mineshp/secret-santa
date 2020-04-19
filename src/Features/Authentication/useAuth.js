@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
+import { getMember } from './Auth';
 
 const initialState = {};
 
@@ -10,8 +11,9 @@ const authReducer = (prevState, data) => {
         ...prevState,
         ...data
       };
-    case 'GET_USER':
-      return prevState;
+    case 'GET_USER': {
+      return getMember();
+    }
     case 'REMOVE_USER': {
       const {
         // eslint-disable-next-line no-unused-vars

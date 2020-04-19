@@ -1,0 +1,30 @@
+/*  Page */
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #0c416afc;
+}
+
+.error-page-bg {
+  width: 100%;
+}
+
+.error-page {
+  background-image: url('../assets/scrooge.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #000000;
+}
+
+.ui.header.error-code-heading {
+  font-family: 'Permanent Marker', cursive;
+  /* font-size: 2rem;; */
+  color: #FFF;
+}
+
+p.error-description {
+  font-family: 'Courgette', cursive;
+  font-size: 1.5rem;;
+  color: #b15082;
+}
