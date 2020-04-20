@@ -44,7 +44,7 @@ export default function SecretSanta({ member }) {
   const revealMySecretSanta = async () => {
     const token = getToken();
     const response = await api.get(
-      `/secretsanta/reveal/${member.memberName}/${member.groupID}`,
+      `/reveal/${member.memberName}/${member.groupID}`,
       { headers: setAuthorisationToken(token) }
     )
       .catch((err) => {

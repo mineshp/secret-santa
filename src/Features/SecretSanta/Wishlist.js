@@ -161,7 +161,7 @@ export default function Wishlist(props) {
     if (wishlistFor) {
       const getGiftIdeasForMember = async () => {
         return api.get(
-          `/secretsanta/giftIdeas/${wishlistFor}/${groupName}`,
+          `/giftIdeas/${wishlistFor}/${groupName}`,
           { headers: setAuthorisationToken(token) }
         ).catch((err) => console.error(err) || err);
       };
@@ -194,7 +194,7 @@ export default function Wishlist(props) {
       const token = getToken();
       const setGiftIdeasLastUpdated = async () => {
       return api.put(
-        `/secretsanta/giftIdeas/${wishlistFor}/${groupName}/updated`,
+        `/giftIdeas/${wishlistFor}/${groupName}/updated`,
         JSON.stringify({ giftIdeasLastUpdated: new Date().toISOString() }),
         { headers: setAuthorisationToken(token) }
       ).catch((err) => console.error(err) || err);
@@ -221,7 +221,7 @@ export default function Wishlist(props) {
     }
 
     const response = await api.put(
-      `/secretsanta/giftIdeas/${wishlistFor}/${groupName}`,
+      `/giftIdeas/${wishlistFor}/${groupName}`,
       JSON.stringify({ giftIdeas: allGiftIdeaSuggestions }),
       { headers: setAuthorisationToken(token) }
     );

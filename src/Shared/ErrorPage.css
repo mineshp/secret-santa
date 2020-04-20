@@ -9,7 +9,7 @@ body {
 }
 
 .error-page {
-  background-image: url('../assets/scrooge.jpg');
+  background-image: url('../assets/scrooge-desktop.jpg');
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -27,4 +27,28 @@ p.error-description {
   font-family: 'Courgette', cursive;
   font-size: 1.5rem;;
   color: #b15082;
+}
+
+@media (min-width: 640px) {
+  .background-wishlist {
+    background-image: url('../assets/scrooge-mobile.jpg');
+  }
+}
+
+@media (min-width: 768px) {
+  .background-wishlist {
+    background-image: url('../assets/scrooge-desktop.jpg');
+  }
+}
+
+@media (min-width: 1024px){
+  .background-wishlist {
+    background-image: url('../assets/scrooge-desktop.jpg');
+  }
+}
+
+@media (min-width: 1200px){
+  .background-wishlist {
+    background-image: url('../assets/scrooge-desktop.jpg');
+  }
 }

@@ -49,7 +49,7 @@ describe('Admin Panel', () => {
 
       expect(api.get).toHaveBeenCalledTimes(1);
       expect(api.get).toHaveBeenCalledWith(
-        '/secretsanta/admin/allgroups',
+        '/admin/allgroups',
         {
           headers: {
             Accept: 'application/json',
@@ -94,7 +94,7 @@ describe('Admin Panel', () => {
       expect(api.get).toHaveBeenCalledTimes(2);
       expect(api.get).toHaveBeenNthCalledWith(
         2,
-        '/secretsanta/draw/group1',
+        '/admin/draw/group1',
         {
           headers: {
             Accept: 'application/json',
@@ -123,7 +123,7 @@ describe('Admin Panel', () => {
       expect(api.get).toHaveBeenCalledTimes(2);
       expect(api.get).toHaveBeenNthCalledWith(
         2,
-        '/secretsanta/draw/group1',
+        '/admin/draw/group1',
         {
           headers: {
             Accept: 'application/json',
@@ -152,7 +152,7 @@ describe('Admin Panel', () => {
       expect(api.get).toHaveBeenCalledTimes(2);
       expect(api.get).toHaveBeenNthCalledWith(
         2,
-        '/secretsanta/draw/group1',
+        '/admin/draw/group1',
         {
           headers: {
             Accept: 'application/json',
@@ -180,7 +180,7 @@ describe('Admin Panel', () => {
 
       expect(api.delete).toHaveBeenCalledTimes(1);
       expect(api.delete).toHaveBeenCalledWith(
-        '/secretsanta/group1',
+        '/admin/group1',
         {
           headers: {
             Accept: 'application/json',
@@ -208,7 +208,7 @@ describe('Admin Panel', () => {
 
       expect(api.delete).toHaveBeenCalledTimes(1);
       expect(api.delete).toHaveBeenCalledWith(
-        '/secretsanta/group1',
+        '/admin/group1',
         {
           headers: {
             Accept: 'application/json',
@@ -237,7 +237,7 @@ describe('Admin Panel', () => {
       expect(api.get).toHaveBeenCalledTimes(2);
       expect(api.get).toHaveBeenNthCalledWith(
         2,
-        '/secretsanta/admin/sendEmail/group1',
+        '/admin/sendEmail/group1',
         {
           headers: {
             Accept: 'application/json',
@@ -266,7 +266,7 @@ describe('Admin Panel', () => {
       expect(api.get).toHaveBeenCalledTimes(2);
       expect(api.get).toHaveBeenNthCalledWith(
         2,
-        '/secretsanta/admin/sendEmail/group1',
+        '/admin/sendEmail/group1',
         {
           headers: {
             Accept: 'application/json',
@@ -297,7 +297,7 @@ describe('Admin Panel', () => {
       expect(api.get).toHaveBeenCalledTimes(2);
       expect(api.get).toHaveBeenNthCalledWith(
         2,
-        '/secretsanta/group1',
+        '/admin/group1',
         {
           headers: {
             Accept: 'application/json',
@@ -346,7 +346,7 @@ describe('Admin Panel', () => {
       expect(api.get).toHaveBeenCalledTimes(2);
       expect(api.get).toHaveBeenNthCalledWith(
         2,
-        '/secretsanta/randomgroup',
+        '/admin/randomgroup',
         {
           headers: {
             Accept: 'application/json',
@@ -377,7 +377,7 @@ describe('Admin Panel', () => {
       expect(api.get).toHaveBeenCalledTimes(2);
       expect(api.get).toHaveBeenNthCalledWith(
         2,
-        '/secretsanta/group1',
+        '/admin/group1',
         {
           headers: {
             Accept: 'application/json',
@@ -400,7 +400,7 @@ describe('Admin Panel', () => {
       expect(api.get).toHaveBeenCalledTimes(3);
       expect(api.get).toHaveBeenNthCalledWith(
         3,
-        '/secretsanta/admin/sendEmail/group1/member1',
+        '/admin/sendEmail/group1/member1',
         {
           headers: {
             Accept: 'application/json',
@@ -429,7 +429,7 @@ describe('Admin Panel', () => {
       expect(api.get).toHaveBeenCalledTimes(2);
       expect(api.get).toHaveBeenNthCalledWith(
         2,
-        '/secretsanta/group1',
+        '/admin/group1',
         {
           headers: {
             Accept: 'application/json',
@@ -452,7 +452,7 @@ describe('Admin Panel', () => {
       expect(api.get).toHaveBeenCalledTimes(3);
       expect(api.get).toHaveBeenNthCalledWith(
         3,
-        '/secretsanta/admin/sendEmail/group1/member1',
+        '/admin/sendEmail/group1/member1',
         {
           headers: {
             Accept: 'application/json',
@@ -492,7 +492,7 @@ describe('Admin Panel', () => {
 
       expect(api.post).toHaveBeenCalledTimes(1);
       expect(api.post).toHaveBeenCalledWith(
-        '/secretsanta/setup/newgroupx',
+        '/admin/setup/newgroupx',
         [{ email: 'new email', memberName: 'new member' }],
         {
           headers: {
@@ -531,7 +531,7 @@ describe('Admin Panel', () => {
 
       expect(api.post).toHaveBeenCalledTimes(1);
       expect(api.post).toHaveBeenCalledWith(
-        '/secretsanta/setup/newgroupx',
+        '/admin/setup/newgroupx',
         [{ email: 'new email', memberName: 'new member' }],
         {
           headers: {

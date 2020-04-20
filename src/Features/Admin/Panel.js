@@ -131,7 +131,7 @@ export default function Panel() {
     const token = getToken();
     const fetchData = async () => {
       const { data } = await api.get(
-        '/secretsanta/admin/allgroups',
+        '/admin/allgroups',
         { headers: setAuthorisationToken(token) }
       );
       if (data) setGroups(data);
@@ -183,7 +183,7 @@ export default function Panel() {
 
     const token = getToken();
     await api.get(
-      `/secretsanta/draw/${groupName}`,
+      `/admin/draw/${groupName}`,
       { headers: setAuthorisationToken(token) }
     )
     .then(() => displayNotification({
@@ -202,7 +202,7 @@ export default function Panel() {
 
     const token = getToken();
     await api.get(
-      `/secretsanta/admin/sendEmail/${groupName}`,
+      `/admin/sendEmail/${groupName}`,
       { headers: setAuthorisationToken(token) }
     )
     .then(() => displayNotification({
@@ -221,7 +221,7 @@ export default function Panel() {
 
     const token = getToken();
     await api.get(
-      `/secretsanta/admin/sendEmail/${searchGroupName}/${memberName}`,
+      `/admin/sendEmail/${searchGroupName}/${memberName}`,
       { headers: setAuthorisationToken(token) }
     )
     .then(() => displayNotification({
@@ -243,7 +243,7 @@ export default function Panel() {
       const token = getToken();
       const groupName = groupNameValue.toLowerCase();
       await api.post(
-        `/secretsanta/setup/${groupName}`,
+        `/admin/setup/${groupName}`,
         payload,
         { headers: setAuthorisationToken(token) }
       )
@@ -267,7 +267,7 @@ export default function Panel() {
 
     const token = getToken();
     const { data } = await api.delete(
-      `/secretsanta/${groupName}`,
+      `/admin/${groupName}`,
       { headers: setAuthorisationToken(token) }
     ).catch((err) => setShowNotification({
       type: 'negative',
@@ -297,7 +297,7 @@ export default function Panel() {
       const token = getToken();
       const groupName = searchGroupName.toLowerCase();
       await api.get(
-        `/secretsanta/${groupName}`,
+        `/admin/${groupName}`,
         { headers: setAuthorisationToken(token) }
       )
         .then(({ data }) => {

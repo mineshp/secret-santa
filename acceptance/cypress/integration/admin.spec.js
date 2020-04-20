@@ -27,7 +27,7 @@ describe('Admin Panel', () => {
 
     it('Creates a group with members', () => {
       cy.server();
-      cy.route('POST', '/dev/api/secretsanta/setup/*').as('setupGroup');
+      cy.route('POST', '/dev/api/admin/setup/*').as('setupGroup');
 
       selectItemFromDropdown('admin');
       cy.get('[data-testid="setup-groups-accordion"]').click();
@@ -72,7 +72,7 @@ describe('Admin Panel', () => {
       // Setup some fake data rather than rely on a db call as tabkle data will dynamically change.
       cy.server();
       cy.fixture('allgroups.json').as('allGroupsJSON');
-      cy.route('/dev/api/secretsanta/admin/allgroups', '@allGroupsJSON').as('allGroups');
+      cy.route('/dev/api/admin/allgroups', '@allGroupsJSON').as('allGroups');
 
       selectItemFromDropdown('admin');
       cy.wait('@allGroups');
@@ -93,8 +93,8 @@ describe('Admin Panel', () => {
       const groupName = 'acceptance-test-group';
 
       cy.server();
-      cy.route('GET', '/dev/api/secretsanta/admin/allgroups').as('allGroups');
-      cy.route('DELETE', `/dev/api/secretsanta/${groupName}`).as('deleteGroup');
+      cy.route('GET', '/dev/api/admin/allgroups').as('allGroups');
+      cy.route('DELETE', `/dev/api/admin/${groupName}`).as('deleteGroup');
 
       selectItemFromDropdown('admin');
       cy.wait('@allGroups');
@@ -134,13 +134,14 @@ describe('Admin Panel', () => {
       cy.get('#membersList')
         .children('tbody')
         .within(() => {
-          cy.get('tr').eq(0);
-              cy.get('td').eq(0).contains('dancer');
-              cy.get('td').eq(1).contains('mineshdesigns@gmail.com');
-              cy.get('td').eq(2).get('i').should('have.class', 'green check icon');
-              cy.get('td').eq(3).get('i').should('have.class', 'red close icon');
-              cy.get('td').eq(4).contains(new Date().toLocaleDateString());
-              cy.get('td').eq(5).contains('button', 'Send');
+          cy.get('tr').eq(1).within(() => {
+            cy.get('td').eq(0).contains('rudolph');
+            cy.get('td').eq(1).contains('mineshpatelis@gmail.com');
+            cy.get('td').eq(2).get('i').should('have.class', 'green check icon');
+            cy.get('td').eq(3).get('i').should('have.class', 'red close icon');
+            cy.get('td').eq(4).contains(new Date().toLocaleDateString());
+            cy.get('td').eq(5).contains('button', 'Send');
+          });
         });
     });
   });

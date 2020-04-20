@@ -65,7 +65,7 @@ describe('Wishlist', () => {
 
     expect(api.get).toHaveBeenCalledTimes(1);
     expect(api.get).toHaveBeenCalledWith(
-      '/secretsanta/giftIdeas/santa/northpole',
+      '/giftIdeas/santa/northpole',
       HEADERS
 );
 
@@ -77,7 +77,7 @@ describe('Wishlist', () => {
 
     expect(api.get).toHaveBeenCalledTimes(1);
     expect(api.get).toHaveBeenCalledWith(
-      '/secretsanta/giftIdeas/santa/northpole',
+      '/giftIdeas/santa/northpole',
       HEADERS
 );
     expect(getByText('santa\'s Wishlist'));
@@ -106,12 +106,12 @@ describe('Wishlist', () => {
     expect(api.put).toHaveBeenCalledTimes(2);
 
     expect(api.put).toHaveBeenNthCalledWith(1,
-      '/secretsanta/giftIdeas/santa/northpole',
+      '/giftIdeas/santa/northpole',
       JSON.stringify({ giftIdeas: ['baubel', 'tree topper', 'surprise me'] }),
       HEADERS);
 
     expect(api.put).toHaveBeenNthCalledWith(2,
-      '/secretsanta/giftIdeas/santa/northpole/updated',
+      '/giftIdeas/santa/northpole/updated',
       expect.any(String),
       HEADERS);
 
@@ -124,7 +124,7 @@ describe('Wishlist', () => {
 
     expect(api.get).toHaveBeenCalledTimes(1);
     expect(api.get).toHaveBeenCalledWith(
-      '/secretsanta/giftIdeas/santa/northpole',
+      '/giftIdeas/santa/northpole',
       HEADERS
 );
     expect(getByText('santa\'s Wishlist'));
@@ -152,7 +152,7 @@ describe('Wishlist', () => {
 
     expect(api.get).toHaveBeenCalledTimes(1);
     expect(api.get).toHaveBeenCalledWith(
-      '/secretsanta/giftIdeas/elve/northpole',
+      '/giftIdeas/elve/northpole',
       HEADERS
 );
 

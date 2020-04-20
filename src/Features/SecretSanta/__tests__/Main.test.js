@@ -53,7 +53,7 @@ describe('Main', () => {
 
     expect(api.get).toHaveBeenCalledTimes(1);
     expect(api.get).toHaveBeenCalledWith(
-      `/secretsanta/reveal/${member.memberName}/${member.groupID}`,
+      `/reveal/${member.memberName}/${member.groupID}`,
       {
         headers: {
           Accept: 'application/json',
@@ -77,7 +77,7 @@ describe('Main', () => {
     fireEvent.click(getByText('Reveal'));
     expect(api.get).toHaveBeenCalledTimes(1);
     expect(api.get).toHaveBeenCalledWith(
-      `/secretsanta/reveal/${member.memberName}/${member.groupID}`,
+      `/reveal/${member.memberName}/${member.groupID}`,
       {
         headers: {
           Accept: 'application/json',

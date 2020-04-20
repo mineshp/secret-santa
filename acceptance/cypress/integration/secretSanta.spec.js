@@ -21,7 +21,7 @@ describe('Secret Santa', () => {
 
   it('reveals my giftee', () => {
     cy.server();
-    cy.route('GET', `/dev/api/secretsanta/reveal/${MEMBERNAME}/${GROUPNAME}`).as('revealGiftee');
+    cy.route('GET', `/dev/api/reveal/${MEMBERNAME}/${GROUPNAME}`).as('revealGiftee');
 
     cy.login(user);
 
@@ -38,7 +38,7 @@ describe('Secret Santa', () => {
 
   it('updates my wishlist', () => {
     cy.server();
-    cy.route('GET', `/dev/api/secretsanta/giftIdeas/${MEMBERNAME}/${GROUPNAME}`).as('getMyWishlist');
+    cy.route('GET', `/dev/api/giftIdeas/${MEMBERNAME}/${GROUPNAME}`).as('getMyWishlist');
 
     cy.login(user);
 
@@ -89,8 +89,8 @@ describe('Secret Santa', () => {
 
   it('displays my giftee\'s wishlist ', () => {
     cy.server();
-    cy.route('GET', `/dev/api/secretsanta/reveal/${MEMBERNAME}/${GROUPNAME}`).as('revealGiftee');
-    cy.route('GET', `/dev/api/secretsanta/giftIdeas/${GIFTEE}/${GROUPNAME}`).as('getGifteeWishlist');
+    cy.route('GET', `/dev/api/reveal/${MEMBERNAME}/${GROUPNAME}`).as('revealGiftee');
+    cy.route('GET', `/dev/api/giftIdeas/${GIFTEE}/${GROUPNAME}`).as('getGifteeWishlist');
 
     cy.login(user);
 
