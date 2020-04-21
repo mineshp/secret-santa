@@ -9,7 +9,7 @@ body {
 }
 
 .error-page {
-  background-image: url('../assets/scrooge-desktop.jpg');
+  background-image: url('../assets/scrooge-mobile.jpg');
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -19,36 +19,88 @@ body {
 
 .ui.header.error-code-heading {
   font-family: 'Permanent Marker', cursive;
-  /* font-size: 2rem;; */
+  font-size: 1rem;
   color: #FFF;
 }
 
 p.error-description {
   font-family: 'Courgette', cursive;
-  font-size: 1.5rem;;
+  font-size: 0.8rem;
   color: #b15082;
 }
 
+/* GRID */
+
+.error-page-container {
+  position: absolute;
+  top: 30%;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  grid-gap: 1rem;
+}
+
+.box {
+  padding: 20px;
+  font-size: 150%;
+}
+
+/*  END */
+
 @media (min-width: 640px) {
-  .background-wishlist {
+  .error-page {
     background-image: url('../assets/scrooge-mobile.jpg');
+  }
+
+  .ui.header.error-code-heading {
+    font-size: 1.6rem;
+  }
+
+  p.error-description {
+    font-size: 1.2rem;
   }
 }
 
 @media (min-width: 768px) {
-  .background-wishlist {
+  .error-page {
     background-image: url('../assets/scrooge-desktop.jpg');
+  }
+
+  .ui.header.error-code-heading {
+    font-size: 2.2rem;
+  }
+
+  p.error-description {
+    font-size: 1.6rem;
   }
 }
 
 @media (min-width: 1024px){
-  .background-wishlist {
+  .error-page {
     background-image: url('../assets/scrooge-desktop.jpg');
+  }
+
+  .ui.header.error-code-heading {
+    font-size: 3rem;
+  }
+
+  p.error-description {
+    font-size: 2.2rem;
   }
 }
 
 @media (min-width: 1200px){
-  .background-wishlist {
+  .error-page {
     background-image: url('../assets/scrooge-desktop.jpg');
+  }
+
+  .ui.header.error-code-heading {
+    font-size: 3.6rem;
+  }
+
+  p.error-description {
+    font-size: 2.8rem;
   }
 }
