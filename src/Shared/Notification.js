@@ -22,6 +22,15 @@ const Notification = ({ type, messageHeader, message }) => {
           />
         </Message>
       );
+    case 'warning':
+      return (
+        <Message warning size='tiny' className='notification'>
+          <NotificationContent
+            messageHeader={messageHeader}
+            message={message}
+          />
+        </Message>
+      );
     case 'positive':
       return (
         <Message positive size='tiny' className='notification'>

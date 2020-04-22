@@ -34,6 +34,36 @@ describe('Main', () => {
     jest.resetAllMocks();
   });
 
+  it('Displays notification if reveal button clicked before draw has been made', async () => {
+    const { getByText } = renderComponent;
+
+    await waitForElement(() => getByText('Ho Ho Ho!'));
+
+    expect(history.location.pathname).toEqual('/');
+
+    const mockUserResponse = { data: {} };
+
+    api.get.mockImplementationOnce(() => {
+      return Promise.resolve(mockUserResponse);
+    });
+
+    fireEvent.click(getByText('Reveal'));
+
+    expect(api.get).toHaveBeenCalledTimes(1);
+
+    expect(api.get).toHaveBeenCalledWith(
+      `/reveal/${member.memberName}/${member.groupID}`,
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+
+    await waitForElement(() => getByText('Draw has not taken place yet, please wait or contact your group\'s admin!'));
+  });
+
   it('successfully reveals your giftee', async () => {
     const { getByText, queryByText } = renderComponent;
 

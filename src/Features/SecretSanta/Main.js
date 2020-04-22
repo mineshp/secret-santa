@@ -58,6 +58,11 @@ export default function SecretSanta({ member }) {
     if (response && response.data && response.data.secretSanta) {
       const decodedStr = Buffer.from(response.data.secretSanta, 'base64').toString('ascii');
       setMySecretSanta(decodedStr);
+    } else if (response && response.data && Object.keys(response.data).length === 0 ) {
+      displayNotification({
+        type: 'warning',
+        messageHeader: 'Draw has not taken place yet, please wait or contact your group\'s admin!'
+      });
     }
   };
 
