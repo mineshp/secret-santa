@@ -180,7 +180,10 @@ describe('Admin Panel', () => {
       cy.get('a[href*=admin]').should('not.exist');
 
       // Try going direct to admin area
-      cy.visit('/admin');
+      cy.visit({
+        url: '/admin',
+        failOnStatusCode: false
+      });
       cy.get('[data-testid="manage-groups-accordion"]').should('not.exist');
       cy.get('h1').contains('401 Unauthorised!');
     });
