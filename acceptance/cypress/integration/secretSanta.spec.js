@@ -65,6 +65,8 @@ describe('Secret Santa', () => {
 
     cy.get('[data-testid="save-btn"]').click();
 
+    cy.get('div.ui.tiny.positive.message.notification > div > div').contains('Successfully updated gift ideas.');
+
     // Go back to main page
     cy.goTo('/');
 

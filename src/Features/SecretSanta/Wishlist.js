@@ -6,6 +6,7 @@ import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
 import Loading from '../../Shared/Loading';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import Notification from '../../Shared/Notification';
+
 import './Wishlist.css';
 
 import useInput from '../../Shared/useInput';
@@ -13,7 +14,7 @@ import { getToken, getMember, setAuthorisationToken } from '../Authentication/Au
 import api from '../../Services/api';
 
 const myWishlist = (
-  showNotification,
+  notificationState,
   notificationMessage,
   wishlistFor,
   setButtonSizeByDeviceRes,
@@ -22,95 +23,84 @@ const myWishlist = (
   bindGiftIdea3,
   handleSubmit
 ) => (
-  <Form size='tiny' onSubmit={handleSubmit}>
-    <div className="wishlist-bg">
-      <div className="wrapper-wishlist">
-        <div className="box-wishlist a-wishlist">
-          { showNotification && notificationMessage
-          && (
+  <div>
+    <div data-testid='notification' className={`${notificationState} notification-wrapper`}>
+      {
+          ( notificationState === 'show' && notificationMessage ) && (
           <Notification
             type={notificationMessage.type}
             messageHeader={notificationMessage.messageHeader}
-          />
+            />
           )
         }
+    </div>
+    <Form size='tiny' onSubmit={handleSubmit}>
+      <div className="form-fields-wrapper">
+        <div className="row-field heading-row wishlist-heading-x" data-testid="members-wishlist">
+          {`${wishlistFor}'s Wishlist`}
         </div>
-        <div data-testid="members-wishlist" className="box-wishlist b-wishlist wishlist-heading">{`${wishlistFor}'s Wishlist`}</div>
-        <div className="box-wishlist c-wishlist"><Form.Field key='gift-1' width="sixteen">
-          <Form.Input
-            name='giftIdea1'
-            placeholder='Gift Idea 1'
-            {...bindGiftIdea1}
-          />
-        </Form.Field></div>
-        <div className="box-wishlist d-wishlist"><Form.Field key='gift-1' width="sixteen">
-          <Form.Field key='gift-2'>
+        <div className="row-field">
+          <Form.Field key='gift-1' width="sixteen">
+            <Form.Input
+              name='giftIdea1'
+              placeholder='Gift Idea 1'
+              {...bindGiftIdea1}
+        />
+          </Form.Field>
+        </div>
+        <div className="row-field">
+          <Form.Field key='gift-2' width="sixteen">
             <Form.Input
               name='giftIdea2'
               placeholder='Gift Idea 2'
               {...bindGiftIdea2}
-            />
+        />
           </Form.Field>
-        </Form.Field></div>
-        <div className="box-wishlist e-wishlist"><Form.Field key='gift-3' width="sixteen">
-          <Form.Input
-            name='giftIdea3'
-            placeholder='Gift Idea 3'
-            {...bindGiftIdea3}
-          />
-        </Form.Field></div>
-        <div className="box-wishlist f-wishlist"></div>
-        <div className="box-wishlist g-wishlist">{
-          <Button color="pink" size={setButtonSizeByDeviceRes()} type="submit" className="" data-testid="save-btn">
+        </div>
+        <div className="row-field">
+          <Form.Field key='gift-3' width="sixteen">
+            <Form.Input
+              name='giftIdea3'
+              placeholder='Gift Idea 3'
+              {...bindGiftIdea3}
+        />
+          </Form.Field>
+        </div>
+        <div className="button-group">
+          <Button color="pink" size={setButtonSizeByDeviceRes()} type="submit" data-testid="save-btn">
             Save
           </Button>
-        }</div>
-        <div className="box-wishlist h-wishlist"></div>
-        <div className="box-wishlist i-wishlist"><Button color="grey" size={setButtonSizeByDeviceRes()} as={Link} className="" name="home" to="/" data-testid="back-btn">
-          Back
-        </Button></div>
+          <Button color="grey" size={setButtonSizeByDeviceRes()} as={Link} className="back-btn" name="home" to="/" data-testid="back-btn">
+            Back
+          </Button>
+        </div>
       </div>
-    </div>
-  </Form>
-  );
+    </Form>
+  </div>
+);
 
 const secretSantasWishlist = (
-    showNotification,
-    notificationMessage,
     wishlistFor,
     setButtonSizeByDeviceRes,
     wishlist
 ) => (
-  <div className="wishlist-bg">
-    <div className="wrapper-wishlist">
-      <div className="box-wishlist a-wishlist">
-        { showNotification && notificationMessage
-            && (
-            <Notification
-              type={notificationMessage.type}
-              messageHeader={notificationMessage.messageHeader}
-            />
-            )
-          }
-      </div>
-      <div data-testid="giftees-wishlist" className="box-wishlist b-wishlist wishlist-heading">{`${wishlistFor}'s Wishlist`}</div>
-      <div data-testid="giftIdea1" className="c-wishlist readonlylist">{wishlist[0]}</div>
-      <div data-testid="giftIdea2" className="d-wishlist readonlylist">{wishlist[1]}</div>
-      <div data-testid="giftIdea3" className="e-wishlist readonlylist">{wishlist[2]}</div>
-      <div className="box-wishlist f-wishlist"></div>
-      <div className="box-wishlist g-wishlist"></div>
-      <div className="box-wishlist h-wishlist">
-        <Button color="grey" size={setButtonSizeByDeviceRes()} as={Link} className="" name="home" to="/" data-testid="back-btn">
-          Back
-        </Button>
-      </div>
-      <div className="box-wishlist i-wishlist"></div>
+  <div className="form-fields-wrapper">
+    <div className="row-field heading-row wishlist-heading-x" data-testid="giftees-wishlist">
+      {`${wishlistFor}'s Wishlist`}
+    </div>
+    <div data-testid="giftIdea1" className="row-field readonlylist">{wishlist[0]}</div>
+    <div data-testid="giftIdea2" className="row-field readonlylist">{wishlist[1]}</div>
+    <div data-testid="giftIdea3" className="row-field readonlylist">{wishlist[2]}</div>
+    <div className="button-group">
+      <Button color="grey" size={setButtonSizeByDeviceRes()} as={Link} className="" name="home" to="/" data-testid="back-btn">
+        Back
+      </Button>
     </div>
   </div>
   );
 
 export default function Wishlist(props) {
-  const [showNotification, setShowNotification] = useState(false);
+  const [notificationState, setNotificationState] = useState('hide');
   const [notificationMessage, setNotificationMessage] = useState();
   const [wishlist, setWishlist] = useState([]);
   const [wishlistFor, setWishlistFor] = useState(null);
@@ -118,6 +108,7 @@ export default function Wishlist(props) {
   const [groupName, setGroupName] = useState(null);
   const [readOnlyList, setReadOnlyList] = useState(false);
   const [deviceBP, setDeviceBP] = useState(null);
+
   const { match } = props;
 
   const { value: giftIdeaInput1, setValue: setGiftIdeaInput1, bind: bindGiftIdea1 } = useInput('');
@@ -125,7 +116,7 @@ export default function Wishlist(props) {
   const { value: giftIdeaInput3, setValue: setGiftIdeaInput3, bind: bindGiftIdea3 } = useInput('');
 
   const displayNotification = (messageData) => {
-    setShowNotification(true);
+    setNotificationState('show');
     return setNotificationMessage(messageData);
   };
 
@@ -134,10 +125,10 @@ export default function Wishlist(props) {
   useEffect(() => {
     if (window.innerWidth <= 480) {
       setDeviceBP('mobile');
-    } else if (window.innerWidth > 481 && window.innerWidth <= 767) {
+    } else if (window.innerWidth >= 481 && window.innerWidth <= 767) {
+      setDeviceBP('small-tablet');
+    } else if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
       setDeviceBP('tablet');
-    } else if (window.innerWidth > 768 && window.innerWidth <= 1024) {
-      setDeviceBP('laptop');
     } else if (window.innerWidth > 1024) {
       setDeviceBP('largeDesktop');
     }
@@ -184,10 +175,10 @@ export default function Wishlist(props) {
   }, [setGiftIdeaInput1, setGiftIdeaInput2, setGiftIdeaInput3, wishlist]);
 
   useEffect(() => {
-    if (showNotification) {
-      setTimeout(() => setShowNotification(false), 3000);
+    if (notificationState) {
+      setTimeout(() => setNotificationState('hide'), 3000);
     }
-  }, [showNotification]);
+  }, [notificationState]);
 
   useEffect(() => {
     if (wishlistUpdated) {
@@ -243,13 +234,15 @@ export default function Wishlist(props) {
   const setButtonSizeByDeviceRes = () => {
     switch (deviceBP) {
       case 'mobile':
-        return 'tiny';
+        return 'small';
+      case 'small-tablet':
+        return 'medium';
       case 'tablet':
-        return 'large';
-      case 'laptop':
-        return 'large';
-      case 'largeDesktop':
         return 'big';
+      case 'laptop':
+        return 'big';
+      case 'largeDesktop':
+        return 'huge';
       default:
         break;
     }
@@ -258,20 +251,17 @@ export default function Wishlist(props) {
   if (!wishlistFor && wishlist) {
     return <Loading />;
   }
-
   return (
     <Container>
       {
         readOnlyList
         ? secretSantasWishlist(
-          showNotification,
-          notificationMessage,
           wishlistFor,
           setButtonSizeByDeviceRes,
           wishlist
           )
         : myWishlist(
-          showNotification,
+          notificationState,
           notificationMessage,
           wishlistFor,
           setButtonSizeByDeviceRes,
