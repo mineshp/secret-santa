@@ -137,7 +137,7 @@ body {
 .wishlist-page .ui.form input[type="text"] {
   color: #0c416afc;
   font-family: 'Courgette', cursive;
-  width: auto !important TODO: Specificity target selctor
+  width: auto !important /* TODO: Specificity target selctor */
 }
 
 .wishlist-page .ui.form input[type="text"]:focus {
