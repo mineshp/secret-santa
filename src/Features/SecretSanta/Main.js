@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import './Main.css';
+import '../../Shared/Notification.css';
 import Notification from '../../Shared/Notification';
 
 
@@ -13,7 +14,7 @@ import api from '../../Services/api';
 export default function SecretSanta({ member }) {
   const [mySecretSanta, setMySecretSanta] = useState(false);
   const [deviceBP, setDeviceBP] = useState(null);
-  const [showNotification, setShowNotification] = useState(false);
+  const [notificationState, setNotificationState] = useState('hide');
   const [notificationMessage, setNotificationMessage] = useState();
 
   document.body.className = 'main-page';
@@ -31,13 +32,13 @@ export default function SecretSanta({ member }) {
   }, []);
 
   useEffect(() => {
-    if (showNotification) {
-      setTimeout(() => setShowNotification(false), 3000);
+    if (notificationState) {
+      setTimeout(() => setNotificationState('hide'), 3000);
     }
-  }, [showNotification]);
+  }, [notificationState]);
 
   const displayNotification = (messageData) => {
-    setShowNotification(true);
+    setNotificationState('show');
     return setNotificationMessage(messageData);
   };
 
@@ -84,33 +85,32 @@ export default function SecretSanta({ member }) {
   return (
     <Container>
       <div className="main-bg">
-        <div className="wrapper-main">
-          <div className="box-main a-main merry-christmas">
-            {
-              showNotification && notificationMessage
-                ?
-                  (
-                    <Notification
-                      type={notificationMessage.type}
-                      messageHeader={notificationMessage.messageHeader}
-                    />
-                  )
-                : 'Ho Ho Ho!'
-        }
+        <div data-testid='notification' className={`${notificationState} notification-wrapper`}>
+          {
+            ( notificationState === 'show' && notificationMessage ) && (
+              <Notification
+                type={notificationMessage.type}
+                messageHeader={notificationMessage.messageHeader}
+                message={notificationMessage.message || null}
+              />
+            )
+          }
+        </div>
+        <div className="main-wrapper">
+          <div className="row-heading">
+            Ho Ho Ho!
           </div>
-          <div className="box-main b-main secret-santa-heading">
+          <div className="row-your-giftee-heading secret-santa-heading">
             Hi <span className="displayMemberName">{member.memberName}</span> your giftee is
           </div>
-          <div className="box-main c-main"></div>
-          <div className="box-main d-main reveal-santa">
+          <div className="row-reveal-btn reveal-santa">
             <Button compact fluid color={mySecretSanta ? 'violet' : 'yellow'} className='displayMemberName' size={setButtonSizeByDeviceRes()}
               onClick={revealMySecretSanta}
               data-testid='reveal-btn'>
               {mySecretSanta ? mySecretSanta : 'Reveal'}
             </Button>
           </div>
-          <div className="box-main e-main"></div>
-          <div className="box-main f-main">
+          <div className="row-mywishlist-btn button-row">
             <Button
               color='teal'
               className='my-wishlist-btn'
@@ -123,23 +123,24 @@ export default function SecretSanta({ member }) {
               My Wishlist
             </Button>
           </div>
-          <div className="box-main g-main"></div>
-          <div className="box-main h-main">{
-          mySecretSanta &&
-            <Button
-              compact
-              fluid
-              color='blue'
-              className='displayMemberName'
-              size={setButtonSizeByDeviceRes()}
-              as={Link}
-              name='my-wishlist'
-              to={`/secretsanta/wishlist/${mySecretSanta}/${member.groupID}`}
-              data-testid='giftees-wishlist-btn'
-          >
-              {`${mySecretSanta}'s Wishlist`}
-            </Button>
-        }</div>
+          {
+            mySecretSanta &&
+            <div className="row-gifteewishlist-btn button-row">
+              <Button
+                compact
+                fluid
+                color='blue'
+                className='displayMemberName'
+                size={setButtonSizeByDeviceRes()}
+                as={Link}
+                name='my-wishlist'
+                to={`/secretsanta/wishlist/${mySecretSanta}/${member.groupID}`}
+                data-testid='giftees-wishlist-btn'
+              >
+                {`${mySecretSanta}'s Wishlist`}
+              </Button>
+            </div>
+            }
         </div>
       </div>
     </Container>

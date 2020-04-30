@@ -8,6 +8,7 @@ import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import Notification from '../../Shared/Notification';
 
 import './Wishlist.css';
+import '../../Shared/Notification.css';
 
 import useInput from '../../Shared/useInput';
 import { getToken, getMember, setAuthorisationToken } from '../Authentication/Auth';

@@ -16,6 +16,7 @@ import { getToken, setAuthorisationToken } from '../Authentication/Auth';
 import api from '../../Services/api';
 import useMembers from './useMembers';
 import './Panel.css';
+import '../../Shared/Notification.css';
 
 const displayMembersForGroup = (members, sendEmailToMember) => {
   const memberRows = members.map(({
@@ -120,7 +121,7 @@ export default function Panel() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [groups, setGroups] = useState([]);
   const [membersForGroup, setMembersForGroup] = useState([]);
-  const [showNotification, setShowNotification] = useState(false);
+  const [notificationState, setNotificationState] = useState('hide');
   const [notificationMessage, setNotificationMessage] = useState();
   const { value: groupNameValue, bind: bindGroupName } = useInput('');
   const { value: searchGroupName, bind: bindSearchGroupName } = useInput('');
@@ -138,6 +139,12 @@ export default function Panel() {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (notificationState) {
+      setTimeout(() => setNotificationState('hide'), 3000);
+    }
+  }, [notificationState]);
 
   const handleAccordionClick = (e, titleProps) => {
     const { index } = titleProps;
@@ -173,7 +180,7 @@ export default function Panel() {
   };
 
   const displayNotification = (messageData) => {
-    setShowNotification(true);
+    setNotificationState('show');
     return setNotificationMessage(messageData);
   };
 
@@ -269,7 +276,7 @@ export default function Panel() {
     const { data } = await api.delete(
       `/admin/${groupName}`,
       { headers: setAuthorisationToken(token) }
-    ).catch((err) => setShowNotification({
+    ).catch((err) => displayNotification({
       type: 'negative',
       messageHeader: `Unable to delete ${groupName}!`,
       message: err
@@ -312,18 +319,20 @@ export default function Panel() {
 
   return (
     <Container>
-      <div className="admin-bg">
+      <div className="admin-panel">
         <Grid textAlign='center' verticalAlign='middle'>
           <Grid.Column style={{ maxWidth: 780 }}>
-            { showNotification && notificationMessage
-      && (
-      <Notification
-        type={notificationMessage.type}
-        messageHeader={notificationMessage.messageHeader}
-        message={notificationMessage.message || null}
-      />
-      )
-    }
+            <div data-testid='notification' className={`${notificationState} notification-wrapper`}>
+              {
+              ( notificationState === 'show' && notificationMessage ) && (
+              <Notification
+                type={notificationMessage.type}
+                messageHeader={notificationMessage.messageHeader}
+                message={notificationMessage.message || null}
+                />
+              )
+            }
+            </div>
             <Accordion styled>
               <Accordion.Title
                 active={activeIndex === 0}

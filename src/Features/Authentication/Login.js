@@ -15,7 +15,6 @@ import Notification from '../../Shared/Notification';
 import { UserContext } from './useAuth';
 import useInput from '../../Shared/useInput';
 import './Login.css';
-// import decode from 'jwt-decode';
 
 export default function Login() {
   const [showNotification, setShowNotification] = useState(false);

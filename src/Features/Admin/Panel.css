@@ -13,12 +13,36 @@ body {
   background-color: #4e93d0;
 }
 
-.admin-bg {
+.admin-panel {
   width: 100%;
 }
 
+.background-admin.ui.inverted.menu .toUpperCase {
+  text-transform: capitalize;
+}
+
+.background-admin.ui.dropdown > text {
+  color: #FFF;
+}
+
+.background-admin.ui.menu .menu-style {
+  color: #FFF;
+}
+
+.background-admin.ui.menu .menu-style, :hover, :focus {
+  color: #FFF;
+}
+
+.background-admin.ui.menu.item > i.dropdown.icon, :hover, :focus {
+  color: #FFF;
+}
+
+.background-admin.ui.secondary.menu .menu-style .dropdown.item:hover {
+  color: #FFF;;
+}
+
 .ui.styled.accordion {
-  width: 700px;;
+  width: 780px;
 }
 
 div.form-input {

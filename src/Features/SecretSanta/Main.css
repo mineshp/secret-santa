@@ -3,6 +3,11 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+/* Applies to all pages */
+.ui.menu .menu-style {
+  font-size: 1.2rem;
+}
+
 .main-page {
   background-image: url('../../assets/santa-main.jpg');
   background-position: center center;
@@ -16,92 +21,44 @@ body {
   width: 100%;
 }
 
-.wrapper-main {
+/* GRID */
+
+.main-wrapper {
   display: grid;
   min-height: calc(100vh - 70px); /* Calculate height removing nav menu so we don't see scrollbars */
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 40px repeat(2, min-content) 1fr;
-  grid-gap: 1px;
-  color: #FFF;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 4rem repeat(2, min-content) 1fr;
+  grid-gap: 0.2rem;
 }
 
-.box-main {
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 120%;
-  text-align: center;
-}
-
-.box-button-main {
-  border-radius: 5px;
-  font-size: 100%;
-  text-align: center;
-}
-.a-main {
-  grid-column-start: 1;
-  grid-column-end: 4;
-  grid-row-start: 1;
-  grid-row-end: 2;
-}
-.a-main.merry-christmas {
+.row-heading {
+  grid-column: 1 / span 3;
+  padding: 0.4rem;
   font-family: 'Permanent Marker', cursive;
-  font-size: 2rem;
+  font-size: 1.6rem;
+  color: #FFFFFF;
 }
-.b-main {
-  grid-column-start: 1;
-  grid-column-end: 4;
-  grid-row-start: 2;
-  grid-row-end: 3;
-}
-.b-main.secret-santa-heading {
+
+.row-your-giftee-heading {
+  grid-column: 1 / span 3;
+  padding: 0.4rem;
   font-family: 'Cinzel', serif;
   font-size: 1.3rem;;
   font-weight: bold;
   color: #070846fc
 }
-.c-main {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 3;
-  grid-row-end: 4;
-}
-.d-main {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 3;
-  grid-row-end: 4;
-}
-.e-main {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 3;
-  grid-row-end: 4;
-}
-.f-main {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 4;
-  grid-row-end: 5;
-  align-self: end;
-}
-.g-main {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 4;
-  grid-row-end: 5;
-}
-.h-main {
-  grid-column-start: 3;
-  grid-column-end: 4;
-  grid-row-start: 4;
-  grid-row-end: 5;
-  align-self: end;
-}
 
 /* Hi {memberName} your Secret Santa is */
-span.displayMemberName {
+.row-your-giftee-heading > span.displayMemberName {
   text-transform: capitalize;
+}
+
+.row-reveal-btn {
+  grid-column: 1 / span 3;
+  padding: 0.4rem;
+  align-self: end;
 }
 
 /* Reveal Button Member Name */
@@ -109,6 +66,21 @@ span.displayMemberName {
   text-transform: capitalize;
 }
 
+.row-mywishlist-btn {
+  padding-bottom: 1rem;
+  align-self: end;
+}
+
+.row-gifteewishlist-btn {
+  grid-column: 3;
+  grid-row: 4;
+  padding-bottom: 1rem;
+  align-self: end;
+}
+
+/* END */
+
+/* Menu */
 .ui.inverted.menu .toUpperCase {
   text-transform: capitalize;
 }
@@ -121,43 +93,45 @@ span.displayMemberName {
   color: #FFF;;
 }
 
+/* END Menu */
+
 @media (min-width: 640px) {
-  .a-main.merry-christmas {
+  .row-heading {
     font-size: 2.5rem;;
   }
 
-  .b-main.secret-santa-heading {
+  .row-your-giftee-heading {
     font-size: 2rem;
   }
 }
 
 @media (min-width: 768px) {
-  .a-main.merry-christmas {
+  .row-heading {
     font-size: 2.8rem;;
   }
 
-  .b-main.secret-santa-heading {
+  .row-your-giftee-heading {
     font-size: 2.1rem;
   }
 }
 
 @media (min-width: 1024px){
-  .a-main.merry-christmas {
+  .row-heading {
     font-size: 3rem;;
   }
 
-  .b-main.secret-santa-heading {
+  .row-your-giftee-heading {
     font-size: 2.3rem;
   }
 }
 
 
 @media (min-width: 1200px){
-  .a-main.merry-christmas {
+  .row-heading {
     font-size: 3rem;;
   }
 
-  .b-main.secret-santa-heading {
+  .row-your-giftee-heading {
     font-size: 2.3rem;
   }
 }
