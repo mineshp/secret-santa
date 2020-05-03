@@ -93,6 +93,12 @@ body {
   color: #FFF;;
 }
 
+.main-page .top-nav__right-menu .top-nav__dropdown,
+.main-page div.ui.active.item.dropdown.top-nav__dropdown {
+  color: #FFF;
+  font-weight: bold;
+}
+
 /* END Menu */
 
 @media (min-width: 640px) {

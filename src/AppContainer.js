@@ -10,49 +10,39 @@ import { UserContext } from './Features/Authentication/useAuth';
 import { loggedIn, logout, getMember } from './Features/Authentication/Auth';
 import logo from './assets/secretsantalogo_transparent_small.png';
 
-const MainNavigation = ({ handleLogout, user }) => (
-  <div>
-    {
-      user && user.memberName
-      ?
-        <Menu className='nav-main' secondary>
-          <Menu.Item><Image src={logo} size='mini'/></Menu.Item>
-          <Menu.Menu position='right'>
-            <Dropdown item className="toUpperCase menu-style" text={user.memberName}data-testid='main-user-nav'>
-              <Dropdown.Menu>
-                <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-                {user.admin && <Dropdown.Item as={Link} to='/admin'>Admin</Dropdown.Item>}
-                <Dropdown item text='Policies'>
-                  <Dropdown.Menu>
-                    <Dropdown.Item as={Link} to='/privacy'>Privacy</Dropdown.Item>
-                    <Dropdown.Item as={Link} to='/terms'>Terms</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Menu.Menu>
-        </Menu>
-        :
-        <Menu className='nav-main' secondary>
-          <Menu.Item><Image src={logo} size='mini'/></Menu.Item>
-          <Menu.Menu position='right'>
-            <Dropdown item className="toUpperCase" text="Santas Secret App" data-testid='main-nav'>
-              <Dropdown.Menu>
-                <Dropdown.Item as={Link} to='/'>Login</Dropdown.Item>
-                <Dropdown item text='Policies'>
-                  <Dropdown.Menu>
-                    <Dropdown.Item as={Link} to='/privacy'>Privacy</Dropdown.Item>
-                    <Dropdown.Item as={Link} to='/terms'>Terms</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Menu.Menu>
-        </Menu>
-    }
+const MainNavigation = ({ handleLogout, user }) => {
+  const dropDownMainTitle = (user && user.memberName)
+    ? user.memberName
+    : 'Santas Secret App';
 
-  </div>
+  const isLoggedIn = (user && user.memberName) &&
+    <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>;
+
+  const isAdmin = (user && user.memberName && user.admin) &&
+    <Dropdown.Item as={Link} to='/admin'>Admin</Dropdown.Item>;
+
+  return (
+    <div>
+      <Menu className='nav-main top-nav' secondary>
+        <Menu.Item><Image src={logo} size='mini' /></Menu.Item>
+        <Menu.Menu position='right' className='top-nav__right-menu'>
+          <Dropdown item className="toUpperCase menu-style top-nav__dropdown" text={dropDownMainTitle} data-testid='main-user-nav'>
+            <Dropdown.Menu>
+              { isLoggedIn }
+              { isAdmin }
+              <Dropdown item text='Policies'>
+                <Dropdown.Menu>
+                  <Dropdown.Item as={Link} to='/privacy'>Privacy</Dropdown.Item>
+                  <Dropdown.Item as={Link} to='/terms'>Terms</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Menu.Menu>
+      </Menu>
+    </div>
   );
+};
 
 const AppContainer = () => {
   const { user, dispatch } = useContext(UserContext);

@@ -17,29 +17,19 @@ body {
   width: 100%;
 }
 
-.background-admin.ui.inverted.menu .toUpperCase {
+/* .background-admin.ui.inverted.menu .toUpperCase {
   text-transform: capitalize;
+} */
+
+/* TOP NAV - Styling for Admin Panel Only */
+
+.background-admin .top-nav__right-menu .top-nav__dropdown,
+.background-admin div.ui.active.item.dropdown.top-nav__dropdown {
+  color: #FFF !important;
+  font-weight: bold;
 }
 
-.background-admin.ui.dropdown > text {
-  color: #FFF;
-}
-
-.background-admin.ui.menu .menu-style {
-  color: #FFF;
-}
-
-.background-admin.ui.menu .menu-style, :hover, :focus {
-  color: #FFF;
-}
-
-.background-admin.ui.menu.item > i.dropdown.icon, :hover, :focus {
-  color: #FFF;
-}
-
-.background-admin.ui.secondary.menu .menu-style .dropdown.item:hover {
-  color: #FFF;;
-}
+/* END TOP NAV - Styling for Admin Panel Only */
 
 .ui.styled.accordion {
   width: 780px;

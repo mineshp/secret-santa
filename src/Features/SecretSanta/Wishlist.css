@@ -90,8 +90,10 @@ body {
   font-size: 1.2rem;
 }
 
-.wishlist-page .ui.secondary.menu .dropdown.item:hover {
+.wishlist-page .top-nav__right-menu .top-nav__dropdown,
+.wishlist-page div.ui.active.item.dropdown.top-nav__dropdown {
   color: #0c416afc;
+  font-weight: bold;
 }
 
 /* Gap between buttons */
