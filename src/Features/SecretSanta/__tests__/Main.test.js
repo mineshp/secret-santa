@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import { fireEvent, render, waitForElement, wait } from '@testing-library/react';
+import { fireEvent, render, screen, waitForElement, wait } from '@testing-library/react';
 import { UserProvider } from '../../Authentication/useAuth';
 import Main from '../Main';
 import api from '../../../Services/api';
@@ -9,7 +9,6 @@ import api from '../../../Services/api';
 jest.mock('../../../Services/api');
 
 describe('Main', () => {
-  let renderComponent;
   let member;
   let history;
 
@@ -22,7 +21,7 @@ describe('Main', () => {
       secretSanta: window.btoa('rudolph')
     };
 
-    renderComponent = render(
+    render(
       <UserProvider>
         <Router history={history}>
           <Main member={member} /></Router>
@@ -35,9 +34,7 @@ describe('Main', () => {
   });
 
   it('Displays notification if reveal button clicked before draw has been made', async () => {
-    const { getByText } = renderComponent;
-
-    await waitForElement(() => getByText('Ho Ho Ho!'));
+    await waitForElement(() => screen.getByText('Ho Ho Ho!'));
 
     expect(history.location.pathname).toEqual('/');
 
@@ -47,7 +44,7 @@ describe('Main', () => {
       return Promise.resolve(mockUserResponse);
     });
 
-    fireEvent.click(getByText('Reveal'));
+    fireEvent.click(screen.getByText('Reveal'));
 
     expect(api.get).toHaveBeenCalledTimes(1);
 
@@ -61,13 +58,11 @@ describe('Main', () => {
       }
     );
 
-    await waitForElement(() => getByText('Draw has not taken place yet, please wait or contact your group\'s admin!'));
+    await waitForElement(() => screen.getByText('Draw has not taken place yet, please wait or contact your group\'s admin!'));
   });
 
   it('successfully reveals your giftee', async () => {
-    const { getByText, queryByText } = renderComponent;
-
-    await waitForElement(() => getByText('Ho Ho Ho!'));
+    await waitForElement(() => screen.getByText('Ho Ho Ho!'));
 
     expect(history.location.pathname).toEqual('/');
 
@@ -79,7 +74,7 @@ describe('Main', () => {
       return Promise.resolve(mockUserResponse);
     });
 
-    fireEvent.click(getByText('Reveal'));
+    fireEvent.click(screen.getByText('Reveal'));
 
     expect(api.get).toHaveBeenCalledTimes(1);
     expect(api.get).toHaveBeenCalledWith(
@@ -92,19 +87,17 @@ describe('Main', () => {
       }
     );
 
-    const gifteeNameBtn = await waitForElement(() => getByText('rudolph'));
+    const gifteeNameBtn = await waitForElement(() => screen.getByText('rudolph'));
     expect(gifteeNameBtn).toBeDefined();
-    expect(queryByText('Reveal')).toBeNull();
+    expect(screen.queryByText('Reveal')).toBeNull();
   });
 
   it('returns an error when the call to reveal giftee fails', async () => {
-    const { getByText } = renderComponent;
-
     api.get.mockImplementationOnce(() => {
       return Promise.reject(new Error('oops an error occurred!'));
     });
 
-    fireEvent.click(getByText('Reveal'));
+    fireEvent.click(screen.getByText('Reveal'));
     expect(api.get).toHaveBeenCalledTimes(1);
     expect(api.get).toHaveBeenCalledWith(
       `/reveal/${member.memberName}/${member.groupID}`,
@@ -116,13 +109,11 @@ describe('Main', () => {
       }
     );
 
-    await waitForElement(() => getByText('oops an error occurred!'));
+    await waitForElement(() => screen.getByText('oops an error occurred!'));
   });
 
   it('successfully takes you to your wishlist', async () => {
-    const { getByText } = renderComponent;
-
-    await waitForElement(() => getByText('Ho Ho Ho!'));
+    await waitForElement(() => screen.getByText('Ho Ho Ho!'));
 
     const mockUserResponse = {
       data: { secretSanta: member.secretSanta }
@@ -132,7 +123,7 @@ describe('Main', () => {
       return Promise.resolve(mockUserResponse);
     });
 
-    const myWishlistBtn = getByText('My Wishlist');
+    const myWishlistBtn = screen.getByText('My Wishlist');
 
     fireEvent.click(myWishlistBtn);
 
@@ -142,9 +133,7 @@ describe('Main', () => {
   });
 
   it('successfully takes you to your giftee\'s wishlist once you have revealed you giftee', async () => {
-    const { getByText } = renderComponent;
-
-    await waitForElement(() => getByText('Ho Ho Ho!'));
+    await waitForElement(() => screen.getByText('Ho Ho Ho!'));
 
     const mockUserResponse = {
       data: { secretSanta: member.secretSanta }
@@ -154,11 +143,11 @@ describe('Main', () => {
       return Promise.resolve(mockUserResponse);
     });
 
-    fireEvent.click(getByText('Reveal'));
+    fireEvent.click(screen.getByText('Reveal'));
 
-    await waitForElement(() => getByText('rudolph\'s Wishlist'));
+    await waitForElement(() => screen.getByText('rudolph\'s Wishlist'));
 
-    fireEvent.click(getByText('rudolph\'s Wishlist'));
+    fireEvent.click(screen.getByText('rudolph\'s Wishlist'));
 
     await wait();
 

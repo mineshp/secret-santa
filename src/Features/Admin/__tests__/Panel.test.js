@@ -2,7 +2,7 @@ import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { fireEvent, render, waitForElement } from '@testing-library/react';
+import { fireEvent, render, screen, waitForElement } from '@testing-library/react';
 import { UserProvider } from '../../Authentication/useAuth';
 import Panel from '../Panel';
 import api from '../../../Services/api';
@@ -80,7 +80,7 @@ describe('Admin Panel', () => {
     });
 
     it('successfully generates a draw for a group', async () => {
-      const [{ container, getByText }] = renderWithContext();
+      const [{ container }] = renderWithContext();
 
       const mockSubmitDrawResponse = { data: [{}, {}] };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSubmitDrawResponse));
@@ -105,11 +105,11 @@ describe('Admin Panel', () => {
         }
       );
 
-        await waitForElement(() => getByText('Successfully created draw for group1.'));
+        await waitForElement(() => screen.getByText('Successfully created draw for group1.'));
     });
 
     it('errors when attempting to generate a draw for a group', async () => {
-      const [{ container, getByText }] = renderWithContext();
+      const [{ container }] = renderWithContext();
 
       const mockSubmitDrawErrorResponse = 'oops something bad happened!';
       api.get.mockImplementationOnce(() => Promise.reject(mockSubmitDrawErrorResponse));
@@ -134,11 +134,11 @@ describe('Admin Panel', () => {
         }
 );
 
-        await waitForElement(() => getByText('Error creating draw for group1, oops something bad happened!'));
+        await waitForElement(() => screen.getByText('Error creating draw for group1, oops something bad happened!'));
     });
 
     it('successfully generates a draw for a group', async () => {
-      const [{ container, getByText }] = renderWithContext();
+      const [{ container }] = renderWithContext();
 
       const mockSubmitDrawResponse = { data: [{}, {}] };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSubmitDrawResponse));
@@ -163,11 +163,11 @@ describe('Admin Panel', () => {
         }
 );
 
-        await waitForElement(() => getByText('Successfully created draw for group1.'));
+        await waitForElement(() => screen.getByText('Successfully created draw for group1.'));
     });
 
     it('successfully deletes a group', async () => {
-      const [{ container, getByText }] = renderWithContext();
+      const [{ container }] = renderWithContext();
 
       const mockSubmitDeleteGroupResponse = { data: [] };
       api.delete.mockImplementationOnce(() => Promise.resolve(mockSubmitDeleteGroupResponse));
@@ -191,11 +191,11 @@ describe('Admin Panel', () => {
         }
 );
 
-        await waitForElement(() => getByText('Successfully deleted group group1!'));
+        await waitForElement(() => screen.getByText('Successfully deleted group group1!'));
     });
 
     it('errors when attempting to delete a group', async () => {
-      const [{ container, getByText }] = renderWithContext();
+      const [{ container }] = renderWithContext();
 
       const mockSubmitDeleteGroupErrorResponse = { data: { error: 'oops something bad happended!' } };
       api.delete.mockImplementationOnce(() => Promise.resolve(mockSubmitDeleteGroupErrorResponse));
@@ -219,11 +219,11 @@ describe('Admin Panel', () => {
         }
       );
 
-      await waitForElement(() => getByText('Unable to delete group1!'));
+      await waitForElement(() => screen.getByText('Unable to delete group1!'));
     });
 
     it('successfully sends an email to everyone in the group, regarding who they drew', async () => {
-      const [{ container, getByText }] = renderWithContext();
+      const [{ container }] = renderWithContext();
 
       const mockSubmitEmailGroupResponse = { data: [] };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSubmitEmailGroupResponse));
@@ -248,11 +248,11 @@ describe('Admin Panel', () => {
         }
 );
 
-        await waitForElement(() => getByText('Successfully sent email for group1.'));
+        await waitForElement(() => screen.getByText('Successfully sent email for group1.'));
     });
 
     it('errors when attempting to send an email to everyone in the group, regarding who they drew', async () => {
-      const [{ container, getByText }] = renderWithContext();
+      const [{ container }] = renderWithContext();
 
       const mockSubmitEmailGroupErrorResponse = 'oops something bad happended!';
       api.get.mockImplementationOnce(() => Promise.reject(mockSubmitEmailGroupErrorResponse));
@@ -277,22 +277,22 @@ describe('Admin Panel', () => {
         }
 );
 
-        await waitForElement(() => getByText('Error sending email for group1, oops something bad happended!'));
+        await waitForElement(() => screen.getByText('Error sending email for group1, oops something bad happended!'));
     });
   });
 
   describe('Search Groups', () => {
     it('Searches by group name', async () => {
-      const [{ container, getByText, getByPlaceholderText }] = renderWithContext();
+      const [{ container }] = renderWithContext();
 
-      fireEvent.click(getByText('Search Group'));
+      fireEvent.click(screen.getByText('Search Group'));
 
       const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
-      const groupNameInput = await waitForElement(() => getByPlaceholderText('Search Group Name'));
+      const groupNameInput = await waitForElement(() => screen.getByPlaceholderText('Search Group Name'));
       fireEvent.change(groupNameInput, { target: { value: 'group1' } });
-      fireEvent.click(getByText('Search'));
+      fireEvent.click(screen.getByText('Search'));
 
       expect(api.get).toHaveBeenCalledTimes(2);
       expect(api.get).toHaveBeenNthCalledWith(
@@ -332,16 +332,16 @@ describe('Admin Panel', () => {
     });
 
     it('Returns an error if group name not found', async () => {
-      const [{ container, getByText, getByPlaceholderText }] = renderWithContext();
+      const [{ container }] = renderWithContext();
 
-      fireEvent.click(getByText('Search Group'));
+      fireEvent.click(screen.getByText('Search Group'));
 
       const mockSearchErrorResponse = 'Oops not found!';
       api.get.mockImplementationOnce(() => Promise.reject(mockSearchErrorResponse));
 
-      const groupNameInput = await waitForElement(() => getByPlaceholderText('Search Group Name'));
+      const groupNameInput = await waitForElement(() => screen.getByPlaceholderText('Search Group Name'));
       fireEvent.change(groupNameInput, { target: { value: 'randomgroup' } });
-      fireEvent.click(getByText('Search'));
+      fireEvent.click(screen.getByText('Search'));
 
       expect(api.get).toHaveBeenCalledTimes(2);
       expect(api.get).toHaveBeenNthCalledWith(
@@ -359,20 +359,20 @@ describe('Admin Panel', () => {
 
       expect(container.querySelector('#membersList > tbody > tr')).not.toBeInTheDocument();
 
-      await waitForElement(() => getByText('Unable to find secret santa group randomgroup, Oops not found!'));
+      await waitForElement(() => screen.getByText('Unable to find secret santa group randomgroup, Oops not found!'));
     });
 
     it('Sends an email to a member to remind them who they have drawn', async () => {
-      const [{ container, getByText, getByPlaceholderText }] = renderWithContext();
+      const [{ container }] = renderWithContext();
 
-      fireEvent.click(getByText('Search Group'));
+      fireEvent.click(screen.getByText('Search Group'));
 
       const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
-      const groupNameInput = await waitForElement(() => getByPlaceholderText('Search Group Name'));
+      const groupNameInput = await waitForElement(() => screen.getByPlaceholderText('Search Group Name'));
       fireEvent.change(groupNameInput, { target: { value: 'group1' } });
-      fireEvent.click(getByText('Search'));
+      fireEvent.click(screen.getByText('Search'));
 
       expect(api.get).toHaveBeenCalledTimes(2);
       expect(api.get).toHaveBeenNthCalledWith(
@@ -411,20 +411,20 @@ describe('Admin Panel', () => {
         }
       );
 
-      await waitForElement(() => getByText('Successfully sent email for group1 to member1.'));
+      await waitForElement(() => screen.getByText('Successfully sent email for group1 to member1.'));
     });
 
     it('Displays an error when unable to send an email to a member to remind them who they have drawn', async () => {
-      const [{ container, getByText, getByPlaceholderText }] = renderWithContext();
+      const [{ container }] = renderWithContext();
 
-      fireEvent.click(getByText('Search Group'));
+      fireEvent.click(screen.getByText('Search Group'));
 
       const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
-      const groupNameInput = await waitForElement(() => getByPlaceholderText('Search Group Name'));
+      const groupNameInput = await waitForElement(() => screen.getByPlaceholderText('Search Group Name'));
       fireEvent.change(groupNameInput, { target: { value: 'group1' } });
-      fireEvent.click(getByText('Search'));
+      fireEvent.click(screen.getByText('Search'));
 
       expect(api.get).toHaveBeenCalledTimes(2);
       expect(api.get).toHaveBeenNthCalledWith(
@@ -463,32 +463,32 @@ describe('Admin Panel', () => {
         }
 );
 
-      await waitForElement(() => getByText('Error sending email for group1 to member1, problems connecting to server!'));
+      await waitForElement(() => screen.getByText('Error sending email for group1 to member1, problems connecting to server!'));
     });
   });
 
   describe('Create Group', () => {
     it('successfully creates a new group', async () => {
-      const [{ getByText, getByPlaceholderText }] = renderWithContext();
+      renderWithContext();
 
-      fireEvent.click(getByText('Setup New Group'));
+      fireEvent.click(screen.getByText('Setup New Group'));
 
       const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
-      const groupNameInput = await waitForElement(() => getByPlaceholderText('New Group Name'));
+      const groupNameInput = await waitForElement(() => screen.getByPlaceholderText('New Group Name'));
       fireEvent.change(groupNameInput, { target: { value: 'newgroupx' } });
 
-      const addNameInput1 = await waitForElement(() => getByPlaceholderText('Name'));
+      const addNameInput1 = await waitForElement(() => screen.getByPlaceholderText('Name'));
       fireEvent.change(addNameInput1, { target: { value: 'new member' } });
 
-      const addEmailInput1 = await waitForElement(() => getByPlaceholderText('Email'));
+      const addEmailInput1 = await waitForElement(() => screen.getByPlaceholderText('Email'));
       fireEvent.change(addEmailInput1, { target: { value: 'new email' } });
 
       const mockCreateNewGroupResponse = { data :[] };
       api.post.mockImplementationOnce(() => Promise.resolve(mockCreateNewGroupResponse));
 
-      fireEvent.click(getByText('Setup'));
+      fireEvent.click(screen.getByText('Setup'));
 
       expect(api.post).toHaveBeenCalledTimes(1);
       expect(api.post).toHaveBeenCalledWith(
@@ -504,30 +504,30 @@ describe('Admin Panel', () => {
         }
       );
 
-      await waitForElement(() => getByText('Successfully created new secret santa group newgroupx.'));
+      await waitForElement(() => screen.getByText('Successfully created new secret santa group newgroupx.'));
     });
 
     it('errors when creating a new group', async () => {
-      const [{ getByText, getByPlaceholderText }] = renderWithContext();
+      renderWithContext();
 
-      fireEvent.click(getByText('Setup New Group'));
+      fireEvent.click(screen.getByText('Setup New Group'));
 
       const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
-      const groupNameInput = await waitForElement(() => getByPlaceholderText('New Group Name'));
+      const groupNameInput = await waitForElement(() => screen.getByPlaceholderText('New Group Name'));
       fireEvent.change(groupNameInput, { target: { value: 'newgroupx' } });
 
-      const addNameInput1 = await waitForElement(() => getByPlaceholderText('Name'));
+      const addNameInput1 = await waitForElement(() => screen.getByPlaceholderText('Name'));
       fireEvent.change(addNameInput1, { target: { value: 'new member' } });
 
-      const addEmailInput1 = await waitForElement(() => getByPlaceholderText('Email'));
+      const addEmailInput1 = await waitForElement(() => screen.getByPlaceholderText('Email'));
       fireEvent.change(addEmailInput1, { target: { value: 'new email' } });
 
       const mockCreateNewGroupErrorResponse = 'oops unexpected error occurred!';
       api.post.mockImplementationOnce(() => Promise.reject(mockCreateNewGroupErrorResponse));
 
-      fireEvent.click(getByText('Setup'));
+      fireEvent.click(screen.getByText('Setup'));
 
       expect(api.post).toHaveBeenCalledTimes(1);
       expect(api.post).toHaveBeenCalledWith(
@@ -543,27 +543,27 @@ describe('Admin Panel', () => {
         }
       );
 
-      await waitForElement(() => getByText('Error creating new secret santa group newgroupx, oops unexpected error occurred!'));
+      await waitForElement(() => screen.getByText('Error creating new secret santa group newgroupx, oops unexpected error occurred!'));
     });
 
     it('adds a new name and email group for a new member', async () => {
-      const [{ container, getByText, getByPlaceholderText }] = renderWithContext();
+      const [{ container }] = renderWithContext();
 
-      fireEvent.click(getByText('Setup New Group'));
+      fireEvent.click(screen.getByText('Setup New Group'));
 
       const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
-      const groupNameInput = await waitForElement(() => getByPlaceholderText('New Group Name'));
+      const groupNameInput = await waitForElement(() => screen.getByPlaceholderText('New Group Name'));
       fireEvent.change(groupNameInput, { target: { value: 'newgroupx' } });
 
-      const addNameInput1 = await waitForElement(() => getByPlaceholderText('Name'));
+      const addNameInput1 = await waitForElement(() => screen.getByPlaceholderText('Name'));
       fireEvent.change(addNameInput1, { target: { value: 'new member' } });
 
-      const addEmailInput1 = await waitForElement(() => getByPlaceholderText('Email'));
+      const addEmailInput1 = await waitForElement(() => screen.getByPlaceholderText('Email'));
       fireEvent.change(addEmailInput1, { target: { value: 'new email' } });
 
-      fireEvent.click(getByText('Add Member'));
+      fireEvent.click(screen.getByText('Add Member'));
 
       await waitForElement(() => container.querySelector('div.form-input:nth-child(4) input[name="memberName"]'));
       await waitForElement(() => container.querySelector('div.form-input:nth-child(4) input[name="email"]'));
