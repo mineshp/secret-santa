@@ -58,7 +58,7 @@ describe('Admin Panel', () => {
             'credentials': 'same-origin'
           }
         }
-);
+      );
 
       const targetTableRowColumn = (row, col) => `table > tbody > tr:nth-child(${row}) > td:nth-child(${col})`;
       const groupNameRow1 = await waitForElement(() =>

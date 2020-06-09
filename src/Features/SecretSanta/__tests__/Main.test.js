@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import { fireEvent, render, screen, waitForElement, wait } from '@testing-library/react';
+import { fireEvent, render, waitForElement, screen, wait } from '@testing-library/react';
 import { UserProvider } from '../../Authentication/useAuth';
 import Main from '../Main';
 import api from '../../../Services/api';

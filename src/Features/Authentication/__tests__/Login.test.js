@@ -49,7 +49,7 @@ describe('login', () => {
       target: { value: 'pass123' }
     });
 
-    fireEvent.click(screen.getByText('Login'));
+    fireEvent.click(screen.getByRole('button', {name: /Login/i}));
 
     await waitForElement(() => screen.getByText('TEST-USER - Successfully logged in'));
     expect(window.localStorage.getItem('jwtToken')).toEqual('fake_user_token');
@@ -77,7 +77,7 @@ describe('login', () => {
       target: { value: 'pass123' }
     });
 
-    fireEvent.click(screen.getByText('Login'));
+    fireEvent.click(screen.getByRole('button', {name: /Login/i}));
 
     await waitForElement(() => screen.getByText('Unable to login, oops error occurred!'));
     expect(window.localStorage.getItem('jwtToken')).toEqual(null);
@@ -124,7 +124,7 @@ describe('login', () => {
           });
         });
 
-        fireEvent.click(screen.getByText('Login'));
+        fireEvent.click(screen.getByRole('button', {name: /Login/i}));
 
         await waitForElement(() => screen.getByText('Name, group or passphrase missing!'));
         expect(window.localStorage.getItem('jwtToken')).toEqual(null);
