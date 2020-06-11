@@ -26,31 +26,31 @@ const displayMembersForGroup = (members, sendEmailToMember) => {
     wishlistUpdated,
     lastLoggedIn
   }) => (
-    <Table.Row key={memberName}>
+    <Table.Row key={memberName} data-testid={`row-${memberName}`}>
       <Table.Cell>
         <Header as='h3' textAlign='center' className="group-name">
           {memberName}
         </Header>
       </Table.Cell>
-      <Table.Cell>{email}</Table.Cell>
-      <Table.Cell className="format-center">{drawn ? <Icon name='check' color='green' /> : <Icon name='close' color='red' />}</Table.Cell>
+      <Table.Cell data-testid={`${memberName}-email`}>{email}</Table.Cell>
+      <Table.Cell className="format-center">{drawn ? <Icon name='check' color='green' data-testid={`${memberName}-giftee-assigned`} /> : <Icon name='close' color='red' data-testid={`${memberName}-giftee-assigned`}  />}</Table.Cell>
       <Table.Cell className="format-center">
         {
           wishlistUpdated
             ? <Popup
-              trigger={<Icon name='check' color='green' />}
+              trigger={<Icon name='check' color='green' data-testid={`${memberName}-wishlist-updated`} />}
               content={`Wishlist last updated ${formatDate(wishlistUpdated)}`}
               position='top center'
             />
             : <Popup
-              trigger={<Icon name='close' color='red' />}
+              trigger={<Icon name='close' color='red' data-testid={`${memberName}-wishlist-updated`} />}
               content='Wishlist has not been updated'
               position='top center'
           />
         }
       </Table.Cell>
-      <Table.Cell>{ lastLoggedIn ? formatDate(lastLoggedIn) : 'never' }</Table.Cell>
-      <Table.Cell><Button color="pink" type="button" id={memberName} onClick={sendEmailToMember}>
+      <Table.Cell data-testid={`${memberName}-last-logged-in`}>{ lastLoggedIn ? formatDate(lastLoggedIn) : 'never' }</Table.Cell>
+      <Table.Cell data-testid={`${memberName}-send-email`}><Button color="pink" type="button" id={memberName} onClick={sendEmailToMember}>
         Send</Button>
       </Table.Cell>
     </Table.Row>
@@ -78,20 +78,20 @@ const displayMembersForGroup = (members, sendEmailToMember) => {
 
 const allGroups = (groups, handleDraw, deleteGroup, sendEmailToAll) => {
   const groupRows = groups.map(({ groupName, count }) => (
-    <Table.Row key={groupName}>
+    <Table.Row key={groupName} data-testid={`row-${groupName}`}>
       <Table.Cell>
         <Header as='h3' textAlign='center' className="group-name">
           {groupName}
         </Header>
       </Table.Cell>
-      <Table.Cell singleLine>{count}</Table.Cell>
-      <Table.Cell><Button color="blue" type="button" id={groupName} onClick={handleDraw} data-testid='draw-btn'>
+      <Table.Cell data-testid={`count-${groupName}`} singleLine>{count}</Table.Cell>
+      <Table.Cell><Button color="blue" type="button" id={groupName} onClick={handleDraw} data-testid={`${groupName}-draw-btn`}>
         Draw</Button>
       </Table.Cell>
       <Table.Cell><Button color="teal" type="button" id={groupName} onClick={deleteGroup} data-testid={`${groupName}-delete-btn`}>
         Delete</Button>
       </Table.Cell>
-      <Table.Cell><Button color="pink" type="button" id={groupName} onClick={sendEmailToAll} data-testid='send-email-all-btn'>
+      <Table.Cell><Button color="pink" type="button" id={groupName} onClick={sendEmailToAll} data-testid={`${groupName}-send-email-all-btn`}>
         Send</Button>
       </Table.Cell>
     </Table.Row>
@@ -135,6 +135,7 @@ export default function Panel() {
         '/admin/allgroups',
         { headers: setAuthorisationToken(token) }
       );
+
       if (data) setGroups(data);
     };
     fetchData();

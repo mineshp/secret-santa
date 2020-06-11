@@ -2,7 +2,7 @@ import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen, waitForElement, wait } from '@testing-library/react';
+import { fireEvent, render, screen, waitForElement, waitFor } from '@testing-library/react';
 import { UserProvider } from '../../Authentication/useAuth';
 import Wishlist from '../Wishlist';
 import api from '../../../Services/api';
@@ -42,7 +42,6 @@ const renderWithContext = (context, memberName = 'santa') => {
     api.get.mockResolvedValue(mockWishlistIdeasResponse);
   }
 
-
   return [
     render(
       <UserProvider>
@@ -73,7 +72,7 @@ describe('Wishlist', () => {
   });
 
   it('Displays my wishlist, successfully updated my wishlist', async () => {
-    const [{ container }] = renderWithContext();
+    renderWithContext();
 
     expect(api.get).toHaveBeenCalledTimes(1);
     expect(api.get).toHaveBeenCalledWith(
@@ -82,9 +81,9 @@ describe('Wishlist', () => {
 );
     expect(screen.getByText('santa\'s Wishlist'));
 
-    const giftIdea1 = await waitForElement(() => container.querySelector('input[name="giftIdea1"]'));
-    const giftIdea2 = await waitForElement(() => container.querySelector('input[name="giftIdea2"]'));
-    const giftIdea3 = await waitForElement(() => container.querySelector('input[name="giftIdea3"]'));
+    const giftIdea1 = await waitForElement(() => screen.getByPlaceholderText('Gift Idea 1'));
+    const giftIdea2 = await waitForElement(() => screen.getByPlaceholderText('Gift Idea 2'));
+    const giftIdea3 = await waitForElement(() => screen.getByPlaceholderText('Gift Idea 3'));
 
     fireEvent.change(giftIdea1, { target: { value: 'baubel' } });
     fireEvent.change(giftIdea2, { target: { value: 'tree topper' } });
@@ -101,7 +100,7 @@ describe('Wishlist', () => {
 
     fireEvent.click(screen.getByText('Save'));
 
-    await wait(); // Needed for the useEffect for setGiftIdeasLastUpdated to fire
+    await waitFor(() => expect(api.put).toHaveBeenCalledTimes(2));
 
     expect(api.put).toHaveBeenCalledTimes(2);
 
@@ -116,11 +115,10 @@ describe('Wishlist', () => {
       HEADERS);
 
     await waitForElement(() => screen.getByText('Successfully updated gift ideas.'));
-
   });
 
   it('Displays my wishlist, error occurred updating my wishlist', async () => {
-    const [{ container }] = renderWithContext();
+    renderWithContext();
 
     expect(api.get).toHaveBeenCalledTimes(1);
     expect(api.get).toHaveBeenCalledWith(
@@ -129,9 +127,9 @@ describe('Wishlist', () => {
 );
     expect(screen.getByText('santa\'s Wishlist'));
 
-    const giftIdea1 = await waitForElement(() => container.querySelector('input[name="giftIdea1"]'));
-    const giftIdea2 = await waitForElement(() => container.querySelector('input[name="giftIdea2"]'));
-    const giftIdea3 = await waitForElement(() => container.querySelector('input[name="giftIdea3"]'));
+    const giftIdea1 = await waitForElement(() => screen.getByPlaceholderText('Gift Idea 1'));
+    const giftIdea2 = await waitForElement(() => screen.getByPlaceholderText('Gift Idea 2'));
+    const giftIdea3 = await waitForElement(() => screen.getByPlaceholderText('Gift Idea 3'));
 
     fireEvent.change(giftIdea1, { target: { value: 'baubel' } });
     fireEvent.change(giftIdea2, { target: { value: 'tree topper' } });
@@ -148,7 +146,7 @@ describe('Wishlist', () => {
   });
 
   it('Displays my giftee\'s wishlist as readonly', async () => {
-    const [{ container }] = renderWithContext(null, 'elve');
+    renderWithContext(null, 'elve');
 
     expect(api.get).toHaveBeenCalledTimes(1);
     expect(api.get).toHaveBeenCalledWith(
@@ -158,14 +156,14 @@ describe('Wishlist', () => {
 
     expect(screen.getByText('elve\'s Wishlist'));
 
-    await waitForElement(() => expect(screen.getByText('idea1')));
-    await waitForElement(() => expect(screen.getByText('idea2')));
-    await waitForElement(() => expect(screen.getByText('idea3')));
+    await waitForElement(() => expect(screen.getByTestId('giftIdea1')));
+    expect(screen.getByTestId('giftIdea2'));
+    expect(screen.getByTestId('giftIdea3'));
 
     // Input fields do not exist for giftideas as fields are readonly.
-    expect(container.querySelector('input[name="giftIdea1"]')).toBeNull();
-    expect(container.querySelector('input[name="giftIdea2"]')).toBeNull();
-    expect(container.querySelector('input[name="giftIdea3"]')).toBeNull();
+    expect(screen.queryByPlaceholderText('Gift Idea 1')).not.toBeInTheDocument();
+    expect(screen.queryByPlaceholderText('Gift Idea 2')).not.toBeInTheDocument();
+    expect(screen.queryByPlaceholderText('Gift Idea 3')).not.toBeInTheDocument();
 
     expect(await waitForElement(() => screen.getByText('Back'))).toBeInTheDocument();
     expect(screen.queryByText('Save')).not.toBeInTheDocument();
