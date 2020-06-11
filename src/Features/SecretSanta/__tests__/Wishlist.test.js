@@ -2,7 +2,7 @@ import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen, waitForElement, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { UserProvider } from '../../Authentication/useAuth';
 import Wishlist from '../Wishlist';
 import api from '../../../Services/api';
@@ -81,9 +81,9 @@ describe('Wishlist', () => {
 );
     expect(screen.getByText('santa\'s Wishlist'));
 
-    const giftIdea1 = await waitForElement(() => screen.getByPlaceholderText('Gift Idea 1'));
-    const giftIdea2 = await waitForElement(() => screen.getByPlaceholderText('Gift Idea 2'));
-    const giftIdea3 = await waitForElement(() => screen.getByPlaceholderText('Gift Idea 3'));
+    const giftIdea1 = await waitFor(() => screen.getByPlaceholderText('Gift Idea 1'));
+    const giftIdea2 = await waitFor(() => screen.getByPlaceholderText('Gift Idea 2'));
+    const giftIdea3 = await waitFor(() => screen.getByPlaceholderText('Gift Idea 3'));
 
     fireEvent.change(giftIdea1, { target: { value: 'baubel' } });
     fireEvent.change(giftIdea2, { target: { value: 'tree topper' } });
@@ -95,8 +95,8 @@ describe('Wishlist', () => {
     const mockSaveWishlistLastUpdatedResponse = { data: [] };
     api.put.mockImplementationOnce(() => Promise.resolve(mockSaveWishlistLastUpdatedResponse));
 
-    expect(await waitForElement(() => screen.getByText('Back'))).toBeInTheDocument();
-    expect(await waitForElement(() => screen.getByText('Save'))).toBeInTheDocument();
+    expect(await waitFor(() => screen.getByText('Back'))).toBeInTheDocument();
+    expect(await waitFor(() => screen.getByText('Save'))).toBeInTheDocument();
 
     fireEvent.click(screen.getByText('Save'));
 
@@ -114,7 +114,7 @@ describe('Wishlist', () => {
       expect.any(String),
       HEADERS);
 
-    await waitForElement(() => screen.getByText('Successfully updated gift ideas.'));
+    await waitFor(() => screen.getByText('Successfully updated gift ideas.'));
   });
 
   it('Displays my wishlist, error occurred updating my wishlist', async () => {
@@ -127,9 +127,9 @@ describe('Wishlist', () => {
 );
     expect(screen.getByText('santa\'s Wishlist'));
 
-    const giftIdea1 = await waitForElement(() => screen.getByPlaceholderText('Gift Idea 1'));
-    const giftIdea2 = await waitForElement(() => screen.getByPlaceholderText('Gift Idea 2'));
-    const giftIdea3 = await waitForElement(() => screen.getByPlaceholderText('Gift Idea 3'));
+    const giftIdea1 = await waitFor(() => screen.getByPlaceholderText('Gift Idea 1'));
+    const giftIdea2 = await waitFor(() => screen.getByPlaceholderText('Gift Idea 2'));
+    const giftIdea3 = await waitFor(() => screen.getByPlaceholderText('Gift Idea 3'));
 
     fireEvent.change(giftIdea1, { target: { value: 'baubel' } });
     fireEvent.change(giftIdea2, { target: { value: 'tree topper' } });
@@ -142,7 +142,7 @@ describe('Wishlist', () => {
 
     expect(api.put).toHaveBeenCalledTimes(1);
 
-    await waitForElement(() => screen.getByText('Error updating gift ideas, oops something bad happened!'));
+    await waitFor(() => screen.getByText('Error updating gift ideas, oops something bad happened!'));
   });
 
   it('Displays my giftee\'s wishlist as readonly', async () => {
@@ -156,7 +156,7 @@ describe('Wishlist', () => {
 
     expect(screen.getByText('elve\'s Wishlist'));
 
-    await waitForElement(() => expect(screen.getByTestId('giftIdea1')));
+    await waitFor(() => expect(screen.getByTestId('giftIdea1')));
     expect(screen.getByTestId('giftIdea2'));
     expect(screen.getByTestId('giftIdea3'));
 
@@ -165,7 +165,7 @@ describe('Wishlist', () => {
     expect(screen.queryByPlaceholderText('Gift Idea 2')).not.toBeInTheDocument();
     expect(screen.queryByPlaceholderText('Gift Idea 3')).not.toBeInTheDocument();
 
-    expect(await waitForElement(() => screen.getByText('Back'))).toBeInTheDocument();
+    expect(await waitFor(() => screen.getByText('Back'))).toBeInTheDocument();
     expect(screen.queryByText('Save')).not.toBeInTheDocument();
   });
 });
