@@ -2,6 +2,7 @@ import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { UserProvider } from '../useAuth';
 import Login from '../Login';
 import api from '../../../Services/api';
@@ -37,17 +38,14 @@ describe('login', () => {
       return Promise.resolve(mockUserResponse);
     });
 
-    fireEvent.change(screen.getByLabelText('memberName'), {
-      target: { value: 'test-user' }
-    });
+    userEvent.clear(screen.getByLabelText('memberName'));
+    await userEvent.type(screen.getByLabelText('memberName'), 'test-user');
 
-    fireEvent.change(screen.getByLabelText('groupID'), {
-      target: { value: 'test-group' }
-    });
+    userEvent.clear(screen.getByLabelText('groupID'));
+    await userEvent.type(screen.getByLabelText('groupID'), 'test-group');
 
-    fireEvent.change(screen.getByLabelText('passphrase'), {
-      target: { value: 'pass123' }
-    });
+    userEvent.clear(screen.getByLabelText('passphrase'));
+    await userEvent.type(screen.getByLabelText('passphrase'), 'pass123');
 
     fireEvent.click(screen.getByRole('button', {name: /Login/i}));
 
@@ -65,18 +63,14 @@ describe('login', () => {
       return Promise.resolve(mockUserResponse);
     });
 
-    fireEvent.change(screen.getByLabelText('memberName'), {
-      target: { value: 'test-user' }
-    });
+    userEvent.clear(screen.getByLabelText('memberName'));
+    await userEvent.type(screen.getByLabelText('memberName'), 'test-user');
 
-    fireEvent.change(screen.getByLabelText('groupID'), {
-      target: { value: 'test-group' }
-    });
+    userEvent.clear(screen.getByLabelText('groupID'));
+    await userEvent.type(screen.getByLabelText('groupID'), 'test-group');
 
-    fireEvent.change(screen.getByLabelText('passphrase'), {
-      target: { value: 'pass123' }
-    });
-
+    userEvent.clear(screen.getByLabelText('passphrase'));
+    await userEvent.type(screen.getByLabelText('passphrase'), 'pass123');
     fireEvent.click(screen.getByRole('button', {name: /Login/i}));
 
     await waitFor(() => screen.getByText('Unable to login, oops error occurred!'));
@@ -89,17 +83,14 @@ describe('login', () => {
       return Promise.reject(new Error('oops an error occurred'));
     });
 
-    fireEvent.change(screen.getByLabelText('memberName'), {
-      target: { value: 'test-user' }
-    });
+    userEvent.clear(screen.getByLabelText('memberName'));
+    await userEvent.type(screen.getByLabelText('memberName'), 'test-user');
 
-    fireEvent.change(screen.getByLabelText('groupID'), {
-      target: { value: 'test-group' }
-    });
+    userEvent.clear(screen.getByLabelText('groupID'));
+    await userEvent.type(screen.getByLabelText('groupID'), 'test-group');
 
-    fireEvent.change(screen.getByLabelText('passphrase'), {
-      target: { value: 'pass123' }
-    });
+    userEvent.clear(screen.getByLabelText('passphrase'));
+    await userEvent.type(screen.getByLabelText('passphrase'), 'pass123');
 
     fireEvent.click(screen.getByRole('button', {name: /Login/i}));
 
@@ -108,7 +99,7 @@ describe('login', () => {
     expect(window.localStorage.getItem('isLoggedIn')).toEqual(null);
   });
 
-  describe('login failed field', () => {
+  describe('login failed due to missing field', () => {
     const formFieldsToEnter = {
       memberName: ['groupID', 'passphrase'],
       groupID: ['memberName', 'passphrase'],
@@ -117,11 +108,10 @@ describe('login', () => {
 
     ['memberName', 'groupID', 'passphrase'].forEach((fieldToOmit) => {
       it(`${fieldToOmit} missing`, async () => {
-
-        formFieldsToEnter[fieldToOmit].forEach((field) => {
+        formFieldsToEnter[fieldToOmit].forEach(async (field) => {
           fireEvent.change(screen.getByLabelText(field), {
             target: { value: `test-${field}` }
-          });
+           });
         });
 
         fireEvent.click(screen.getByRole('button', {name: /Login/i}));

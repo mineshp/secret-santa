@@ -3,6 +3,7 @@ import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { UserProvider } from '../../Authentication/useAuth';
 import Panel from '../Panel';
 import api from '../../../Services/api';
@@ -259,7 +260,9 @@ describe('Admin Panel', () => {
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
       const groupNameInput = await waitFor(() => screen.getByPlaceholderText('Search Group Name'));
-      fireEvent.change(groupNameInput, { target: { value: 'group1' } });
+      userEvent.clear(groupNameInput);
+      await userEvent.type(groupNameInput, 'group1');
+
       fireEvent.click(screen.getByText('Search'));
 
       expect(api.get).toHaveBeenCalledTimes(2);
@@ -303,7 +306,9 @@ describe('Admin Panel', () => {
       api.get.mockImplementationOnce(() => Promise.reject(mockSearchErrorResponse));
 
       const groupNameInput = await waitFor(() => screen.getByPlaceholderText('Search Group Name'));
-      fireEvent.change(groupNameInput, { target: { value: 'randomgroup' } });
+      userEvent.clear(groupNameInput);
+      await userEvent.type(groupNameInput, 'randomgroup');
+
       fireEvent.click(screen.getByText('Search'));
 
       expect(api.get).toHaveBeenCalledTimes(2);
@@ -334,7 +339,9 @@ describe('Admin Panel', () => {
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
       const groupNameInput = await waitFor(() => screen.getByPlaceholderText('Search Group Name'));
-      fireEvent.change(groupNameInput, { target: { value: 'group1' } });
+      userEvent.clear(groupNameInput);
+      await userEvent.type(groupNameInput, 'group1');
+
       fireEvent.click(screen.getByText('Search'));
 
       expect(api.get).toHaveBeenCalledTimes(2);
@@ -386,7 +393,10 @@ describe('Admin Panel', () => {
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
       const groupNameInput = await waitFor(() => screen.getByPlaceholderText('Search Group Name'));
-      fireEvent.change(groupNameInput, { target: { value: 'group1' } });
+
+      userEvent.clear(groupNameInput);
+      await userEvent.type(groupNameInput, 'group1');
+
       fireEvent.click(screen.getByText('Search'));
 
       expect(api.get).toHaveBeenCalledTimes(2);
@@ -440,13 +450,16 @@ describe('Admin Panel', () => {
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
       const groupNameInput = await waitFor(() => screen.getByPlaceholderText('New Group Name'));
-      fireEvent.change(groupNameInput, { target: { value: 'newgroupx' } });
+      userEvent.clear(groupNameInput);
+      await userEvent.type(groupNameInput, 'newgroupx');
 
       const addNameInput1 = await waitFor(() => screen.getByPlaceholderText('Name'));
-      fireEvent.change(addNameInput1, { target: { value: 'new member' } });
+      userEvent.clear(addNameInput1);
+      await userEvent.type(addNameInput1, 'new member');
 
       const addEmailInput1 = await waitFor(() => screen.getByPlaceholderText('Email'));
-      fireEvent.change(addEmailInput1, { target: { value: 'new email' } });
+      userEvent.clear(addEmailInput1);
+      await userEvent.type(addEmailInput1, 'new email');
 
       const mockCreateNewGroupResponse = { data :[] };
       api.post.mockImplementationOnce(() => Promise.resolve(mockCreateNewGroupResponse));
@@ -479,13 +492,16 @@ describe('Admin Panel', () => {
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
       const groupNameInput = await waitFor(() => screen.getByPlaceholderText('New Group Name'));
-      fireEvent.change(groupNameInput, { target: { value: 'newgroupx' } });
+      userEvent.clear(groupNameInput);
+      await userEvent.type(groupNameInput, 'newgroupx');
 
       const addNameInput1 = await waitFor(() => screen.getByPlaceholderText('Name'));
-      fireEvent.change(addNameInput1, { target: { value: 'new member' } });
+      userEvent.clear(addNameInput1);
+      await userEvent.type(addNameInput1, 'new member');
 
       const addEmailInput1 = await waitFor(() => screen.getByPlaceholderText('Email'));
-      fireEvent.change(addEmailInput1, { target: { value: 'new email' } });
+      userEvent.clear(addEmailInput1);
+      await userEvent.type(addEmailInput1, 'new email');
 
       const mockCreateNewGroupErrorResponse = 'oops unexpected error occurred!';
       api.post.mockImplementationOnce(() => Promise.reject(mockCreateNewGroupErrorResponse));
@@ -518,13 +534,16 @@ describe('Admin Panel', () => {
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
       const groupNameInput = await waitFor(() => screen.getByPlaceholderText('New Group Name'));
-      fireEvent.change(groupNameInput, { target: { value: 'newgroupx' } });
+      userEvent.clear(groupNameInput);
+      await userEvent.type(groupNameInput, 'newgroupx');
 
       const addNameInput1 = await waitFor(() => screen.getByPlaceholderText('Name'));
-      fireEvent.change(addNameInput1, { target: { value: 'new member' } });
+      userEvent.clear(addNameInput1);
+      await userEvent.type(addNameInput1, 'new member');
 
       const addEmailInput1 = await waitFor(() => screen.getByPlaceholderText('Email'));
-      fireEvent.change(addEmailInput1, { target: { value: 'new email' } });
+      userEvent.clear(addEmailInput1);
+      await userEvent.type(addEmailInput1, 'new email');
 
       fireEvent.click(screen.getByText('Add Member'));
 

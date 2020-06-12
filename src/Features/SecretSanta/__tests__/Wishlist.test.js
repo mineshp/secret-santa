@@ -3,6 +3,7 @@ import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { UserProvider } from '../../Authentication/useAuth';
 import Wishlist from '../Wishlist';
 import api from '../../../Services/api';
@@ -85,9 +86,12 @@ describe('Wishlist', () => {
     const giftIdea2 = await waitFor(() => screen.getByPlaceholderText('Gift Idea 2'));
     const giftIdea3 = await waitFor(() => screen.getByPlaceholderText('Gift Idea 3'));
 
-    fireEvent.change(giftIdea1, { target: { value: 'baubel' } });
-    fireEvent.change(giftIdea2, { target: { value: 'tree topper' } });
-    fireEvent.change(giftIdea3, { target: { value: 'surprise me' } });
+    userEvent.clear(giftIdea1);
+    await userEvent.type(giftIdea1, 'baubel');
+    userEvent.clear(giftIdea2);
+    await userEvent.type(giftIdea2, 'tree topper');
+    userEvent.clear(giftIdea3);
+    await userEvent.type(giftIdea3, 'surprise me');
 
     const mockSubmitWishlistIdeasResponse = { data: [] };
     api.put.mockImplementationOnce(() => Promise.resolve(mockSubmitWishlistIdeasResponse));
@@ -131,9 +135,12 @@ describe('Wishlist', () => {
     const giftIdea2 = await waitFor(() => screen.getByPlaceholderText('Gift Idea 2'));
     const giftIdea3 = await waitFor(() => screen.getByPlaceholderText('Gift Idea 3'));
 
-    fireEvent.change(giftIdea1, { target: { value: 'baubel' } });
-    fireEvent.change(giftIdea2, { target: { value: 'tree topper' } });
-    fireEvent.change(giftIdea3, { target: { value: 'suprise me' } });
+    userEvent.clear(giftIdea1);
+    await userEvent.type(giftIdea1, 'baubel');
+    userEvent.clear(giftIdea2);
+    await userEvent.type(giftIdea2, 'tree topper');
+    userEvent.clear(giftIdea3);
+    await userEvent.type(giftIdea3, 'surprise me');
 
     const mockSubmitErrorWishlistIdeasResponse = { error: 'oops something bad happened!' };
     api.put.mockImplementationOnce(() => Promise.resolve(mockSubmitErrorWishlistIdeasResponse));
