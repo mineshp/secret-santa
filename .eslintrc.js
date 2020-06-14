@@ -10,7 +10,14 @@ module.exports = {
       "eslint:recommended",
       "plugin:react/recommended",
       "plugin:import/errors",
-      "plugin:import/warnings"
+      "plugin:import/warnings",
+      "plugin:testing-library/recommended",
+      "plugin:testing-library/react",
+      "plugin:jest-dom/recommended"
+    ],
+  "plugins": [
+      "testing-library",
+      "jest-dom"
   ],
   "globals": {
       "jest": true,
@@ -68,7 +75,10 @@ module.exports = {
       "class-methods-use-this": ["off"],
       "import/no-named-as-default": ["off"],
       "no-underscore-dangle": "off",
-      "function-paren-newline": ["error", "consistent"]
+      "function-paren-newline": ["error", "consistent"],
+      "testing-library/await-async-query": "off",
+      "testing-library/no-await-sync-query": "error",
+      "testing-library/no-debug": "warn"
   },
   "settings": {
       "react": {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import { fireEvent, render, waitFor, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { UserProvider } from '../../Authentication/useAuth';
 import Main from '../Main';
 import api from '../../../Services/api';
@@ -34,7 +34,7 @@ describe('Main', () => {
   });
 
   it('Displays notification if reveal button clicked before draw has been made', async () => {
-    await waitFor(() => screen.getByText('Ho Ho Ho!'));
+    await screen.findByText('Ho Ho Ho!');
 
     expect(history.location.pathname).toEqual('/');
 
@@ -58,11 +58,11 @@ describe('Main', () => {
       }
     );
 
-    await waitFor(() => screen.getByText('Draw has not taken place yet, please wait or contact your group\'s admin!'));
+    await screen.findByText('Draw has not taken place yet, please wait or contact your group\'s admin!');
   });
 
   it('successfully reveals your giftee', async () => {
-    await waitFor(() => screen.getByText('Ho Ho Ho!'));
+    await screen.findByText('Ho Ho Ho!');
 
     expect(history.location.pathname).toEqual('/');
 
@@ -87,7 +87,7 @@ describe('Main', () => {
       }
     );
 
-    const gifteeNameBtn = await waitFor(() => screen.getByText('rudolph'));
+    const gifteeNameBtn = await screen.findByText('rudolph');
     expect(gifteeNameBtn).toBeDefined();
     expect(screen.queryByText('Reveal')).toBeNull();
   });
@@ -109,11 +109,11 @@ describe('Main', () => {
       }
     );
 
-    await waitFor(() => screen.getByText('oops an error occurred!'));
+    await screen.findByText('oops an error occurred!');
   });
 
   it('successfully takes you to your wishlist', async () => {
-    await waitFor(() => screen.getByText('Ho Ho Ho!'));
+    await screen.findByText('Ho Ho Ho!');
 
     const mockUserResponse = {
       data: { secretSanta: member.secretSanta }
@@ -131,7 +131,7 @@ describe('Main', () => {
   });
 
   it('successfully takes you to your giftee\'s wishlist once you have revealed you giftee', async () => {
-    await waitFor(() => screen.getByText('Ho Ho Ho!'));
+    await screen.findByText('Ho Ho Ho!');
 
     const mockUserResponse = {
       data: { secretSanta: member.secretSanta }
@@ -143,7 +143,7 @@ describe('Main', () => {
 
     fireEvent.click(screen.getByText('Reveal'));
 
-    await waitFor(() => screen.getByText('rudolph\'s Wishlist'));
+    await screen.findByText('rudolph\'s Wishlist');
 
     fireEvent.click(screen.getByText('rudolph\'s Wishlist'));
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { UserProvider } from '../useAuth';
 import Login from '../Login';
@@ -49,7 +49,7 @@ describe('login', () => {
 
     fireEvent.click(screen.getByRole('button', {name: /Login/i}));
 
-    await waitFor(() => screen.getByText('TEST-USER - Successfully logged in'));
+    await screen.findByText('TEST-USER - Successfully logged in');
     expect(window.localStorage.getItem('jwtToken')).toEqual('fake_user_token');
     expect(window.localStorage.getItem('isLoggedIn')).toEqual('true');
   });
@@ -73,7 +73,7 @@ describe('login', () => {
     await userEvent.type(screen.getByLabelText('passphrase'), 'pass123');
     fireEvent.click(screen.getByRole('button', {name: /Login/i}));
 
-    await waitFor(() => screen.getByText('Unable to login, oops error occurred!'));
+    await screen.findByText('Unable to login, oops error occurred!');
     expect(window.localStorage.getItem('jwtToken')).toEqual(null);
     expect(window.localStorage.getItem('isLoggedIn')).toEqual(null);
   });
@@ -94,7 +94,7 @@ describe('login', () => {
 
     fireEvent.click(screen.getByRole('button', {name: /Login/i}));
 
-    await waitFor(() => screen.getByText('Login failed, details maybe incorrect!'));
+    screen.findByText('Login failed, details maybe incorrect!');
     expect(window.localStorage.getItem('jwtToken')).toEqual(null);
     expect(window.localStorage.getItem('isLoggedIn')).toEqual(null);
   });
@@ -116,7 +116,7 @@ describe('login', () => {
 
         fireEvent.click(screen.getByRole('button', {name: /Login/i}));
 
-        await waitFor(() => screen.getByText('Name, group or passphrase missing!'));
+        screen.findByText('Name, group or passphrase missing!');
         expect(window.localStorage.getItem('jwtToken')).toEqual(null);
         expect(window.localStorage.getItem('isLoggedIn')).toEqual(null);
       });

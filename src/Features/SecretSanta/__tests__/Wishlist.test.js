@@ -82,9 +82,9 @@ describe('Wishlist', () => {
 );
     expect(screen.getByText('santa\'s Wishlist'));
 
-    const giftIdea1 = await waitFor(() => screen.getByPlaceholderText('Gift Idea 1'));
-    const giftIdea2 = await waitFor(() => screen.getByPlaceholderText('Gift Idea 2'));
-    const giftIdea3 = await waitFor(() => screen.getByPlaceholderText('Gift Idea 3'));
+    const giftIdea1 = await screen.findByPlaceholderText('Gift Idea 1');
+    const giftIdea2 = await screen.findByPlaceholderText('Gift Idea 2');
+    const giftIdea3 = await screen.findByPlaceholderText('Gift Idea 3');
 
     userEvent.clear(giftIdea1);
     await userEvent.type(giftIdea1, 'baubel');
@@ -99,8 +99,8 @@ describe('Wishlist', () => {
     const mockSaveWishlistLastUpdatedResponse = { data: [] };
     api.put.mockImplementationOnce(() => Promise.resolve(mockSaveWishlistLastUpdatedResponse));
 
-    expect(await waitFor(() => screen.getByText('Back'))).toBeInTheDocument();
-    expect(await waitFor(() => screen.getByText('Save'))).toBeInTheDocument();
+    expect(await screen.findByText('Back')).toBeInTheDocument();
+    expect(await screen.findByText('Save')).toBeInTheDocument();
 
     fireEvent.click(screen.getByText('Save'));
 
@@ -118,7 +118,7 @@ describe('Wishlist', () => {
       expect.any(String),
       HEADERS);
 
-    await waitFor(() => screen.getByText('Successfully updated gift ideas.'));
+    await screen.findByText('Successfully updated gift ideas.');
   });
 
   it('Displays my wishlist, error occurred updating my wishlist', async () => {
@@ -131,9 +131,9 @@ describe('Wishlist', () => {
 );
     expect(screen.getByText('santa\'s Wishlist'));
 
-    const giftIdea1 = await waitFor(() => screen.getByPlaceholderText('Gift Idea 1'));
-    const giftIdea2 = await waitFor(() => screen.getByPlaceholderText('Gift Idea 2'));
-    const giftIdea3 = await waitFor(() => screen.getByPlaceholderText('Gift Idea 3'));
+    const giftIdea1 = await screen.findByPlaceholderText('Gift Idea 1');
+    const giftIdea2 = await screen.findByPlaceholderText('Gift Idea 2');
+    const giftIdea3 = await screen.findByPlaceholderText('Gift Idea 3');
 
     userEvent.clear(giftIdea1);
     await userEvent.type(giftIdea1, 'baubel');
@@ -149,7 +149,7 @@ describe('Wishlist', () => {
 
     expect(api.put).toHaveBeenCalledTimes(1);
 
-    await waitFor(() => screen.getByText('Error updating gift ideas, oops something bad happened!'));
+    await screen.findByText('Error updating gift ideas, oops something bad happened!');
   });
 
   it('Displays my giftee\'s wishlist as readonly', async () => {
@@ -159,11 +159,11 @@ describe('Wishlist', () => {
     expect(api.get).toHaveBeenCalledWith(
       '/giftIdeas/elve/northpole',
       HEADERS
-);
+    );
 
     expect(screen.getByText('elve\'s Wishlist'));
 
-    await waitFor(() => expect(screen.getByTestId('giftIdea1')));
+    expect(await screen.findByTestId('giftIdea1'));
     expect(screen.getByTestId('giftIdea2'));
     expect(screen.getByTestId('giftIdea3'));
 
@@ -172,7 +172,7 @@ describe('Wishlist', () => {
     expect(screen.queryByPlaceholderText('Gift Idea 2')).not.toBeInTheDocument();
     expect(screen.queryByPlaceholderText('Gift Idea 3')).not.toBeInTheDocument();
 
-    expect(await waitFor(() => screen.getByText('Back'))).toBeInTheDocument();
+    expect(await screen.findByText('Back')).toBeInTheDocument();
     expect(screen.queryByText('Save')).not.toBeInTheDocument();
   });
 });
