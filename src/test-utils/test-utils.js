@@ -1,4 +1,5 @@
 import { render, queries } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 // import * as customQueries from './custom-queries'
 
 const customRender = (ui, options) =>

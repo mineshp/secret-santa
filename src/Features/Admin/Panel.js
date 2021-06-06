@@ -38,14 +38,14 @@ const displayMembersForGroup = (members, sendEmailToMember) => {
         {
           wishlistUpdated
             ? <Popup
-              trigger={<Icon name='check' color='green' data-testid={`${memberName}-wishlist-updated`} />}
-              content={`Wishlist last updated ${formatDate(wishlistUpdated)}`}
-              position='top center'
+                trigger={<Icon name='check' color='green' data-testid={`${memberName}-wishlist-updated`} />}
+                content={`Wishlist last updated ${formatDate(wishlistUpdated)}`}
+                position='top center'
             />
             : <Popup
-              trigger={<Icon name='close' color='red' data-testid={`${memberName}-wishlist-updated`} />}
-              content='Wishlist has not been updated'
-              position='top center'
+                trigger={<Icon name='close' color='red' data-testid={`${memberName}-wishlist-updated`} />}
+                content='Wishlist has not been updated'
+                position='top center'
           />
         }
       </Table.Cell>

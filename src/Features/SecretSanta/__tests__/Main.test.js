@@ -88,8 +88,8 @@ describe('Main', () => {
     );
 
     const gifteeNameBtn = await screen.findByText('rudolph');
-    expect(gifteeNameBtn).toBeDefined();
-    expect(screen.queryByText('Reveal')).toBeNull();
+    expect(gifteeNameBtn).toBeInTheDocument();
+    expect(screen.queryByText('Reveal')).not.toBeInTheDocument();
   });
 
   it('returns an error when the call to reveal giftee fails', async () => {
