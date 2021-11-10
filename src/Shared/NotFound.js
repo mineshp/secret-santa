@@ -8,8 +8,12 @@ const NotFound = () => {
     <div className="error-page-container error-page-bg">
       <div className="wrapper">
         <div className="box">
-          <Header as="h1" className="error-code-heading">404 Page Not Found!</Header>
-          <p className="error-description">Bah Humbug, looks like you are lost.</p>
+          <Header as="h1" className="error-code-heading">
+            404 Page Not Found!
+          </Header>
+          <p className="error-description">
+            Bah Humbug, looks like you are lost.
+          </p>
         </div>
       </div>
     </div>

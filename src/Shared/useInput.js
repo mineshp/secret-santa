@@ -11,8 +11,8 @@ const useInput = (initialValue) => {
       value,
       onChange: (event) => {
         setValue(event.target.value);
-      }
-    }
+      },
+    },
   };
 };
 

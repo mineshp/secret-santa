@@ -12,6 +12,6 @@ Cypress.Commands.add('login', (user) => {
 Cypress.Commands.add('goTo', (path) => {
   cy.visit(path, {
     failOnStatusCode: false,
-    timeout: 30000
+    timeout: 30000,
   });
 });

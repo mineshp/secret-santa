@@ -10,9 +10,9 @@ const logout = () => {
 const loggedIn = () => {
   const token = localStorage.getItem('jwtToken');
 
-  const isTokenExpired = (token) => {
+  const isTokenExpired = (jwtToken) => {
     try {
-      const decoded = decode(token);
+      const decoded = decode(jwtToken);
       if (decoded.exp < Date.now() / 1000) {
         return true;
       }
@@ -35,19 +35,20 @@ const getMember = () => decode(getToken());
 const setAuthorisationToken = (token) => {
   const headers = {
     Accept: 'application/json',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   };
 
   if (token) {
-    const tokenHeader = Object.assign({}, headers, {
+    const tokenHeader = {
+      ...headers,
       Authorization: `Bearer ${token}`,
-      credentials: 'same-origin'
-    });
+      credentials: 'same-origin',
+    };
     return tokenHeader;
   }
   delete headers.Authorization;
 
-  const nonTokenHeader = Object.assign({}, headers);
+  const nonTokenHeader = { ...headers };
   return nonTokenHeader;
 };
 
@@ -57,5 +58,5 @@ export {
   logout,
   setToken,
   getMember,
-  setAuthorisationToken
+  setAuthorisationToken,
 };

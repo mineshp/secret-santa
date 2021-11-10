@@ -3,11 +3,8 @@ const selectItemFromDropdown = (itemName) => {
   cy.get(`a[href*=${itemName}]`).click();
 };
 
-const enterInput = (selectorName, value, inputPosNum = 0) => {
-  return cy.get(`input[${selectorName}]:eq(${inputPosNum})`)
-    .clear()
-    .type(value);
-};
+const enterInput = (selectorName, value, inputPosNum = 0) =>
+  cy.get(`input[${selectorName}]:eq(${inputPosNum})`).clear().type(value);
 
 describe('Admin Panel', () => {
   describe('Setup new group', () => {
@@ -18,16 +15,15 @@ describe('Admin Panel', () => {
     const user = {
       memberName: MEMBERNAME,
       groupName: GROUPNAME,
-      passphrase: PASSPHRASE
+      passphrase: PASSPHRASE,
     };
 
     beforeEach(() => {
       cy.login(user);
     });
 
-    it('Creates a group with members', () => {
-      cy.server();
-      cy.route('POST', '/dev/api/admin/setup/*').as('setupGroup');
+    it('Creates a group with members', async () => {
+      cy.intercept('POST', '/dev/api/admin/setup/*').as('setupGroup');
 
       selectItemFromDropdown('admin');
       cy.get('[data-testid="setup-groups-accordion"]').click();
@@ -37,21 +33,20 @@ describe('Admin Panel', () => {
       enterInput('name=memberName', 'acceptance-test-member1');
       enterInput('name=email', 'acceptance-test-email@member1');
 
-      cy.get('[data-testid="add-member-btn"]')
-        .click();
+      cy.get('[data-testid="add-member-btn"]').click();
 
       enterInput('name=memberName', 'acceptance-test-member2', 1);
       enterInput('name=email', 'acceptance-test-email@member2', 1);
 
-      cy.get('[data-testid="setup-group-btn"]')
-        .click();
+      cy.get('[data-testid="setup-group-btn"]').click();
 
-      cy.wait('@setupGroup');
+      await cy.wait('@setupGroup');
 
-      cy.get('div.ui.tiny.positive.message.notification > div > div').contains('Successfully created new secret santa group acceptance-test-group');
+      cy.get('div.ui.tiny.positive.message.notification > div > div').contains(
+        'Successfully created new secret santa group acceptance-test-group'
+      );
     });
   });
-
 
   describe('Manage Groups', () => {
     const MEMBERNAME = 'rudolph';
@@ -61,49 +56,54 @@ describe('Admin Panel', () => {
     const user = {
       memberName: MEMBERNAME,
       groupName: GROUPNAME,
-      passphrase: PASSPHRASE
+      passphrase: PASSPHRASE,
     };
 
     beforeEach(() => {
       cy.login(user);
     });
 
-    it('Displays groups', () => {
+    it('Displays groups', async () => {
       // Setup some fake data rather than rely on a db call as tabkle data will dynamically change.
-      cy.server();
-      cy.fixture('allgroups.json').as('allGroupsJSON');
-      cy.route('/dev/api/admin/allgroups', '@allGroupsJSON').as('allGroups');
+      cy.fixture('allGroups').then((allgroupsFixture) => {
+        cy.intercept('GET', '/dev/api/admin/allgroups', allgroupsFixture).as(
+          'groups'
+        );
+      });
 
       selectItemFromDropdown('admin');
-      cy.wait('@allGroups');
 
       cy.get('[data-testid="allgroups"]')
         .children('tbody')
         .within(() => {
           cy.get('tr').eq(0);
-              cy.get('td').eq(0).contains('testgroup');
-              cy.get('td').eq(1).contains(2);
-              cy.get('td').eq(2).contains('button', 'Draw');
-              cy.get('td').eq(3).contains('button', 'Delete');
-              cy.get('td').eq(4).contains('button', 'Send');
+          cy.get('td').eq(0).contains('testgroup');
+          cy.get('td').eq(1).contains(2);
+          cy.get('td').eq(2).contains('button', 'Draw');
+          cy.get('td').eq(3).contains('button', 'Delete');
+          cy.get('td').eq(4).contains('button', 'Send');
         });
     });
 
-    it('Removes a group', () => {
+    it('Removes a group', async () => {
       const groupName = 'acceptance-test-group';
 
-      cy.server();
-      cy.route('GET', '/dev/api/admin/allgroups').as('allGroups');
-      cy.route('DELETE', `/dev/api/admin/${groupName}`).as('deleteGroup');
+      cy.fixture('allGroups').then((allgroupsFixture) => {
+        cy.intercept('GET', '/dev/api/admin/allgroups', allgroupsFixture).as(
+          'groups'
+        );
+        cy.intercept('DELETE', `/dev/api/admin/${groupName}`).as('deleteGroup');
+      });
 
       selectItemFromDropdown('admin');
-      cy.wait('@allGroups');
 
       cy.get('[data-testid="acceptance-test-group-delete-btn"]').click();
 
-      cy.wait('@deleteGroup');
+      // await cy.wait('@deleteGroup');
 
-      cy.get('div.ui.tiny.positive.message.notification > div > div').contains(`Successfully deleted group ${groupName}`);
+      cy.get('div.ui.tiny.positive.message.notification > div > div').contains(
+        `Successfully deleted group ${groupName}`
+      );
       cy.goTo('/admin');
     });
   });
@@ -116,14 +116,20 @@ describe('Admin Panel', () => {
     const user = {
       memberName: MEMBERNAME,
       groupName: GROUPNAME,
-      passphrase: PASSPHRASE
+      passphrase: PASSPHRASE,
     };
 
     beforeEach(() => {
       cy.login(user);
     });
 
-    it('Display group and all it\'s members', () => {
+    it("Display group and all it's members", () => {
+      cy.fixture('testGroupMembers').then((getMembersFromGroup) => {
+        cy.intercept('GET', '/dev/api/admin/testgroup', getMembersFromGroup).as(
+          'members'
+        );
+      });
+
       selectItemFromDropdown('admin');
       cy.get('[data-testid="search-groups-accordion"]').click();
 
@@ -131,17 +137,20 @@ describe('Admin Panel', () => {
 
       cy.get('[data-testid="search-group-btn"]').click();
 
-      cy.get('#membersList')
-        .children('tbody')
+      cy.contains('mineshpatelis@gmail.com')
+        .parent('tr')
         .within(() => {
-          cy.get('tr').eq(1).within(() => {
-            cy.get('td').eq(0).contains('rudolph');
-            cy.get('td').eq(1).contains('mineshpatelis@gmail.com');
-            cy.get('td').eq(2).get('i').should('have.class', 'green check icon');
-            cy.get('td').eq(3).get('i').should('have.class', 'red close icon');
-            cy.get('td').eq(4).contains(new Date().toLocaleDateString());
-            cy.get('td').eq(5).contains('button', 'Send');
-          });
+          // all searches are automatically rooted to the found tr element
+          cy.get('td').eq(0).contains('rudolph');
+          cy.get('td').eq(1).contains('mineshpatelis@gmail.com');
+          cy.get('td').eq(2).get('i').should('have.class', 'red close icon');
+          cy.get('td').eq(3).get('i').should('have.class', 'red close icon');
+          cy.get('td')
+            .eq(4)
+            .contains(
+              new Date('2021-11-10T15:44:12.227Z').toLocaleDateString()
+            );
+          cy.get('td').eq(5).contains('button', 'Send');
         });
     });
   });
@@ -182,7 +191,7 @@ describe('Admin Panel', () => {
       // Try going direct to admin area
       cy.visit({
         url: '/admin',
-        failOnStatusCode: false
+        failOnStatusCode: false,
       });
       cy.get('[data-testid="manage-groups-accordion"]').should('not.exist');
       cy.get('h1').contains('401 Unauthorised!');

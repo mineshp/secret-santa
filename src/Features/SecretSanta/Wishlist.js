@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
-import Loading from '../../Shared/Loading';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
+import Loading from '../../Shared/Loading';
 import Notification from '../../Shared/Notification';
 
 import './Wishlist.css';
 import '../../Shared/Notification.css';
 
 import useInput from '../../Shared/useInput';
-import { getToken, getMember, setAuthorisationToken } from '../Authentication/Auth';
+import {
+  getToken,
+  getMember,
+  setAuthorisationToken,
+} from '../Authentication/Auth';
 import api from '../../Services/api';
 
 const myWishlist = (
@@ -25,53 +29,70 @@ const myWishlist = (
   handleSubmit
 ) => (
   <div>
-    <div data-testid='notification' className={`${notificationState} notification-wrapper`}>
-      {
-          ( notificationState === 'show' && notificationMessage ) && (
-          <Notification
-            type={notificationMessage.type}
-            messageHeader={notificationMessage.messageHeader}
-            />
-          )
-        }
+    <div
+      data-testid="notification"
+      className={`${notificationState} notification-wrapper`}
+    >
+      {notificationState === 'show' && notificationMessage && (
+        <Notification
+          type={notificationMessage.type}
+          messageHeader={notificationMessage.messageHeader}
+        />
+      )}
     </div>
-    <Form size='tiny' onSubmit={handleSubmit}>
+    <Form size="tiny" onSubmit={handleSubmit}>
       <div className="form-fields-wrapper">
-        <div className="row-field heading-row wishlist-heading-x" data-testid="members-wishlist">
+        <div
+          className="row-field heading-row wishlist-heading-x"
+          data-testid="members-wishlist"
+        >
           {`${wishlistFor}'s Wishlist`}
         </div>
         <div className="row-field">
-          <Form.Field key='gift-1' width="sixteen">
+          <Form.Field key="gift-1" width="sixteen">
             <Form.Input
-              name='giftIdea1'
-              placeholder='Gift Idea 1'
+              name="giftIdea1"
+              placeholder="Gift Idea 1"
               {...bindGiftIdea1}
-        />
+            />
           </Form.Field>
         </div>
         <div className="row-field">
-          <Form.Field key='gift-2' width="sixteen">
+          <Form.Field key="gift-2" width="sixteen">
             <Form.Input
-              name='giftIdea2'
-              placeholder='Gift Idea 2'
+              name="giftIdea2"
+              placeholder="Gift Idea 2"
               {...bindGiftIdea2}
-        />
+            />
           </Form.Field>
         </div>
         <div className="row-field">
-          <Form.Field key='gift-3' width="sixteen">
+          <Form.Field key="gift-3" width="sixteen">
             <Form.Input
-              name='giftIdea3'
-              placeholder='Gift Idea 3'
+              name="giftIdea3"
+              placeholder="Gift Idea 3"
               {...bindGiftIdea3}
-        />
+            />
           </Form.Field>
         </div>
         <div className="button-group">
-          <Button color="pink" size={setButtonSizeByDeviceRes()} type="submit" data-testid="save-btn">
+          <Button
+            color="pink"
+            size={setButtonSizeByDeviceRes()}
+            type="submit"
+            data-testid="save-btn"
+          >
             Save
           </Button>
-          <Button color="grey" size={setButtonSizeByDeviceRes()} as={Link} className="back-btn" name="home" to="/" data-testid="back-btn">
+          <Button
+            color="grey"
+            size={setButtonSizeByDeviceRes()}
+            as={Link}
+            className="back-btn"
+            name="home"
+            to="/"
+            data-testid="back-btn"
+          >
             Back
           </Button>
         </div>
@@ -81,24 +102,41 @@ const myWishlist = (
 );
 
 const secretSantasWishlist = (
-    wishlistFor,
-    setButtonSizeByDeviceRes,
-    wishlist
+  wishlistFor,
+  setButtonSizeByDeviceRes,
+  wishlist
 ) => (
   <div className="form-fields-wrapper">
-    <div className="row-field heading-row wishlist-heading-x" data-testid="giftees-wishlist">
+    <div
+      className="row-field heading-row wishlist-heading-x"
+      data-testid="giftees-wishlist"
+    >
       {`${wishlistFor}'s Wishlist`}
     </div>
-    <div data-testid="giftIdea1" className="row-field readonlylist">{wishlist[0]}</div>
-    <div data-testid="giftIdea2" className="row-field readonlylist">{wishlist[1]}</div>
-    <div data-testid="giftIdea3" className="row-field readonlylist">{wishlist[2]}</div>
+    <div data-testid="giftIdea1" className="row-field readonlylist">
+      {wishlist[0]}
+    </div>
+    <div data-testid="giftIdea2" className="row-field readonlylist">
+      {wishlist[1]}
+    </div>
+    <div data-testid="giftIdea3" className="row-field readonlylist">
+      {wishlist[2]}
+    </div>
     <div className="button-group">
-      <Button color="grey" size={setButtonSizeByDeviceRes()} as={Link} className="" name="home" to="/" data-testid="back-btn">
+      <Button
+        color="grey"
+        size={setButtonSizeByDeviceRes()}
+        as={Link}
+        className=""
+        name="home"
+        to="/"
+        data-testid="back-btn"
+      >
         Back
       </Button>
     </div>
   </div>
-  );
+);
 
 export default function Wishlist(props) {
   const [notificationState, setNotificationState] = useState('hide');
@@ -112,9 +150,21 @@ export default function Wishlist(props) {
 
   const { match } = props;
 
-  const { value: giftIdeaInput1, setValue: setGiftIdeaInput1, bind: bindGiftIdea1 } = useInput('');
-  const { value: giftIdeaInput2, setValue: setGiftIdeaInput2, bind: bindGiftIdea2 } = useInput('');
-  const { value: giftIdeaInput3, setValue: setGiftIdeaInput3, bind: bindGiftIdea3 } = useInput('');
+  const {
+    value: giftIdeaInput1,
+    setValue: setGiftIdeaInput1,
+    bind: bindGiftIdea1,
+  } = useInput('');
+  const {
+    value: giftIdeaInput2,
+    setValue: setGiftIdeaInput2,
+    bind: bindGiftIdea2,
+  } = useInput('');
+  const {
+    value: giftIdeaInput3,
+    setValue: setGiftIdeaInput3,
+    bind: bindGiftIdea3,
+  } = useInput('');
 
   const displayNotification = (messageData) => {
     setNotificationState('show');
@@ -147,23 +197,23 @@ export default function Wishlist(props) {
     }
   }, [wishlistFor]);
 
-
   useEffect(() => {
     const token = getToken();
     if (wishlistFor) {
-      const getGiftIdeasForMember = async () => {
-        return api.get(
-          `/giftIdeas/${wishlistFor}/${groupName}`,
-          { headers: setAuthorisationToken(token) }
-        ).catch((err) => console.error(err) || err);
-      };
+      const getGiftIdeasForMember = async () =>
+        api
+          .get(`/giftIdeas/${wishlistFor}/${groupName}`, {
+            headers: setAuthorisationToken(token),
+          })
+          .catch((err) => err);
 
-      void async function () {
+      // eslint-disable-next-line no-void
+      void (async function () {
         const { data } = await getGiftIdeasForMember();
         if (data && data.giftIdeas) {
           setWishlist(data.giftIdeas);
         }
-      }();
+      })();
     }
   }, [groupName, wishlistFor]);
 
@@ -184,17 +234,19 @@ export default function Wishlist(props) {
   useEffect(() => {
     if (wishlistUpdated) {
       const token = getToken();
-      const setGiftIdeasLastUpdated = async () => {
-      return api.put(
-        `/giftIdeas/${wishlistFor}/${groupName}/updated`,
-        JSON.stringify({ giftIdeasLastUpdated: new Date().toISOString() }),
-        { headers: setAuthorisationToken(token) }
-      ).catch((err) => console.error(err) || err);
-    };
+      const setGiftIdeasLastUpdated = async () =>
+        api
+          .put(
+            `/giftIdeas/${wishlistFor}/${groupName}/updated`,
+            JSON.stringify({ giftIdeasLastUpdated: new Date().toISOString() }),
+            { headers: setAuthorisationToken(token) }
+          )
+          .catch((err) => console.error(err) || err);
 
-    void async function () {
-      await setGiftIdeasLastUpdated();
-    }();
+      // eslint-disable-next-line no-void
+      void (async function () {
+        await setGiftIdeasLastUpdated();
+      })();
     }
   }, [wishlistUpdated, wishlistFor, groupName]);
 
@@ -222,16 +274,17 @@ export default function Wishlist(props) {
       setWishlistUpdated(true);
       displayNotification({
         type: 'positive',
-        messageHeader: 'Successfully updated gift ideas.'
+        messageHeader: 'Successfully updated gift ideas.',
       });
     } else {
       displayNotification({
         type: 'negative',
-        messageHeader: `Error updating gift ideas, ${response.error}`
+        messageHeader: `Error updating gift ideas, ${response.error}`,
       });
     }
   };
 
+  // eslint-disable-next-line consistent-return
   const setButtonSizeByDeviceRes = () => {
     switch (deviceBP) {
       case 'mobile':
@@ -254,33 +307,29 @@ export default function Wishlist(props) {
   }
   return (
     <Container>
-      {
-        readOnlyList
-        ? secretSantasWishlist(
-          wishlistFor,
-          setButtonSizeByDeviceRes,
-          wishlist
-          )
+      {readOnlyList
+        ? secretSantasWishlist(wishlistFor, setButtonSizeByDeviceRes, wishlist)
         : myWishlist(
-          notificationState,
-          notificationMessage,
-          wishlistFor,
-          setButtonSizeByDeviceRes,
-          bindGiftIdea1,
-          bindGiftIdea2,
-          bindGiftIdea3,
-          handleSubmit
-        )
-    }
+            notificationState,
+            notificationMessage,
+            wishlistFor,
+            setButtonSizeByDeviceRes,
+            bindGiftIdea1,
+            bindGiftIdea2,
+            bindGiftIdea3,
+            handleSubmit
+          )}
     </Container>
-    );
+  );
 }
 
 Wishlist.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       memberName: PropTypes.string,
-      groupID: PropTypes.string
-    })
-  })
+      groupID: PropTypes.string,
+    }),
+  }),
 };
+
+Wishlist.defaultProps = { match: PropTypes.shape({}) };

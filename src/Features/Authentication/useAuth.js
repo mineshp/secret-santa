@@ -9,7 +9,7 @@ const authReducer = (prevState, data) => {
     case 'SET_USER':
       return {
         ...prevState,
-        ...data
+        ...data,
       };
     case 'GET_USER': {
       return getMember();
@@ -21,7 +21,7 @@ const authReducer = (prevState, data) => {
         ...loggedOutUser
       } = prevState;
       return {
-        ...loggedOutUser
+        ...loggedOutUser,
       };
     }
     default:
@@ -31,17 +31,16 @@ const authReducer = (prevState, data) => {
 
 export const UserContext = React.createContext({});
 
-
-export function UserProvider(props) {
+export function UserProvider({ children }) {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   return (
     <UserContext.Provider value={{ user: state.user, dispatch }}>
-      {props.children}
+      {children}
     </UserContext.Provider>
-    );
-  }
+  );
+}
 
 UserProvider.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
 };

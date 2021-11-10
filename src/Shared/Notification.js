@@ -5,17 +5,16 @@ import Message from 'semantic-ui-react/dist/commonjs/collections/Message';
 const NotificationContent = ({ messageHeader, message }) => (
   <div>
     <Message.Header>{messageHeader}</Message.Header>
-    {
-      message && <p>{message}</p>
-    }
+    {message && <p>{message}</p>}
   </div>
 );
 
+// eslint-disable-next-line consistent-return
 const Notification = ({ type, messageHeader, message }) => {
   switch (type) {
     case 'negative':
       return (
-        <Message negative size='tiny' className='notification'>
+        <Message negative size="tiny" className="notification">
           <NotificationContent
             messageHeader={messageHeader}
             message={message}
@@ -24,7 +23,7 @@ const Notification = ({ type, messageHeader, message }) => {
       );
     case 'warning':
       return (
-        <Message warning size='tiny' className='notification'>
+        <Message warning size="tiny" className="notification">
           <NotificationContent
             messageHeader={messageHeader}
             message={message}
@@ -33,7 +32,7 @@ const Notification = ({ type, messageHeader, message }) => {
       );
     case 'positive':
       return (
-        <Message positive size='tiny' className='notification'>
+        <Message positive size="tiny" className="notification">
           <NotificationContent
             messageHeader={messageHeader}
             message={message}
@@ -46,10 +45,23 @@ const Notification = ({ type, messageHeader, message }) => {
   }
 };
 
+Notification.propTypes = {
+  type: PropTypes.string.isRequired,
+  messageHeader: PropTypes.string.isRequired,
+  message: PropTypes.string,
+};
+
+Notification.defaultProps = {
+  message: '',
+};
+
 NotificationContent.propTypes = {
-  messageHeader: PropTypes.string,
-  message: PropTypes.string
+  messageHeader: PropTypes.string.isRequired,
+  message: PropTypes.string,
+};
+
+NotificationContent.defaultProps = {
+  message: '',
 };
 
 export default Notification;
-

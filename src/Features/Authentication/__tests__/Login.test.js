@@ -11,18 +11,18 @@ jest.mock('../../../Services/api');
 jest.mock('jwt-decode');
 
 describe('login', () => {
-  beforeEach(() => {
-    window.localStorage.removeItem('jwtToken');
-    window.localStorage.removeItem('isLoggedIn');
-
-    const history = createMemoryHistory();
-
+  const history = createMemoryHistory();
+  const setup = () =>
     render(
       <UserProvider>
         <Router history={history}>
-          <Login /></Router>
+          <Login />
+        </Router>
       </UserProvider>
     );
+  beforeEach(() => {
+    window.localStorage.removeItem('jwtToken');
+    window.localStorage.removeItem('isLoggedIn');
   });
 
   afterEach(() => {
@@ -30,13 +30,12 @@ describe('login', () => {
   });
 
   it('is successful', async () => {
+    setup();
     const mockUserResponse = {
-      data: JSON.stringify({ token: 'fake_user_token' })
+      data: JSON.stringify({ token: 'fake_user_token' }),
     };
 
-    api.post.mockImplementationOnce(() => {
-      return Promise.resolve(mockUserResponse);
-    });
+    api.post.mockImplementationOnce(() => Promise.resolve(mockUserResponse));
 
     userEvent.clear(screen.getByLabelText('memberName'));
     await userEvent.type(screen.getByLabelText('memberName'), 'test-user');
@@ -47,7 +46,7 @@ describe('login', () => {
     userEvent.clear(screen.getByLabelText('passphrase'));
     await userEvent.type(screen.getByLabelText('passphrase'), 'pass123');
 
-    fireEvent.click(screen.getByRole('button', {name: /Login/i}));
+    fireEvent.click(screen.getByRole('button', { name: /Login/i }));
 
     await screen.findByText('TEST-USER - Successfully logged in');
     expect(window.localStorage.getItem('jwtToken')).toEqual('fake_user_token');
@@ -55,13 +54,12 @@ describe('login', () => {
   });
 
   it('login failed invalid token', async () => {
+    setup();
     const mockUserResponse = {
-      data: JSON.stringify({ error: 'oops error occurred!' })
+      data: JSON.stringify({ error: 'oops error occurred!' }),
     };
 
-    api.post.mockImplementationOnce(() => {
-      return Promise.resolve(mockUserResponse);
-    });
+    api.post.mockImplementationOnce(() => Promise.resolve(mockUserResponse));
 
     userEvent.clear(screen.getByLabelText('memberName'));
     await userEvent.type(screen.getByLabelText('memberName'), 'test-user');
@@ -71,7 +69,7 @@ describe('login', () => {
 
     userEvent.clear(screen.getByLabelText('passphrase'));
     await userEvent.type(screen.getByLabelText('passphrase'), 'pass123');
-    fireEvent.click(screen.getByRole('button', {name: /Login/i}));
+    fireEvent.click(screen.getByRole('button', { name: /Login/i }));
 
     await screen.findByText('Unable to login, oops error occurred!');
     expect(window.localStorage.getItem('jwtToken')).toEqual(null);
@@ -79,9 +77,10 @@ describe('login', () => {
   });
 
   it('login failed incorrect details', async () => {
-    api.post.mockImplementationOnce(() => {
-      return Promise.reject(new Error('oops an error occurred'));
-    });
+    setup();
+    api.post.mockImplementationOnce(() =>
+      Promise.reject(new Error('oops an error occurred'))
+    );
 
     userEvent.clear(screen.getByLabelText('memberName'));
     await userEvent.type(screen.getByLabelText('memberName'), 'test-user');
@@ -92,9 +91,9 @@ describe('login', () => {
     userEvent.clear(screen.getByLabelText('passphrase'));
     await userEvent.type(screen.getByLabelText('passphrase'), 'pass123');
 
-    fireEvent.click(screen.getByRole('button', {name: /Login/i}));
+    fireEvent.click(screen.getByRole('button', { name: /Login/i }));
 
-    screen.findByText('Login failed, details maybe incorrect!');
+    await screen.findByText('Login failed, details maybe incorrect!');
     expect(window.localStorage.getItem('jwtToken')).toEqual(null);
     expect(window.localStorage.getItem('isLoggedIn')).toEqual(null);
   });
@@ -103,24 +102,24 @@ describe('login', () => {
     const formFieldsToEnter = {
       memberName: ['groupID', 'passphrase'],
       groupID: ['memberName', 'passphrase'],
-      passphrase: ['memberName', 'groupID']
+      passphrase: ['memberName', 'groupID'],
     };
 
     ['memberName', 'groupID', 'passphrase'].forEach((fieldToOmit) => {
       it(`${fieldToOmit} missing`, async () => {
+        setup();
         formFieldsToEnter[fieldToOmit].forEach(async (field) => {
           fireEvent.change(screen.getByLabelText(field), {
-            target: { value: `test-${field}` }
-           });
+            target: { value: `test-${field}` },
+          });
         });
 
-        fireEvent.click(screen.getByRole('button', {name: /Login/i}));
+        fireEvent.click(screen.getByRole('button', { name: /Login/i }));
 
-        screen.findByText('Name, group or passphrase missing!');
+        await screen.findByText('Name, group or passphrase missing!');
         expect(window.localStorage.getItem('jwtToken')).toEqual(null);
         expect(window.localStorage.getItem('isLoggedIn')).toEqual(null);
       });
     });
   });
 });
-

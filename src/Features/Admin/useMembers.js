@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 
 function useMembers(initialState) {
   const memberReducer = (prevState, data) => {
@@ -12,13 +12,13 @@ function useMembers(initialState) {
         // update the object at the index
         newState[index] = {
           ...newState[index],
-          memberName: data.value
+          memberName: data.value,
         };
         return newState; // return new array
       case 'UPDATE_EMAIL':
         newState[index] = {
           ...newState[index],
-          email: data.value
+          email: data.value,
         };
         return newState; // return new array
       case 'ADD':
@@ -27,8 +27,8 @@ function useMembers(initialState) {
           {
             rowId: uuidv4(),
             memberName: '',
-            email: ''
-          }
+            email: '',
+          },
         ];
       default:
         return prevState;
@@ -40,23 +40,20 @@ function useMembers(initialState) {
     {
       rowId: uuidv4(),
       memberName: '',
-      email: ''
-    }
+      email: '',
+    },
   ]);
 
-  const update = (type) => (event, data) => dispatch({
-    type: `UPDATE_${type.toUpperCase()}`,
-    id: data.id,
-    value: event.target.value
-  });
+  const update = (type) => (event, data) =>
+    dispatch({
+      type: `UPDATE_${type.toUpperCase()}`,
+      id: data.id,
+      value: event.target.value,
+    });
 
   const add = () => dispatch({ type: 'ADD' });
 
-  return [
-    members,
-    add,
-    update
-  ];
+  return [members, add, update];
 }
 
 export default useMembers;

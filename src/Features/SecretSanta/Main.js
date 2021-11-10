@@ -7,10 +7,16 @@ import './Main.css';
 import '../../Shared/Notification.css';
 import Notification from '../../Shared/Notification';
 
-
 import { getToken, setAuthorisationToken } from '../Authentication/Auth';
 import api from '../../Services/api';
 
+const setNotification = ({ type, messageHeader, message }) => (
+  <Notification
+    type={type}
+    messageHeader={messageHeader}
+    message={message || null}
+  />
+);
 export default function SecretSanta({ member }) {
   const [mySecretSanta, setMySecretSanta] = useState(false);
   const [deviceBP, setDeviceBP] = useState(null);
@@ -44,29 +50,37 @@ export default function SecretSanta({ member }) {
 
   const revealMySecretSanta = async () => {
     const token = getToken();
-    const response = await api.get(
-      `/reveal/${member.memberName}/${member.groupID}`,
-      { headers: setAuthorisationToken(token) }
-    )
+    const response = await api
+      .get(`/reveal/${member.memberName}/${member.groupID}`, {
+        headers: setAuthorisationToken(token),
+      })
       .catch((err) => {
-        console.error(`Error getting messages ${err}`);
         displayNotification({
           type: 'negative',
-          messageHeader: err.message
+          messageHeader: err.message,
         });
       });
 
     if (response && response.data && response.data.secretSanta) {
-      const decodedStr = Buffer.from(response.data.secretSanta, 'base64').toString('ascii');
+      const decodedStr = Buffer.from(
+        response.data.secretSanta,
+        'base64'
+      ).toString('ascii');
       setMySecretSanta(decodedStr);
-    } else if (response && response.data && Object.keys(response.data).length === 0 ) {
+    } else if (
+      response &&
+      response.data &&
+      Object.keys(response.data).length === 0
+    ) {
       displayNotification({
         type: 'warning',
-        messageHeader: 'Draw has not taken place yet, please wait or contact your group\'s admin!'
+        messageHeader:
+          "Draw has not taken place yet, please wait or contact your group's admin!",
       });
     }
   };
 
+  // eslint-disable-next-line consistent-return
   const setButtonSizeByDeviceRes = () => {
     switch (deviceBP) {
       case 'mobile':
@@ -85,62 +99,63 @@ export default function SecretSanta({ member }) {
   return (
     <Container>
       <div className="main-bg">
-        <div data-testid='notification' className={`${notificationState} notification-wrapper`}>
-          {
-            ( notificationState === 'show' && notificationMessage ) && (
-              <Notification
-                type={notificationMessage.type}
-                messageHeader={notificationMessage.messageHeader}
-                message={notificationMessage.message || null}
-              />
-            )
-          }
+        <div
+          data-testid="notification"
+          className={`${notificationState} notification-wrapper`}
+        >
+          {notificationMessage &&
+            notificationState === 'show' &&
+            setNotification(notificationMessage)}
         </div>
         <div className="main-wrapper">
-          <div className="row-heading">
-            Ho Ho Ho!
-          </div>
+          <div className="row-heading">Ho Ho Ho!</div>
           <div className="row-your-giftee-heading secret-santa-heading">
-            Hi <span className="displayMemberName">{member.memberName}</span> your giftee is
+            Hi <span className="displayMemberName">{member.memberName}</span>{' '}
+            your giftee is
           </div>
           <div className="row-reveal-btn reveal-santa">
-            <Button compact fluid color={mySecretSanta ? 'violet' : 'yellow'} className='displayMemberName' size={setButtonSizeByDeviceRes()}
+            <Button
+              compact
+              fluid
+              color={mySecretSanta ? 'violet' : 'yellow'}
+              className="displayMemberName"
+              size={setButtonSizeByDeviceRes()}
               onClick={revealMySecretSanta}
-              data-testid='reveal-btn'>
-              {mySecretSanta ? mySecretSanta : 'Reveal'}
+              data-testid="reveal-btn"
+            >
+              {mySecretSanta || 'Reveal'}
             </Button>
           </div>
           <div className="row-mywishlist-btn button-row">
             <Button
-              color='teal'
-              className='my-wishlist-btn'
+              color="teal"
+              className="my-wishlist-btn"
               size={setButtonSizeByDeviceRes()}
               as={Link}
-              name='my-wishlist'
+              name="my-wishlist"
               to={`/secretsanta/wishlist/${member.memberName}/${member.groupID}`}
-              data-testid='my-wishlist-btn'
-          >
+              data-testid="my-wishlist-btn"
+            >
               My Wishlist
             </Button>
           </div>
-          {
-            mySecretSanta &&
+          {mySecretSanta && (
             <div className="row-gifteewishlist-btn button-row">
               <Button
                 compact
                 fluid
-                color='blue'
-                className='displayMemberName'
+                color="blue"
+                className="displayMemberName"
                 size={setButtonSizeByDeviceRes()}
                 as={Link}
-                name='my-wishlist'
+                name="my-wishlist"
                 to={`/secretsanta/wishlist/${mySecretSanta}/${member.groupID}`}
-                data-testid='giftees-wishlist-btn'
+                data-testid="giftees-wishlist-btn"
               >
                 {`${mySecretSanta}'s Wishlist`}
               </Button>
             </div>
-            }
+          )}
         </div>
       </div>
     </Container>
@@ -151,5 +166,7 @@ SecretSanta.propTypes = {
   member: PropTypes.shape({
     memberName: PropTypes.string,
     groupID: PropTypes.string,
-  })
+  }),
 };
+
+SecretSanta.defaultProps = { member: PropTypes.shape({}) };

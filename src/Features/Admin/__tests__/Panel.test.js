@@ -10,7 +10,8 @@ import api from '../../../Services/api';
 
 jest.mock('../../../Services/api');
 
-const mockJwtToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZW1iZXJOYW1lIjoic2FudGEiLCJpYXQiOjE1MTYyMzkwMjJ9.T_ZxErKlKM9s92-dOsEHOpGa-mB2BU_SVGoEZHx_g2s';
+const mockJwtToken =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZW1iZXJOYW1lIjoic2FudGEiLCJpYXQiOjE1MTYyMzkwMjJ9.T_ZxErKlKM9s92-dOsEHOpGa-mB2BU_SVGoEZHx_g2s';
 
 const renderWithContext = (context) => {
   const history = createMemoryHistory();
@@ -18,10 +19,15 @@ const renderWithContext = (context) => {
   window.localStorage.setItem('jwtToken', mockJwtToken); // Set explicit jwtToken to mock logged in user
 
   if (context === 'errorGetWishlist') {
-    api.get.mockRejectedValue(new Error('Oopsy unable to retrieve all groups!'));
+    api.get.mockRejectedValue(
+      new Error('Oopsy unable to retrieve all groups!')
+    );
   } else {
     const mockAllGroupsResponse = {
-      data: [{ groupName: 'group1', count:2 }, { groupName: 'group2', count: 3 }]
+      data: [
+        { groupName: 'group1', count: 2 },
+        { groupName: 'group2', count: 3 },
+      ],
     };
     api.get.mockResolvedValue(mockAllGroupsResponse);
   }
@@ -34,7 +40,7 @@ const renderWithContext = (context) => {
         </Router>
       </UserProvider>
     ),
-    history
+    history,
   ];
 };
 
@@ -48,25 +54,32 @@ describe('Admin Panel', () => {
       renderWithContext();
 
       expect(api.get).toHaveBeenCalledTimes(1);
-      expect(api.get).toHaveBeenCalledWith(
-        '/admin/allgroups',
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${mockJwtToken}`,
-            'Content-Type': 'application/json',
-            'credentials': 'same-origin'
-          }
-        }
-      );
+      expect(api.get).toHaveBeenCalledWith('/admin/allgroups', {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${mockJwtToken}`,
+          'Content-Type': 'application/json',
+          credentials: 'same-origin',
+        },
+      });
 
       const manageGroupRowForGroup1 = await screen.findByTestId('row-group1');
 
-      const groupName = within(manageGroupRowForGroup1).getByText('group1').textContent;
-      const groupCount = within(manageGroupRowForGroup1).getByTestId('count-group1').textContent;
-      const groupDrawBtn = within(manageGroupRowForGroup1).getByTestId('group1-draw-btn').textContent;
-      const groupDeleteBtn = within(manageGroupRowForGroup1).getByTestId('group1-delete-btn').textContent;
-      const groupSendEmailAllBtn = within(manageGroupRowForGroup1).getByTestId('group1-send-email-all-btn').textContent;
+      const groupName = within(manageGroupRowForGroup1).getByText(
+        'group1'
+      ).textContent;
+      const groupCount = within(manageGroupRowForGroup1).getByTestId(
+        'count-group1'
+      ).textContent;
+      const groupDrawBtn = within(manageGroupRowForGroup1).getByTestId(
+        'group1-draw-btn'
+      ).textContent;
+      const groupDeleteBtn = within(manageGroupRowForGroup1).getByTestId(
+        'group1-delete-btn'
+      ).textContent;
+      const groupSendEmailAllBtn = within(manageGroupRowForGroup1).getByTestId(
+        'group1-send-email-all-btn'
+      ).textContent;
 
       expect(groupName).toEqual('group1');
       expect(groupCount).toEqual('2');
@@ -79,26 +92,26 @@ describe('Admin Panel', () => {
       renderWithContext();
 
       const mockSubmitDrawResponse = { data: [{}, {}] };
-      api.get.mockImplementationOnce(() => Promise.resolve(mockSubmitDrawResponse));
+      api.get.mockImplementationOnce(() =>
+        Promise.resolve(mockSubmitDrawResponse)
+      );
 
       const manageGroupRowForGroup1 = await screen.findByTestId('row-group1');
-      const drawBtnForGroup1 = within(manageGroupRowForGroup1).getByTestId('group1-draw-btn');
+      const drawBtnForGroup1 = within(manageGroupRowForGroup1).getByTestId(
+        'group1-draw-btn'
+      );
 
       fireEvent.click(drawBtnForGroup1);
 
       expect(api.get).toHaveBeenCalledTimes(2);
-      expect(api.get).toHaveBeenNthCalledWith(
-        2,
-        '/admin/draw/group1',
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${mockJwtToken}`,
-            'Content-Type': 'application/json',
-            'credentials': 'same-origin'
-          }
-        }
-      );
+      expect(api.get).toHaveBeenNthCalledWith(2, '/admin/draw/group1', {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${mockJwtToken}`,
+          'Content-Type': 'application/json',
+          credentials: 'same-origin',
+        },
+      });
 
       await screen.findByText('Successfully created draw for group1.');
     });
@@ -107,54 +120,56 @@ describe('Admin Panel', () => {
       renderWithContext();
 
       const mockSubmitDrawErrorResponse = 'oops something bad happened!';
-      api.get.mockImplementationOnce(() => Promise.reject(mockSubmitDrawErrorResponse));
+      api.get.mockImplementationOnce(() =>
+        Promise.reject(mockSubmitDrawErrorResponse)
+      );
 
       const manageGroupRowForGroup1 = await screen.findByTestId('row-group1');
-      const drawBtnForGroup1 = within(manageGroupRowForGroup1).getByTestId('group1-draw-btn');
-
+      const drawBtnForGroup1 = within(manageGroupRowForGroup1).getByTestId(
+        'group1-draw-btn'
+      );
 
       fireEvent.click(drawBtnForGroup1);
 
       expect(api.get).toHaveBeenCalledTimes(2);
-      expect(api.get).toHaveBeenNthCalledWith(
-        2,
-        '/admin/draw/group1',
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${mockJwtToken}`,
-            'Content-Type': 'application/json',
-            'credentials': 'same-origin'
-          }
-        }
-      );
+      expect(api.get).toHaveBeenNthCalledWith(2, '/admin/draw/group1', {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${mockJwtToken}`,
+          'Content-Type': 'application/json',
+          credentials: 'same-origin',
+        },
+      });
 
-      await screen.findByText('Error creating draw for group1, oops something bad happened!');
+      await screen.findByText(
+        'Error creating draw for group1, oops something bad happened!'
+      );
     });
 
     it('successfully deletes a group', async () => {
       renderWithContext();
 
       const mockSubmitDeleteGroupResponse = { data: [] };
-      api.delete.mockImplementationOnce(() => Promise.resolve(mockSubmitDeleteGroupResponse));
+      api.delete.mockImplementationOnce(() =>
+        Promise.resolve(mockSubmitDeleteGroupResponse)
+      );
 
       const manageGroupRowForGroup1 = await screen.findByTestId('row-group1');
-      const deleteBtnForGroup1 = within(manageGroupRowForGroup1).getByTestId('group1-delete-btn');
+      const deleteBtnForGroup1 = within(manageGroupRowForGroup1).getByTestId(
+        'group1-delete-btn'
+      );
 
       fireEvent.click(deleteBtnForGroup1);
 
       expect(api.delete).toHaveBeenCalledTimes(1);
-      expect(api.delete).toHaveBeenCalledWith(
-        '/admin/group1',
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${mockJwtToken}`,
-            'Content-Type': 'application/json',
-            'credentials': 'same-origin'
-          }
-        }
-      );
+      expect(api.delete).toHaveBeenCalledWith('/admin/group1', {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${mockJwtToken}`,
+          'Content-Type': 'application/json',
+          credentials: 'same-origin',
+        },
+      });
 
       await screen.findByText('Successfully deleted group group1!');
     });
@@ -162,55 +177,58 @@ describe('Admin Panel', () => {
     it('errors when attempting to delete a group', async () => {
       renderWithContext();
 
-      const mockSubmitDeleteGroupErrorResponse = { data: { error: 'oops something bad happended!' } };
-      api.delete.mockImplementationOnce(() => Promise.resolve(mockSubmitDeleteGroupErrorResponse));
+      const mockSubmitDeleteGroupErrorResponse = {
+        data: { error: 'oops something bad happended!' },
+      };
+      api.delete.mockImplementationOnce(() =>
+        Promise.resolve(mockSubmitDeleteGroupErrorResponse)
+      );
 
       const manageGroupRowForGroup1 = await screen.findByTestId('row-group1');
-      const deleteBtnForGroup1 = within(manageGroupRowForGroup1).getByTestId('group1-delete-btn');
+      const deleteBtnForGroup1 = within(manageGroupRowForGroup1).getByTestId(
+        'group1-delete-btn'
+      );
 
       fireEvent.click(deleteBtnForGroup1);
 
       expect(api.delete).toHaveBeenCalledTimes(1);
-      expect(api.delete).toHaveBeenCalledWith(
-        '/admin/group1',
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${mockJwtToken}`,
-            'Content-Type': 'application/json',
-            'credentials': 'same-origin'
-          }
-        }
-      );
+      expect(api.delete).toHaveBeenCalledWith('/admin/group1', {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${mockJwtToken}`,
+          'Content-Type': 'application/json',
+          credentials: 'same-origin',
+        },
+      });
 
-     await screen.findByText('Unable to delete group1!');
+      await screen.findByText('Unable to delete group1!');
     });
 
     it('successfully sends an email to everyone in the group, regarding who they drew', async () => {
       renderWithContext();
 
       const mockSubmitEmailGroupResponse = { data: [] };
-      api.get.mockImplementationOnce(() => Promise.resolve(mockSubmitEmailGroupResponse));
+      api.get.mockImplementationOnce(() =>
+        Promise.resolve(mockSubmitEmailGroupResponse)
+      );
 
       await screen.findByTestId('row-group1');
       const manageGroupRowForGroup1 = screen.getByTestId('row-group1');
-      const sendEmailToAllBtnForGroup1 = within(manageGroupRowForGroup1).getByTestId('group1-send-email-all-btn');
+      const sendEmailToAllBtnForGroup1 = within(
+        manageGroupRowForGroup1
+      ).getByTestId('group1-send-email-all-btn');
 
       fireEvent.click(sendEmailToAllBtnForGroup1);
 
       expect(api.get).toHaveBeenCalledTimes(2);
-      expect(api.get).toHaveBeenNthCalledWith(
-        2,
-        '/admin/sendEmail/group1',
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${mockJwtToken}`,
-            'Content-Type': 'application/json',
-            'credentials': 'same-origin'
-          }
-        }
-      );
+      expect(api.get).toHaveBeenNthCalledWith(2, '/admin/sendEmail/group1', {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${mockJwtToken}`,
+          'Content-Type': 'application/json',
+          credentials: 'same-origin',
+        },
+      });
 
       await screen.findByText('Successfully sent email for group1.');
     });
@@ -219,29 +237,31 @@ describe('Admin Panel', () => {
       renderWithContext();
 
       const mockSubmitEmailGroupErrorResponse = 'oops something bad happended!';
-      api.get.mockImplementationOnce(() => Promise.reject(mockSubmitEmailGroupErrorResponse));
+      api.get.mockImplementationOnce(() =>
+        Promise.reject(mockSubmitEmailGroupErrorResponse)
+      );
 
       await screen.findByTestId('row-group1');
       const manageGroupRowForGroup1 = screen.getByTestId('row-group1');
-      const sendEmailToAllBtnForGroup1 = within(manageGroupRowForGroup1).getByTestId('group1-send-email-all-btn');
+      const sendEmailToAllBtnForGroup1 = within(
+        manageGroupRowForGroup1
+      ).getByTestId('group1-send-email-all-btn');
 
       fireEvent.click(sendEmailToAllBtnForGroup1);
 
       expect(api.get).toHaveBeenCalledTimes(2);
-      expect(api.get).toHaveBeenNthCalledWith(
-        2,
-        '/admin/sendEmail/group1',
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${mockJwtToken}`,
-            'Content-Type': 'application/json',
-            'credentials': 'same-origin'
-          }
-        }
-);
+      expect(api.get).toHaveBeenNthCalledWith(2, '/admin/sendEmail/group1', {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${mockJwtToken}`,
+          'Content-Type': 'application/json',
+          credentials: 'same-origin',
+        },
+      });
 
-      await screen.findByText('Error sending email for group1, oops something bad happended!');
+      await screen.findByText(
+        'Error sending email for group1, oops something bad happended!'
+      );
     });
   });
 
@@ -251,38 +271,57 @@ describe('Admin Panel', () => {
 
       fireEvent.click(screen.getByText('Search Group'));
 
-      const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
+      const mockSearchResponse = {
+        data: [
+          {
+            memberName: 'member1',
+            email: 'member1@group1.com',
+            drawn: true,
+            admin: false,
+          },
+        ],
+      };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
-      const groupNameInput = await screen.findByPlaceholderText('Search Group Name');
+      const groupNameInput = await screen.findByPlaceholderText(
+        'Search Group Name'
+      );
       userEvent.clear(groupNameInput);
       await userEvent.type(groupNameInput, 'group1');
 
       fireEvent.click(screen.getByText('Search'));
 
       expect(api.get).toHaveBeenCalledTimes(2);
-      expect(api.get).toHaveBeenNthCalledWith(
-        2,
-        '/admin/group1',
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${mockJwtToken}`,
-            'Content-Type': 'application/json',
-            'credentials': 'same-origin'
-          }
-        }
-      );
+      expect(api.get).toHaveBeenNthCalledWith(2, '/admin/group1', {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${mockJwtToken}`,
+          'Content-Type': 'application/json',
+          credentials: 'same-origin',
+        },
+      });
 
       await screen.findByTestId('row-member1');
       const manageMembersRowForGroup1 = screen.getByTestId('row-member1');
 
-      const memberNameRow1 = within(manageMembersRowForGroup1).getByText('member1').textContent;
-      const memberEmailRow1 = within(manageMembersRowForGroup1).getByTestId('member1-email').textContent;
-      const memberGifteeAssignedRow1 = within(manageMembersRowForGroup1).getByTestId('member1-giftee-assigned');
-      const memberWishlistUpdatedInRow1 = within(manageMembersRowForGroup1).getByTestId('member1-wishlist-updated');
-      const memberLastLoggedInRow1 = within(manageMembersRowForGroup1).getByTestId('member1-last-logged-in').textContent;
-      const memberSendEmailRow1 = within(manageMembersRowForGroup1).getByTestId('member1-send-email').textContent;
+      const memberNameRow1 = within(manageMembersRowForGroup1).getByText(
+        'member1'
+      ).textContent;
+      const memberEmailRow1 = within(manageMembersRowForGroup1).getByTestId(
+        'member1-email'
+      ).textContent;
+      const memberGifteeAssignedRow1 = within(
+        manageMembersRowForGroup1
+      ).getByTestId('member1-giftee-assigned');
+      const memberWishlistUpdatedInRow1 = within(
+        manageMembersRowForGroup1
+      ).getByTestId('member1-wishlist-updated');
+      const memberLastLoggedInRow1 = within(
+        manageMembersRowForGroup1
+      ).getByTestId('member1-last-logged-in').textContent;
+      const memberSendEmailRow1 = within(manageMembersRowForGroup1).getByTestId(
+        'member1-send-email'
+      ).textContent;
 
       expect(memberNameRow1).toEqual('member1');
       expect(memberEmailRow1).toEqual('member1@group1.com');
@@ -298,31 +337,33 @@ describe('Admin Panel', () => {
       fireEvent.click(screen.getByText('Search Group'));
 
       const mockSearchErrorResponse = 'Oops not found!';
-      api.get.mockImplementationOnce(() => Promise.reject(mockSearchErrorResponse));
+      api.get.mockImplementationOnce(() =>
+        Promise.reject(mockSearchErrorResponse)
+      );
 
-      const groupNameInput = await screen.findByPlaceholderText('Search Group Name');
+      const groupNameInput = await screen.findByPlaceholderText(
+        'Search Group Name'
+      );
       userEvent.clear(groupNameInput);
       await userEvent.type(groupNameInput, 'randomgroup');
 
       fireEvent.click(screen.getByText('Search'));
 
       expect(api.get).toHaveBeenCalledTimes(2);
-      expect(api.get).toHaveBeenNthCalledWith(
-        2,
-        '/admin/randomgroup',
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${mockJwtToken}`,
-            'Content-Type': 'application/json',
-            'credentials': 'same-origin'
-          }
-        }
-);
+      expect(api.get).toHaveBeenNthCalledWith(2, '/admin/randomgroup', {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${mockJwtToken}`,
+          'Content-Type': 'application/json',
+          credentials: 'same-origin',
+        },
+      });
 
       expect(screen.queryByTestId('row-member1')).not.toBeInTheDocument();
 
-      await screen.findByText('Unable to find secret santa group randomgroup, Oops not found!');
+      await screen.findByText(
+        'Unable to find secret santa group randomgroup, Oops not found!'
+      );
     });
 
     it('Sends an email to a member to remind them who they have drawn', async () => {
@@ -330,35 +371,47 @@ describe('Admin Panel', () => {
 
       fireEvent.click(screen.getByText('Search Group'));
 
-      const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
+      const mockSearchResponse = {
+        data: [
+          {
+            memberName: 'member1',
+            email: 'member1@group1.com',
+            drawn: true,
+            admin: false,
+          },
+        ],
+      };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
-      const groupNameInput = await screen.findByPlaceholderText('Search Group Name');
+      const groupNameInput = await screen.findByPlaceholderText(
+        'Search Group Name'
+      );
       userEvent.clear(groupNameInput);
       await userEvent.type(groupNameInput, 'group1');
 
       fireEvent.click(screen.getByText('Search'));
 
       expect(api.get).toHaveBeenCalledTimes(2);
-      expect(api.get).toHaveBeenNthCalledWith(
-        2,
-        '/admin/group1',
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${mockJwtToken}`,
-            'Content-Type': 'application/json',
-            'credentials': 'same-origin'
-          }
-        }
-      );
+      expect(api.get).toHaveBeenNthCalledWith(2, '/admin/group1', {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${mockJwtToken}`,
+          'Content-Type': 'application/json',
+          credentials: 'same-origin',
+        },
+      });
 
       const mockSendMemberEmailResponse = [];
-      api.get.mockImplementationOnce(() => Promise.resolve(mockSendMemberEmailResponse));
+      api.get.mockImplementationOnce(() =>
+        Promise.resolve(mockSendMemberEmailResponse)
+      );
 
       await screen.findByTestId('row-member1');
       const manageMembersRowForGroup1 = screen.getByTestId('row-member1');
-      const memberSendEmailRow1 = within(manageMembersRowForGroup1).getByRole('button', { name: /Send/i });
+      const memberSendEmailRow1 = within(manageMembersRowForGroup1).getByRole(
+        'button',
+        { name: /Send/i }
+      );
 
       fireEvent.click(memberSendEmailRow1);
 
@@ -371,8 +424,8 @@ describe('Admin Panel', () => {
             Accept: 'application/json',
             Authorization: `Bearer ${mockJwtToken}`,
             'Content-Type': 'application/json',
-            'credentials': 'same-origin'
-          }
+            credentials: 'same-origin',
+          },
         }
       );
 
@@ -384,10 +437,21 @@ describe('Admin Panel', () => {
 
       fireEvent.click(screen.getByText('Search Group'));
 
-      const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
+      const mockSearchResponse = {
+        data: [
+          {
+            memberName: 'member1',
+            email: 'member1@group1.com',
+            drawn: true,
+            admin: false,
+          },
+        ],
+      };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
-      const groupNameInput = await screen.findByPlaceholderText('Search Group Name');
+      const groupNameInput = await screen.findByPlaceholderText(
+        'Search Group Name'
+      );
 
       userEvent.clear(groupNameInput);
       await userEvent.type(groupNameInput, 'group1');
@@ -395,26 +459,27 @@ describe('Admin Panel', () => {
       fireEvent.click(screen.getByText('Search'));
 
       expect(api.get).toHaveBeenCalledTimes(2);
-      expect(api.get).toHaveBeenNthCalledWith(
-        2,
-        '/admin/group1',
-        {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${mockJwtToken}`,
-            'Content-Type': 'application/json',
-            'credentials': 'same-origin'
-          }
-        }
-      );
+      expect(api.get).toHaveBeenNthCalledWith(2, '/admin/group1', {
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${mockJwtToken}`,
+          'Content-Type': 'application/json',
+          credentials: 'same-origin',
+        },
+      });
 
       await screen.findByTestId('row-member1');
       const manageMembersRowForGroup1 = screen.getByTestId('row-member1');
 
       const mockSendMemberEmailResponse = 'problems connecting to server!';
-      api.get.mockImplementationOnce(() => Promise.reject(mockSendMemberEmailResponse));
+      api.get.mockImplementationOnce(() =>
+        Promise.reject(mockSendMemberEmailResponse)
+      );
 
-      const memberSendEmailRow1 = within(manageMembersRowForGroup1).getByRole('button', { name: /Send/i });
+      const memberSendEmailRow1 = within(manageMembersRowForGroup1).getByRole(
+        'button',
+        { name: /Send/i }
+      );
       fireEvent.click(memberSendEmailRow1);
 
       expect(api.get).toHaveBeenCalledTimes(3);
@@ -426,12 +491,14 @@ describe('Admin Panel', () => {
             Accept: 'application/json',
             Authorization: `Bearer ${mockJwtToken}`,
             'Content-Type': 'application/json',
-            'credentials': 'same-origin'
-          }
+            credentials: 'same-origin',
+          },
         }
-);
+      );
 
-      await screen.findByText('Error sending email for group1 to member1, problems connecting to server!');
+      await screen.findByText(
+        'Error sending email for group1 to member1, problems connecting to server!'
+      );
     });
   });
 
@@ -441,10 +508,21 @@ describe('Admin Panel', () => {
 
       fireEvent.click(screen.getByText('Setup New Group'));
 
-      const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
+      const mockSearchResponse = {
+        data: [
+          {
+            memberName: 'member1',
+            email: 'member1@group1.com',
+            drawn: true,
+            admin: false,
+          },
+        ],
+      };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
-      const groupNameInput = await screen.findByPlaceholderText('New Group Name');
+      const groupNameInput = await screen.findByPlaceholderText(
+        'New Group Name'
+      );
       userEvent.clear(groupNameInput);
       await userEvent.type(groupNameInput, 'newgroupx');
 
@@ -456,8 +534,10 @@ describe('Admin Panel', () => {
       userEvent.clear(addEmailInput1);
       await userEvent.type(addEmailInput1, 'new email');
 
-      const mockCreateNewGroupResponse = { data :[] };
-      api.post.mockImplementationOnce(() => Promise.resolve(mockCreateNewGroupResponse));
+      const mockCreateNewGroupResponse = { data: [] };
+      api.post.mockImplementationOnce(() =>
+        Promise.resolve(mockCreateNewGroupResponse)
+      );
 
       fireEvent.click(screen.getByText('Setup'));
 
@@ -470,12 +550,14 @@ describe('Admin Panel', () => {
             Accept: 'application/json',
             Authorization: `Bearer ${mockJwtToken}`,
             'Content-Type': 'application/json',
-            'credentials': 'same-origin'
+            credentials: 'same-origin',
           },
         }
       );
 
-      await screen.findByText('Successfully created new secret santa group newgroupx.');
+      await screen.findByText(
+        'Successfully created new secret santa group newgroupx.'
+      );
     });
 
     it('errors when creating a new group', async () => {
@@ -483,10 +565,21 @@ describe('Admin Panel', () => {
 
       fireEvent.click(screen.getByText('Setup New Group'));
 
-      const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
+      const mockSearchResponse = {
+        data: [
+          {
+            memberName: 'member1',
+            email: 'member1@group1.com',
+            drawn: true,
+            admin: false,
+          },
+        ],
+      };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
-      const groupNameInput = await screen.findByPlaceholderText('New Group Name');
+      const groupNameInput = await screen.findByPlaceholderText(
+        'New Group Name'
+      );
       userEvent.clear(groupNameInput);
       await userEvent.type(groupNameInput, 'newgroupx');
 
@@ -499,7 +592,9 @@ describe('Admin Panel', () => {
       await userEvent.type(addEmailInput1, 'new email');
 
       const mockCreateNewGroupErrorResponse = 'oops unexpected error occurred!';
-      api.post.mockImplementationOnce(() => Promise.reject(mockCreateNewGroupErrorResponse));
+      api.post.mockImplementationOnce(() =>
+        Promise.reject(mockCreateNewGroupErrorResponse)
+      );
 
       fireEvent.click(screen.getByText('Setup'));
 
@@ -512,12 +607,14 @@ describe('Admin Panel', () => {
             Accept: 'application/json',
             Authorization: `Bearer ${mockJwtToken}`,
             'Content-Type': 'application/json',
-            'credentials': 'same-origin'
+            credentials: 'same-origin',
           },
         }
       );
 
-      await screen.findByText('Error creating new secret santa group newgroupx, oops unexpected error occurred!');
+      await screen.findByText(
+        'Error creating new secret santa group newgroupx, oops unexpected error occurred!'
+      );
     });
 
     it('adds a new name and email group for a new member', async () => {
@@ -525,10 +622,21 @@ describe('Admin Panel', () => {
 
       fireEvent.click(screen.getByText('Setup New Group'));
 
-      const mockSearchResponse = { data :[{ memberName: 'member1', email: 'member1@group1.com', drawn: true, admin: false }] };
+      const mockSearchResponse = {
+        data: [
+          {
+            memberName: 'member1',
+            email: 'member1@group1.com',
+            drawn: true,
+            admin: false,
+          },
+        ],
+      };
       api.get.mockImplementationOnce(() => Promise.resolve(mockSearchResponse));
 
-      const groupNameInput = await screen.findByPlaceholderText('New Group Name');
+      const groupNameInput = await screen.findByPlaceholderText(
+        'New Group Name'
+      );
       userEvent.clear(groupNameInput);
       await userEvent.type(groupNameInput, 'newgroupx');
 

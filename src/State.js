@@ -10,7 +10,12 @@ export const StateProvider = ({ reducer, initialState, children }) => (
 export const useStateValue = () => useContext(StateContext);
 
 StateProvider.propTypes = {
-  reducer: PropTypes.any,
-  initialState: PropTypes.object,
-  children: PropTypes.element.isRequired
+  reducer: PropTypes.shape({}),
+  initialState: PropTypes.shape({}),
+  children: PropTypes.element.isRequired,
+};
+
+StateProvider.defaultProps = {
+  reducer: PropTypes.shape({}),
+  initialState: {},
 };

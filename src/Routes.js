@@ -11,21 +11,31 @@ import NotFound from './Shared/NotFound';
 import Unauthorised from './Shared/Unauthorised';
 import { UserContext } from './Features/Authentication/useAuth';
 
-
 const AuthorisedRoute = ({ component: Component, isAuthorised, ...rest }) => (
-  <Route {...rest} render={(props) => (
-    isAuthorised === true
-      ? <Component {...props} />
-      : <Unauthorised />
-  )} />
+  <Route
+    {...rest}
+    render={(props) =>
+      isAuthorised === true ? <Component {...props} /> : <Unauthorised />
+    }
+  />
 );
 
-const AdminRoute = ({ component: Component, isAuthorised, isAdmin, ...rest }) => (
-  <Route {...rest} render={(props) => (
-    isAuthorised === true && isAdmin === true
-      ? <Component {...props} />
-      : <Unauthorised />
-  )} />
+const AdminRoute = ({
+  component: Component,
+  isAuthorised,
+  isAdmin,
+  ...rest
+}) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      isAuthorised === true && isAdmin === true ? (
+        <Component {...props} />
+      ) : (
+        <Unauthorised />
+      )
+    }
+  />
 );
 
 AuthorisedRoute.propTypes = {
@@ -36,7 +46,7 @@ AuthorisedRoute.propTypes = {
 AdminRoute.propTypes = {
   component: PropTypes.func.isRequired,
   isAuthorised: PropTypes.bool.isRequired,
-  isAdmin: PropTypes.bool.isRequired
+  isAdmin: PropTypes.bool.isRequired,
 };
 
 export default function Routes() {
@@ -54,13 +64,22 @@ export default function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={Entry} />
-      <AuthorisedRoute isAuthorised={isAuthorised} exact path="/secretsanta/wishlist/:memberName/:groupID" component={Wishlist} />
+      <AuthorisedRoute
+        isAuthorised={isAuthorised}
+        exact
+        path="/secretsanta/wishlist/:memberName/:groupID"
+        component={Wishlist}
+      />
       <Route exact path="/terms" component={Terms} />
       <Route exact path="/privacy" component={Privacy} />
       <Route exact path="/enrol" component={Enrol} />
-      <AdminRoute path='/admin' isAuthorised={isAuthorised} isAdmin={isAdmin} component={Panel} />
+      <AdminRoute
+        path="/admin"
+        isAuthorised={isAuthorised}
+        isAdmin={isAdmin}
+        component={Panel}
+      />
       <Route path="*" component={NotFound} />
     </Switch>
   );
 }
-

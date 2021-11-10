@@ -5,7 +5,5 @@ import { UserContext } from './useAuth';
 
 export default function EntryApp() {
   const { user } = useContext(UserContext);
-  return (user)
-    ? <SecretSanta member={user} />
-    : <Login />;
+  return user ? <SecretSanta member={user} /> : <Login />;
 }

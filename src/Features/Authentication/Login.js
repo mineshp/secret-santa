@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button';
@@ -20,7 +21,7 @@ export default function Login() {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState();
 
-  let history = useHistory();
+  const history = useHistory();
   const { dispatch } = useContext(UserContext);
   const { value: memberNameInput, bind: bindMemberName } = useInput('');
   const { value: groupNameInput, bind: bindGroupName } = useInput('');
@@ -33,6 +34,7 @@ export default function Login() {
     return setNotificationMessage(messageData);
   };
 
+  // eslint-disable-next-line consistent-return
   const loginUser = async (loginDetails) => {
     const token = getToken();
 
@@ -43,23 +45,25 @@ export default function Login() {
     );
 
     if (response.data) {
+      // eslint-disable-next-line no-shadow
       const { token, error } = JSON.parse(response.data);
       if (token) {
         setToken(token);
         displayNotification({
           type: 'positive',
-          messageHeader: `${memberNameInput.toUpperCase()} - Successfully logged in`
+          messageHeader: `${memberNameInput.toUpperCase()} - Successfully logged in`,
         });
 
         const decodedUser = getMember();
         return dispatch({
           type: 'SET_USER',
-          user: { ...decodedUser }
+          user: { ...decodedUser },
         });
-      } else if (error) {
+      }
+      if (error) {
         displayNotification({
           type: 'negative',
-          messageHeader: `Unable to login, ${error}`
+          messageHeader: `Unable to login, ${error}`,
         });
       }
     }
@@ -72,78 +76,91 @@ export default function Login() {
     if (!memberNameInput || !groupNameInput || !secretCodeInput) {
       return displayNotification({
         type: 'negative',
-        messageHeader: 'Name, group or passphrase missing!'
+        messageHeader: 'Name, group or passphrase missing!',
       });
     }
-    await loginUser({
+    return loginUser({
       memberName: memberNameInput.toLowerCase(),
       groupID: groupNameInput.toLowerCase(),
-      passphrase: secretCodeInput.toLowerCase()
+      passphrase: secretCodeInput.toLowerCase(),
     })
       .then(() => history.push('/'))
-      .catch(() => displayNotification({
-        type: 'negative',
-        messageHeader: 'Login failed, details maybe incorrect!'
-      }));
+      .catch(() =>
+        displayNotification({
+          type: 'negative',
+          messageHeader: 'Login failed, details maybe incorrect!',
+        })
+      );
   };
 
   return (
     <div className="login-bg">
-      <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+      <Grid
+        textAlign="center"
+        style={{ height: '100vh' }}
+        verticalAlign="middle"
+      >
         <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as='h2'  textAlign='center' className="login-header">
+          <Header as="h2" textAlign="center" className="login-header">
             <Image src={santalogo} /> Secret Santa Login
           </Header>
-          <Form size='large' onSubmit={handleSubmit}>
+          <Form size="large" onSubmit={handleSubmit}>
             <Segment stacked>
-              <label htmlFor="memberName" className="visibilly-hidden">memberName</label>
+              <label htmlFor="memberName" className="visibilly-hidden">
+                memberName
+              </label>
               <Form.Input
                 fluid
-                icon='user'
-                iconPosition='left'
-                placeholder='Name'
-                name='memberName'
+                icon="user"
+                iconPosition="left"
+                placeholder="Name"
+                name="memberName"
                 id="memberName"
-                data-testid='memberName'
+                data-testid="memberName"
                 {...bindMemberName}
-          />
-              <label htmlFor="groupID" className="visibilly-hidden">groupID</label>
-              <Form.Input
-                fluid icon='group'
-                iconPosition='left'
-                placeholder='Group name'
-                name='groupID'
-                id="groupID"
-                data-testid='groupID'
-                {...bindGroupName}
-          />
-              <label htmlFor="passphrase" className="visibilly-hidden">passphrase</label>
+              />
+              <label htmlFor="groupID" className="visibilly-hidden">
+                groupID
+              </label>
               <Form.Input
                 fluid
-                icon='lock'
-                iconPosition='left'
-                placeholder='Code'
-                name='passphrase'
-                id='passphrase'
-                data-testid='passphrase'
+                icon="group"
+                iconPosition="left"
+                placeholder="Group name"
+                name="groupID"
+                id="groupID"
+                data-testid="groupID"
+                {...bindGroupName}
+              />
+              <label htmlFor="passphrase" className="visibilly-hidden">
+                passphrase
+              </label>
+              <Form.Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                placeholder="Code"
+                name="passphrase"
+                id="passphrase"
+                data-testid="passphrase"
                 {...bindSecretCode}
-          />
-              <Button color='red' fluid size='large' data-testid='login-btn'>
+              />
+              <Button color="red" fluid size="large" data-testid="login-btn">
                 Login
               </Button>
             </Segment>
           </Form>
           <Message>
-            { showNotification && notificationMessage
-        ? (
-          <Notification
-            type={notificationMessage.type}
-            messageHeader={notificationMessage.messageHeader}
-        />
-        )
-        : <span className="unknown-login-details">See email for login details</span>
-      }
-
+            {showNotification && notificationMessage ? (
+              <Notification
+                type={notificationMessage.type}
+                messageHeader={notificationMessage.messageHeader}
+              />
+            ) : (
+              <span className="unknown-login-details">
+                See email for login details
+              </span>
+            )}
           </Message>
         </Grid.Column>
       </Grid>
