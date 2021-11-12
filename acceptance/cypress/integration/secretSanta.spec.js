@@ -1,4 +1,6 @@
+/* eslint-disable testing-library/await-async-query */
 /* eslint-disable testing-library/prefer-screen-queries */
+/* eslint-disable testing-library/await-async-utils */
 describe('Secret Santa', () => {
   const GIFTEE = 'dancer';
   const MEMBERNAME = 'rudolph';
@@ -29,10 +31,10 @@ describe('Secret Santa', () => {
 
     cy.get('[data-testid="reveal-btn"]').should('have.class', 'yellow').click();
 
-    await cy.wait('@revealGiftee');
+    cy.wait('@revealGiftee');
 
     cy.get('[data-testid="reveal-btn"]').should('have.class', 'violet');
-    await cy.findByText(GIFTEE);
+    cy.findByText(GIFTEE);
   });
 
   it('updates my wishlist', async () => {
@@ -46,7 +48,7 @@ describe('Secret Santa', () => {
       .should('have.class', 'teal')
       .click();
 
-    await cy.wait('@getMyWishlist');
+    cy.wait('@getMyWishlist');
 
     cy.get('[data-testid="members-wishlist"]').should(
       'contain',
@@ -77,7 +79,10 @@ describe('Secret Santa', () => {
 
     cy.get('input[name=giftIdea2]').should('have.value', 'scarf');
 
-    cy.get('input[name=giftIdea3]').should('contain', 'https://');
+    cy.get('input[name=giftIdea3]').should(
+      'have.value',
+      'http://christmas-jumper.com'
+    );
 
     cy.get('[data-testid="back-btn"]').should('have.class', 'grey').click();
   });
@@ -96,14 +101,14 @@ describe('Secret Santa', () => {
     cy.get('[data-testid="reveal-btn"]').should('have.class', 'yellow').click();
 
     // Wait for reveal xhr request
-    await cy.wait('@revealGiftee');
+    cy.wait('@revealGiftee');
 
     cy.get('[data-testid="giftees-wishlist-btn"]')
       .should('have.class', 'blue')
       .click();
 
     // Wait for get giftee's wishlist
-    await cy.wait('@getGifteeWishlist');
+    cy.wait('@getMyWishlist');
 
     cy.get('[data-testid="giftees-wishlist"]').should(
       'contain',

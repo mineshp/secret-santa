@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/await-async-utils */
 const selectItemFromDropdown = (itemName) => {
   cy.get('[data-testid="main-user-nav"]').click();
   cy.get(`a[href*=${itemName}]`).click();
@@ -26,6 +27,8 @@ describe('Admin Panel', () => {
       cy.intercept('POST', '/dev/api/admin/setup/*').as('setupGroup');
 
       selectItemFromDropdown('admin');
+      cy.wait('@setupGroup');
+
       cy.get('[data-testid="setup-groups-accordion"]').click();
 
       enterInput('id=group-name', 'acceptance-test-group');
@@ -39,8 +42,6 @@ describe('Admin Panel', () => {
       enterInput('name=email', 'acceptance-test-email@member2', 1);
 
       cy.get('[data-testid="setup-group-btn"]').click();
-
-      await cy.wait('@setupGroup');
 
       cy.get('div.ui.tiny.positive.message.notification > div > div').contains(
         'Successfully created new secret santa group acceptance-test-group'
@@ -73,6 +74,8 @@ describe('Admin Panel', () => {
 
       selectItemFromDropdown('admin');
 
+      cy.wait('@groups');
+
       cy.get('[data-testid="allgroups"]')
         .children('tbody')
         .within(() => {
@@ -97,9 +100,11 @@ describe('Admin Panel', () => {
 
       selectItemFromDropdown('admin');
 
+      cy.wait('@groups');
+
       cy.get('[data-testid="acceptance-test-group-delete-btn"]').click();
 
-      // await cy.wait('@deleteGroup');
+      cy.wait('@deleteGroup');
 
       cy.get('div.ui.tiny.positive.message.notification > div > div').contains(
         `Successfully deleted group ${groupName}`
@@ -136,6 +141,8 @@ describe('Admin Panel', () => {
       enterInput('id=searchGroup', 'testGroup');
 
       cy.get('[data-testid="search-group-btn"]').click();
+
+      cy.wait('@members');
 
       cy.contains('mineshpatelis@gmail.com')
         .parent('tr')
