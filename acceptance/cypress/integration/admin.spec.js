@@ -64,8 +64,8 @@ describe('Admin Panel', () => {
       cy.login(user);
     });
 
-    it('Displays groups', async () => {
-      // Setup some fake data rather than rely on a db call as tabkle data will dynamically change.
+    it('Displays groups', () => {
+      // Setup some fake data rather than rely on a db call as table data will dynamically change.
       cy.fixture('allGroups').then((allgroupsFixture) => {
         cy.intercept('GET', '/dev/api/admin/allgroups', allgroupsFixture).as(
           'groups'
@@ -88,21 +88,24 @@ describe('Admin Panel', () => {
         });
     });
 
-    it('Removes a group', async () => {
+    it('Removes a group', () => {
       const groupName = 'acceptance-test-group';
 
       cy.fixture('allGroups').then((allgroupsFixture) => {
         cy.intercept('GET', '/dev/api/admin/allgroups', allgroupsFixture).as(
           'groups'
         );
-        cy.intercept('DELETE', `/dev/api/admin/${groupName}`).as('deleteGroup');
+        cy.intercept('DELETE', `/dev/api/admin/${groupName}`, {
+          statusCode: 200,
+          body: { UnprocessedItems: {} },
+        }).as('deleteGroup');
       });
 
       selectItemFromDropdown('admin');
 
       cy.wait('@groups');
 
-      cy.get('[data-testid="acceptance-test-group-delete-btn"]').click();
+      cy.get(`[data-testid="${groupName}-delete-btn"]`).click();
 
       cy.wait('@deleteGroup');
 
@@ -144,12 +147,12 @@ describe('Admin Panel', () => {
 
       cy.wait('@members');
 
-      cy.contains('mineshpatelis@gmail.com')
+      cy.contains('rudolph@northpole.com')
         .parent('tr')
         .within(() => {
           // all searches are automatically rooted to the found tr element
           cy.get('td').eq(0).contains('rudolph');
-          cy.get('td').eq(1).contains('mineshpatelis@gmail.com');
+          cy.get('td').eq(1).contains('rudolph@northpole.com');
           cy.get('td').eq(2).get('i').should('have.class', 'red close icon');
           cy.get('td').eq(3).get('i').should('have.class', 'red close icon');
           cy.get('td')

@@ -6,6 +6,7 @@ import Form from 'semantic-ui-react/dist/commonjs/collections/Form';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container';
 import Loading from '../../Shared/Loading';
 import Notification from '../../Shared/Notification';
+import Url from '../../Utils/Url';
 
 import './Wishlist.css';
 import '../../Shared/Notification.css';
@@ -114,13 +115,31 @@ const secretSantasWishlist = (
       {`${wishlistFor}'s Wishlist`}
     </div>
     <div data-testid="giftIdea1" className="row-field readonlylist">
-      {wishlist[0]}
+      {wishlist[0] && Url.isUrl(wishlist[0]).valid ? (
+        <a rel="noopener noreferrer" target="_blank" href={wishlist[0]}>
+          My gift idea, click to view
+        </a>
+      ) : (
+        wishlist[0]
+      )}
     </div>
     <div data-testid="giftIdea2" className="row-field readonlylist">
-      {wishlist[1]}
+      {wishlist[1] && Url.isUrl(wishlist[1]).valid ? (
+        <a rel="noopener noreferrer" target="_blank" href={wishlist[1]}>
+          My gift idea, click to view
+        </a>
+      ) : (
+        wishlist[1]
+      )}
     </div>
     <div data-testid="giftIdea3" className="row-field readonlylist">
-      {wishlist[2]}
+      {wishlist[2] && Url.isUrl(wishlist[2]).valid ? (
+        <a rel="noopener noreferrer" target="_blank" href={wishlist[2]}>
+          My gift idea, click to view
+        </a>
+      ) : (
+        wishlist[2]
+      )}
     </div>
     <div className="button-group">
       <Button
@@ -255,13 +274,13 @@ export default function Wishlist(props) {
     const token = getToken();
     const allGiftIdeaSuggestions = [];
     if (giftIdeaInput1 && giftIdeaInput1 !== '') {
-      allGiftIdeaSuggestions.push(giftIdeaInput1);
+      allGiftIdeaSuggestions.push(encodeURI(giftIdeaInput1));
     }
     if (giftIdeaInput2 && giftIdeaInput2 !== '') {
-      allGiftIdeaSuggestions.push(giftIdeaInput2);
+      allGiftIdeaSuggestions.push(encodeURI(giftIdeaInput2));
     }
     if (giftIdeaInput3 && giftIdeaInput3 !== '') {
-      allGiftIdeaSuggestions.push(giftIdeaInput3);
+      allGiftIdeaSuggestions.push(encodeURI(giftIdeaInput3));
     }
 
     const response = await api.put(

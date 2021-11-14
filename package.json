@@ -23,7 +23,7 @@
     "test": "CI=true react-scripts test --colors --env=jest-environment-jsdom-sixteen",
     "test:watch": "npm run test -- --watch",
     "cy:local": "CYPRESS_BASE_URL=http://localhost:3000 cypress open .",
-    "cy:localheadless": "CYPRESS_BASE_URL=http://localhost:3000 cypress run --headless", 
+    "cy:localheadless": "CYPRESS_BASE_URL=http://localhost:3000 cypress run --headless",
     "cy:prod": "cypress open .",
     "cy:ci": "cypress run --headless",
     "eject": "react-scripts eject",

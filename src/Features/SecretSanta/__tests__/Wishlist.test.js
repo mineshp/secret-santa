@@ -85,7 +85,7 @@ describe('Wishlist', () => {
     userEvent.clear(giftIdea1);
     await userEvent.type(giftIdea1, 'baubel');
     userEvent.clear(giftIdea2);
-    await userEvent.type(giftIdea2, 'tree topper');
+    await userEvent.type(giftIdea2, 'http://foo.com/present');
     userEvent.clear(giftIdea3);
     await userEvent.type(giftIdea3, 'surprise me');
 
@@ -111,7 +111,13 @@ describe('Wishlist', () => {
     expect(api.put).toHaveBeenNthCalledWith(
       1,
       '/giftIdeas/santa/northpole',
-      JSON.stringify({ giftIdeas: ['baubel', 'tree topper', 'surprise me'] }),
+      JSON.stringify({
+        giftIdeas: [
+          encodeURI('baubel'),
+          encodeURI('http://foo.com/present'),
+          encodeURI('surprise me'),
+        ],
+      }),
       HEADERS
     );
 

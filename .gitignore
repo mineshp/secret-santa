@@ -5,7 +5,6 @@
 cypress.env.json
 acceptance/mochawesome-report
 acceptance/cypress/screenshots
-acceptance/cypress/fixtures
 acceptance/cypress/videos
 acceptance/utils
 /.pnp

@@ -22,7 +22,7 @@ describe('Secret Santa', () => {
     cy.get('[data-testid="login-btn"]').click();
   });
 
-  it('reveals my giftee', async () => {
+  it('reveals my giftee', () => {
     cy.intercept('GET', `/dev/api/reveal/${MEMBERNAME}/${GROUPNAME}`).as(
       'revealGiftee'
     );
@@ -37,9 +37,13 @@ describe('Secret Santa', () => {
     cy.findByText(GIFTEE);
   });
 
-  it('updates my wishlist', async () => {
-    cy.intercept('GET', `/dev/api/reveal/${MEMBERNAME}/${GROUPNAME}`).as(
+  it('updates my wishlist', () => {
+    cy.intercept('GET', `/dev/api/giftIdeas/${MEMBERNAME}/${GROUPNAME}`).as(
       'getMyWishlist'
+    );
+
+    cy.intercept('PUT', `/dev/api/giftIdeas/${MEMBERNAME}/${GROUPNAME}`).as(
+      'updateMyWishlist'
     );
 
     cy.login(user);
@@ -62,6 +66,8 @@ describe('Secret Santa', () => {
     cy.get('input[name=giftIdea3]').clear().type('http://christmas-jumper.com');
 
     cy.get('[data-testid="save-btn"]').click();
+
+    cy.wait('@updateMyWishlist');
 
     cy.get('div.ui.tiny.positive.message.notification > div > div').contains(
       'Successfully updated gift ideas.'
@@ -87,14 +93,14 @@ describe('Secret Santa', () => {
     cy.get('[data-testid="back-btn"]').should('have.class', 'grey').click();
   });
 
-  it("displays my giftee's wishlist ", async () => {
+  it("displays my giftee's wishlist ", () => {
     cy.intercept('GET', `/dev/api/reveal/${MEMBERNAME}/${GROUPNAME}`).as(
       'revealGiftee'
     );
 
-    cy.intercept('GET', `/dev/api/reveal/${MEMBERNAME}/${GROUPNAME}`).as(
-      'getMyWishlist'
-    );
+    cy.intercept('GET', `/dev/api/giftIdeas/${GIFTEE}/${GROUPNAME}`, {
+      body: { giftIdeas: ['cat', 'http://foo.com/present', 'coq'] },
+    }).as('getMyWishlist');
 
     cy.login(user);
 
@@ -117,15 +123,15 @@ describe('Secret Santa', () => {
 
     cy.get('[data-testid="giftIdea1"]')
       .should('have.class', 'readonlylist')
-      .and('contain', 'Reindeer moss');
+      .and('contain', 'cat');
 
     cy.get('[data-testid="giftIdea2"]')
       .should('have.class', 'readonlylist')
-      .and('contain', 'Warm Shoes');
+      .and('contain', 'My gift idea, click to view');
 
     cy.get('[data-testid="giftIdea3"]')
       .should('have.class', 'readonlylist')
-      .and('contain', 'Thick Coat');
+      .and('contain', 'coq');
 
     cy.get('[data-testid="back-btn"]').should('have.class', 'grey').click();
   });
