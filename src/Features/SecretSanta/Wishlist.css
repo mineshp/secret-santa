@@ -101,6 +101,37 @@ body {
   margin-left: 1rem;
 }
 
+.display-quote {
+  /* animation: myAnim 2s ease 0s 1 normal none; */
+  font-family: 'Courgette', cursive;
+  padding: 1.6rem;
+  color: #b15082;
+  font-size: 0.8rem;
+  background-color: #f4e1e9;
+  border-radius: 15px 50px 30px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 2em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote:after {
+  color: #ccc;
+  content: close-quote;
+  font-size: 2em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.8em;
+}
+blockquote p {
+  display: inline;
+}
+
 /*  END */
 
 @media (min-width: 640px) {
@@ -127,6 +158,16 @@ body {
 
   .ui.big.button {
     font-size: 1.2rem;
+  }
+
+  .display-quote {
+    font-size: 1rem;
+  }
+  blockquote:before {
+    font-size: 2.2em;
+  }
+  blockquote:after {
+    font-size: 2.2em;
   }
 }
 
@@ -155,6 +196,17 @@ body {
   .ui.big.button {
     font-size: 1rem;
   }
+
+  .display-quote {
+    font-size: 1.2rem;
+  }
+
+  blockquote:before {
+    font-size: 2.2em;
+  }
+  blockquote:after {
+    font-size: 2.2em;
+  }
 }
 
 @media (min-width: 1024px){
@@ -182,6 +234,17 @@ body {
   .button-group .back-btn  {
     margin-left: 2rem;
   }
+
+  .display-quote {
+    font-size: 1.4rem;
+  }
+
+  blockquote:before {
+    font-size: 2.4em;
+  }
+  blockquote:after {
+    font-size: 2.4em;
+  }
 }
 
 @media (min-width: 1200px){
@@ -208,5 +271,16 @@ body {
 
   .button-group .back-btn  {
     margin-left: 2.2rem;
+  }
+
+  .display-quote {
+    font-size: 1.8rem;
+  }
+
+  blockquote:before {
+    font-size: 2.8em;
+  }
+  blockquote:after {
+    font-size: 2.8em;
   }
 }

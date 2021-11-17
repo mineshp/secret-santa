@@ -41,6 +41,7 @@ const renderWithContext = (context, memberName = 'santa') => {
       data: { giftIdeas: ['idea1', 'idea2', 'idea3'] },
     };
     api.get.mockResolvedValue(mockWishlistIdeasResponse);
+    api.get.mockResolvedValue({ data: 'a test quote' });
   }
 
   return [
@@ -63,7 +64,7 @@ describe('Wishlist', () => {
   it('Errors when trying to retrieve my wishlist ideas', async () => {
     renderWithContext('errorGetWishlist');
 
-    expect(api.get).toHaveBeenCalledTimes(1);
+    expect(api.get).toHaveBeenCalledTimes(2);
     expect(api.get).toHaveBeenCalledWith('/giftIdeas/santa/northpole', HEADERS);
 
     await expect(api.get()).rejects.toThrow(
@@ -74,8 +75,13 @@ describe('Wishlist', () => {
   it('Displays my wishlist, successfully updated my wishlist', async () => {
     renderWithContext();
 
-    expect(api.get).toHaveBeenCalledTimes(1);
-    expect(api.get).toHaveBeenCalledWith('/giftIdeas/santa/northpole', HEADERS);
+    expect(api.get).toHaveBeenCalledTimes(2);
+    expect(api.get).toHaveBeenNthCalledWith(1, '/displayQuotes');
+    expect(api.get).toHaveBeenNthCalledWith(
+      2,
+      '/giftIdeas/santa/northpole',
+      HEADERS
+    );
     expect(screen.getByText("santa's Wishlist"));
 
     const giftIdea1 = await screen.findByPlaceholderText('Gift Idea 1');
@@ -134,7 +140,7 @@ describe('Wishlist', () => {
   it('Displays my wishlist, error occurred updating my wishlist', async () => {
     renderWithContext();
 
-    expect(api.get).toHaveBeenCalledTimes(1);
+    expect(api.get).toHaveBeenCalledTimes(2);
     expect(api.get).toHaveBeenCalledWith('/giftIdeas/santa/northpole', HEADERS);
     expect(screen.getByText("santa's Wishlist"));
 
@@ -168,7 +174,7 @@ describe('Wishlist', () => {
   it("Displays my giftee's wishlist as readonly", async () => {
     renderWithContext(null, 'elve');
 
-    expect(api.get).toHaveBeenCalledTimes(1);
+    expect(api.get).toHaveBeenCalledTimes(2);
     expect(api.get).toHaveBeenCalledWith('/giftIdeas/elve/northpole', HEADERS);
 
     expect(screen.getByText("elve's Wishlist"));

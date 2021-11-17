@@ -27,7 +27,8 @@ const myWishlist = (
   bindGiftIdea1,
   bindGiftIdea2,
   bindGiftIdea3,
-  handleSubmit
+  handleSubmit,
+  quote
 ) => (
   <div>
     <div
@@ -97,6 +98,9 @@ const myWishlist = (
             Back
           </Button>
         </div>
+        <blockquote className="display-quote">
+          <p>{quote}</p>
+        </blockquote>
       </div>
     </Form>
   </div>
@@ -105,7 +109,8 @@ const myWishlist = (
 const secretSantasWishlist = (
   wishlistFor,
   setButtonSizeByDeviceRes,
-  wishlist
+  wishlist,
+  quote
 ) => (
   <div className="form-fields-wrapper">
     <div
@@ -154,6 +159,9 @@ const secretSantasWishlist = (
         Back
       </Button>
     </div>
+    <blockquote className="display-quote">
+      <p>{quote}</p>
+    </blockquote>
   </div>
 );
 
@@ -166,6 +174,7 @@ export default function Wishlist(props) {
   const [groupName, setGroupName] = useState(null);
   const [readOnlyList, setReadOnlyList] = useState(false);
   const [deviceBP, setDeviceBP] = useState(null);
+  const [quote, setQuote] = useState('');
 
   const { match } = props;
 
@@ -251,6 +260,23 @@ export default function Wishlist(props) {
   }, [notificationState]);
 
   useEffect(() => {
+    // Sets the quote initially
+    api
+      .get('/displayQuotes')
+      .then(({ data }) => setQuote(data))
+      .catch((err) => err);
+    const intervalId = setInterval(() => {
+      // Set random quote every 30secs
+      api
+        .get('/displayQuotes')
+        .then(({ data }) => setQuote(data))
+        .catch((err) => err);
+    }, 30000);
+
+    return () => clearInterval(intervalId);
+  }, [quote]);
+
+  useEffect(() => {
     if (wishlistUpdated) {
       const token = getToken();
       const setGiftIdeasLastUpdated = async () =>
@@ -327,7 +353,12 @@ export default function Wishlist(props) {
   return (
     <Container>
       {readOnlyList
-        ? secretSantasWishlist(wishlistFor, setButtonSizeByDeviceRes, wishlist)
+        ? secretSantasWishlist(
+            wishlistFor,
+            setButtonSizeByDeviceRes,
+            wishlist,
+            quote
+          )
         : myWishlist(
             notificationState,
             notificationMessage,
@@ -336,7 +367,8 @@ export default function Wishlist(props) {
             bindGiftIdea1,
             bindGiftIdea2,
             bindGiftIdea3,
-            handleSubmit
+            handleSubmit,
+            quote
           )}
     </Container>
   );
