@@ -265,13 +265,16 @@ export default function Wishlist(props) {
       .get('/displayQuotes')
       .then(({ data }) => setQuote(data))
       .catch((err) => err);
+  }, []);
+
+  useEffect(() => {
     const intervalId = setInterval(() => {
       // Set random quote every 30secs
       api
         .get('/displayQuotes')
         .then(({ data }) => setQuote(data))
         .catch((err) => err);
-    }, 30000);
+    }, 20000);
 
     return () => clearInterval(intervalId);
   }, [quote]);
