@@ -31,14 +31,21 @@ body {
   display: grid;
   align-items: center;
   justify-items: center;
-  grid-template-rows: 20% repeat(3, 5rem) auto;
-  grid-gap: 0.5rem;
+  grid-template-rows: 20% repeat(3, 4rem) auto;
+  grid-gap: 0.4rem;
 }
 
 .readonlylist {
   font-family: 'Permanent Marker', cursive;
   color: #0c416afc;
   font-size: 120%;
+  background-color: #FFF;
+  width: 20rem;
+  border-radius: 5px;
+}
+
+div.readonlylist > a {
+  color: #0c416afc;
 }
 
 .ui.input>input[type="text"] {
@@ -48,6 +55,10 @@ body {
 
 .row-field {
   padding: 0.5rem;
+}
+
+.row-field div.field {
+  width: 15rem;
 }
 
 .ui.input>input[type="text"] :focus {
@@ -107,7 +118,7 @@ body {
   padding: 1.6rem;
   color: #b15082;
   font-size: 0.8rem;
-  background-color: #f4e1e9;
+  background-color: #FFF;
   border-radius: 15px 50px 30px;
   quotes: "\201C""\201D""\2018""\2019";
 }
@@ -148,6 +159,10 @@ blockquote p {
     font-size: 1.4rem;
   }
 
+  .row-field div.field {
+    width: 25rem;
+  }
+
   .form-fields-wrapper {
     grid-gap: 3rem;
   }
@@ -168,6 +183,10 @@ blockquote p {
   }
   blockquote:after {
     font-size: 2.2em;
+  }
+
+  .readonlylist {
+    width: 30rem;
   }
 }
 
@@ -207,6 +226,10 @@ blockquote p {
   blockquote:after {
     font-size: 2.2em;
   }
+
+  .readonlylist {
+    width: 40rem;
+  }
 }
 
 @media (min-width: 1024px){
@@ -221,6 +244,10 @@ blockquote p {
   .row-field {
     padding: 2rem;
     font-size: 1.2rem;
+  }
+
+  .row-field div.field {
+    width: 40rem;
   }
 
   .form-fields-wrapper {
@@ -245,6 +272,10 @@ blockquote p {
   blockquote:after {
     font-size: 2.4em;
   }
+
+  .readonlylist {
+    width: 60rem;
+  }
 }
 
 @media (min-width: 1200px){
@@ -259,6 +290,10 @@ blockquote p {
   .row-field {
     padding: 2.6rem;
     font-size: 1.4rem;
+  }
+
+  .row-field div.field {
+    width: 50rem;
   }
 
   .form-fields-wrapper {
@@ -282,5 +317,9 @@ blockquote p {
   }
   blockquote:after {
     font-size: 2.8em;
+  }
+
+  .readonlylist {
+    width: 70rem;
   }
 }

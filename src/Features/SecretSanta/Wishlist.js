@@ -122,7 +122,7 @@ const secretSantasWishlist = (
     <div data-testid="giftIdea1" className="row-field readonlylist">
       {wishlist[0] && Url.isUrl(wishlist[0]).valid ? (
         <a rel="noopener noreferrer" target="_blank" href={wishlist[0]}>
-          My gift idea, click to view
+          🔗 Link has been added, click to view
         </a>
       ) : (
         wishlist[0]
@@ -131,7 +131,7 @@ const secretSantasWishlist = (
     <div data-testid="giftIdea2" className="row-field readonlylist">
       {wishlist[1] && Url.isUrl(wishlist[1]).valid ? (
         <a rel="noopener noreferrer" target="_blank" href={wishlist[1]}>
-          My gift idea, click to view
+          🔗 Link has been added, click to view
         </a>
       ) : (
         wishlist[1]
@@ -140,7 +140,7 @@ const secretSantasWishlist = (
     <div data-testid="giftIdea3" className="row-field readonlylist">
       {wishlist[2] && Url.isUrl(wishlist[2]).valid ? (
         <a rel="noopener noreferrer" target="_blank" href={wishlist[2]}>
-          My gift idea, click to view
+          🔗 Link has been added, click to view
         </a>
       ) : (
         wishlist[2]
@@ -274,7 +274,7 @@ export default function Wishlist(props) {
         .get('/displayQuotes')
         .then(({ data }) => setQuote(data))
         .catch((err) => err);
-    }, 20000);
+    }, 10000);
 
     return () => clearInterval(intervalId);
   }, [quote]);
