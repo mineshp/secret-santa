@@ -127,7 +127,7 @@ describe('Secret Santa', () => {
 
     cy.get('[data-testid="giftIdea2"]')
       .should('have.class', 'readonlylist')
-      .and('contain', 'My gift idea, click to view');
+      .and('contain', '🔗 Link has been added, click to view');
 
     cy.get('[data-testid="giftIdea3"]')
       .should('have.class', 'readonlylist')
