@@ -50,6 +50,7 @@ const myWishlist = (
         >
           {`${wishlistFor}'s Wishlist`}
         </div>
+        <p>Leave a clue, a hint or a message!</p>
         <div className="row-field">
           <Form.Field key="gift-1" width="sixteen">
             <Form.Input

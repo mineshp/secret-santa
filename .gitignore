@@ -29,3 +29,5 @@ yarn-error.log*
 
 # Cypress
 cypress.env.json
+
+README_AUTH.md
